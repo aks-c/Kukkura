@@ -9,7 +9,10 @@ public class Main {
         System.out.println("print");
         try {
             DerivationSystem test = Parser.getDerivationSystem("src/main/resources/test.json");
-        } catch (FileNotFoundException e) {
+            System.out.println(test.axiom);
+
+            Parser.writeResults(test.axiom, "src/main/resources/output.json");
+        } catch (java.io.IOException e) {
             System.out.println(e.getMessage());
         }
     }

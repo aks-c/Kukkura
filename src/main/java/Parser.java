@@ -1,8 +1,9 @@
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -16,14 +17,13 @@ public class Parser {
 
         DerivationSystem input = gson.fromJson(reader, DerivationSystem.class);
 
-        System.out.println("alphabet: " + input.alphabet);
-        System.out.println("axiom: " + input.axiom);
-        System.out.println("rules: " + input.rules);
-
         return input;
     }
 
-    public static void writeResults() {
-
+    public static void writeResults(ArrayList<String> result, String filename) throws IOException {
+        Writer writer = new FileWriter(filename);
+        Gson gson = new GsonBuilder().create();
+        gson.toJson(result, writer);
+        writer.close();
     }
 }
