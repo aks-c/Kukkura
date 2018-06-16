@@ -1,4 +1,3 @@
-import Grammar.Sentence;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -6,6 +5,7 @@ import java.util.HashMap;
 
 /**
  * Created by akselcakmak on 16/06/2018.
+ *
  */
 public class DerivationSystem {
     @SerializedName("axiom")
@@ -16,5 +16,4 @@ public class DerivationSystem {
 
     @SerializedName("alphabet")
     ArrayList<String> alphabet = new ArrayList<>();
-
 }
