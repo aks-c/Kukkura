@@ -10,6 +10,7 @@ public class Main {
         try {
             DerivationSystem test = Parser.getDerivationSystem("src/main/resources/input.json");
             test.display();
+            test.deriveResult();
 
             Parser.writeResults(test.axiom, "src/main/resources/output.json");
         } catch (java.io.IOException e) {
