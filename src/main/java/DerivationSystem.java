@@ -16,4 +16,11 @@ public class DerivationSystem {
 
     @SerializedName("alphabet")
     ArrayList<String> alphabet = new ArrayList<>();
+
+
+    public void display() {
+        System.out.println("axiom:    " + this.axiom);
+        System.out.println("rules:    " + this.rules);
+        System.out.println("alphabet: " + this.alphabet);
+    }
 }
