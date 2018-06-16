@@ -8,7 +8,7 @@ public class Main {
     public static void main (String args[]) {
         System.out.println("print");
         try {
-            Parser.getDerivationSystem("src/main/resources/test.json");
+            DerivationSystem test = Parser.getDerivationSystem("src/main/resources/test.json");
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }

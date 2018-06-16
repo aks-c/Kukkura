@@ -10,7 +10,7 @@ import java.util.Arrays;
  *
  */
 public class Parser {
-    public static void getDerivationSystem(String filename) throws FileNotFoundException {
+    public static DerivationSystem getDerivationSystem(String filename) throws FileNotFoundException {
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(filename));
 
@@ -19,6 +19,8 @@ public class Parser {
         System.out.println("alphabet: " + input.alphabet);
         System.out.println("axiom: " + input.axiom);
         System.out.println("rules: " + input.rules);
+
+        return input;
     }
 
     public static void writeResults() {
