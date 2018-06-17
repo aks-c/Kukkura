@@ -23,9 +23,9 @@ public class DerivationSystem {
 
     ArrayList<String> result = new ArrayList<>();
 
-    //boolean resultContainsNT = true;
+    boolean resultContainsNT = true;
 
-    public boolean containsNT(ArrayList<String> sentence) {
+    public boolean sentenceContainsNT(ArrayList<String> sentence) {
         for (String symbol: sentence) {
             if (nonTerminals.contains(symbol))
                 return true;
@@ -42,24 +42,19 @@ public class DerivationSystem {
     }
 
     public void deriveSingleStep() {
-        /*
-        * create a temp;
-        * for each element in the result:
-        *    take off the element (get it then delete it)
-        *    take its derivation, add it to a temp;
-        * at this point, there s nothing left in the result
-        * now add this temp to it
-        * */
         ArrayList<String> nextSentence = new ArrayList<>();
         for (String symbol: result) {
-            //System.out.println("LHS: " + symbol);
-            ArrayList<String> derivation = rules.get(symbol);
-            nextSentence.addAll(derivation);
+            // Symbol is Non-Terminal: Add its RHS Derivation.
+            // Symbol is Terminal: Add the Symbol itself.
+            if (nonTerminals.contains(symbol)) {
+                ArrayList<String> derivation = rules.get(symbol);
+                nextSentence.addAll(derivation);
+            } else {
+                nextSentence.add(symbol);
+            }
         }
         result.clear();
         result.addAll(nextSentence);
-
-        System.out.println("result: " + result);
     }
 
     public void deriveResult() {
@@ -67,12 +62,14 @@ public class DerivationSystem {
         System.out.println("result: " + result);
 
         result.addAll(axiom);
+        resultContainsNT = sentenceContainsNT(result);
 
+        while(resultContainsNT) {
+            System.out.println("result: " + result);
+            deriveSingleStep();
+            resultContainsNT = sentenceContainsNT(result);
+        }
         System.out.println("result: " + result);
-
-        deriveSingleStep();
-
-
     }
 
 
