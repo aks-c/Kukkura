@@ -13,19 +13,19 @@ public class DerivationSystem {
     ArrayList<String> axiom;
 
     @SerializedName("rules")
-    HashMap<String, ArrayList<String>> rules = new HashMap<>();
+    private HashMap<String, ArrayList<String>> rules = new HashMap<>();
 
     @SerializedName("terminals")
-    ArrayList<String> terminals = new ArrayList<>();
+    private ArrayList<String> terminals = new ArrayList<>();
 
     @SerializedName("non-terminals")
-    ArrayList<String> nonTerminals = new ArrayList<>();
+    private ArrayList<String> nonTerminals = new ArrayList<>();
 
-    ArrayList<String> result = new ArrayList<>();
+    private ArrayList<String> result = new ArrayList<>();
 
-    boolean resultContainsNT = true;
+    private boolean resultContainsNT = true;
 
-    public boolean sentenceContainsNT(ArrayList<String> sentence) {
+    private boolean sentenceContainsNT(ArrayList<String> sentence) {
         for (String symbol: sentence) {
             if (nonTerminals.contains(symbol))
                 return true;
@@ -35,13 +35,13 @@ public class DerivationSystem {
 
 
 
-    public void display() {
+    void display() {
         System.out.println("axiom:    " + this.axiom);
         System.out.println("rules:    " + this.rules);
         System.out.println("alphabet: " + this.nonTerminals + this.terminals + "\n");
     }
 
-    public void deriveSingleStep() {
+    private void deriveSingleStep() {
         ArrayList<String> nextSentence = new ArrayList<>();
         for (String symbol: result) {
             // Symbol is Non-Terminal: Add its RHS Derivation.
@@ -57,15 +57,14 @@ public class DerivationSystem {
         result.addAll(nextSentence);
     }
 
-    public void deriveResult() {
+    void deriveResult() {
         result.addAll(axiom);
-        resultContainsNT = sentenceContainsNT(result);
 
         while(resultContainsNT) {
             deriveSingleStep();
             resultContainsNT = sentenceContainsNT(result);
         }
     }
-    
+
 
 }
