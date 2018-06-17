@@ -3,6 +3,8 @@
 src/main/resources/input.json
 src/main/resources/output.json
 
+target/*
+
 .idea/*
 # User-specific stuff
 .idea/**/workspace.xml

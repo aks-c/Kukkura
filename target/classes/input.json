@@ -1,6 +1,0 @@
-{
-  "axiom": ["A", "B", "B", "A"],
-  "rules": {"A": ["B", "C"], "B": ["C", "C"]},
-  "non-terminals" : ["A", "B"],
-  "terminals" : ["C"]
-}
