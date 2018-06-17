@@ -9,11 +9,11 @@ public class Main {
     public static void main (String args[]) {
         System.out.println("print");
         try {
-            DerivationSystem test = Parser.getDerivationSystem("src/main/resources/input.json");
-            test.display();
-            test.deriveResult();
+            DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/input.json");
+            ds.display();
+            ds.deriveResult();
 
-            Parser.writeResults(test.axiom, "src/main/resources/output.json");
+            Parser.writeResults(ds.getResult(), "src/main/resources/output.json");
         } catch (java.io.IOException e) {
             System.out.println(e.getMessage());
         }

@@ -25,6 +25,10 @@ public class DerivationSystem {
 
     private boolean resultContainsNT = true;
 
+    ArrayList<String> getResult() {
+        return result;
+    }
+
     private boolean sentenceContainsNT(ArrayList<String> sentence) {
         for (String symbol: sentence) {
             if (nonTerminals.contains(symbol))
@@ -32,8 +36,6 @@ public class DerivationSystem {
         }
         return false;
     }
-
-
 
     void display() {
         System.out.println("axiom:    " + this.axiom);
