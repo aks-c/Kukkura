@@ -21,29 +21,71 @@ public class DerivationSystem {
     @SerializedName("non-terminals")
     ArrayList<String> nonTerminals = new ArrayList<>();
 
+    ArrayList<String> result = new ArrayList<>();
+
+    //boolean resultContainsNT = true;
+
+    public boolean containsNT(ArrayList<String> sentence) {
+        for (String symbol: sentence) {
+            if (nonTerminals.contains(symbol))
+                return true;
+        }
+        return false;
+    }
+
 
 
     public void display() {
         System.out.println("axiom:    " + this.axiom);
         System.out.println("rules:    " + this.rules);
-        System.out.println("alphabet: " + this.nonTerminals + this.terminals);
+        System.out.println("alphabet: " + this.nonTerminals + this.terminals + "\n");
     }
 
-    public ArrayList<String> deriveSingleStep(ArrayList<String> currentSentence) {
+    public void deriveSingleStep() {
+        /*
+        * create a temp;
+        * for each element in the result:
+        *    take off the element (get it then delete it)
+        *    take its derivation, add it to a temp;
+        * at this point, there s nothing left in the result
+        * now add this temp to it
+        * */
         ArrayList<String> nextSentence = new ArrayList<>();
-        for (String symbol: currentSentence) {
-            System.out.println("the LHS is: " + symbol);
+        for (String symbol: result) {
+            //System.out.println("LHS: " + symbol);
             ArrayList<String> derivation = rules.get(symbol);
-            System.out.println("the RHS is: " + derivation);
             nextSentence.addAll(derivation);
         }
-        System.out.println(nextSentence);
-        return nextSentence;
+        result.clear();
+        result.addAll(nextSentence);
+
+        System.out.println("result: " + result);
     }
 
-    public ArrayList<String> deriveResult() {
-        ArrayList<String> result = deriveSingleStep(axiom);
-        return result;
+    public void deriveResult() {
+        System.out.println("In deriveResult()");
+        System.out.println("result: " + result);
+
+        result.addAll(axiom);
+
+        System.out.println("result: " + result);
+
+        deriveSingleStep();
+
+
     }
+
+
+//    public ArrayList<String> deriveResult() {
+//        ArrayList<String> result = deriveSingleStep(axiom);
+//        while(resultContainsNT) {
+//            System.out.println("result contains NT");
+//            System.out.println("result in loop: " + result);
+//            ArrayList<String> temp =  deriveSingleStep(result);
+//        }
+//
+//
+//        return result;
+//    }
 
 }
