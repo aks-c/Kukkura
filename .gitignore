@@ -1,6 +1,7 @@
 
 # the input/output test files
-src/main/resources/*
+src/main/resources/input.json
+src/main/resources/output.json
 
 .idea/*
 # User-specific stuff
