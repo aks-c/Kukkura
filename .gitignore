@@ -1,3 +1,7 @@
+
+# the input/output test files
+src/main/resources/*
+
 .idea/*
 # User-specific stuff
 .idea/**/workspace.xml
