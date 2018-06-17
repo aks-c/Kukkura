@@ -58,31 +58,14 @@ public class DerivationSystem {
     }
 
     public void deriveResult() {
-        System.out.println("In deriveResult()");
-        System.out.println("result: " + result);
-
         result.addAll(axiom);
         resultContainsNT = sentenceContainsNT(result);
 
         while(resultContainsNT) {
-            System.out.println("result: " + result);
             deriveSingleStep();
             resultContainsNT = sentenceContainsNT(result);
         }
-        System.out.println("result: " + result);
     }
-
-
-//    public ArrayList<String> deriveResult() {
-//        ArrayList<String> result = deriveSingleStep(axiom);
-//        while(resultContainsNT) {
-//            System.out.println("result contains NT");
-//            System.out.println("result in loop: " + result);
-//            ArrayList<String> temp =  deriveSingleStep(result);
-//        }
-//
-//
-//        return result;
-//    }
+    
 
 }
