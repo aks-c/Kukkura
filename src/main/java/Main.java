@@ -12,6 +12,7 @@ public class Main {
             DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/input.json");
             ds.display();
             ds.deriveResult();
+            System.out.println("result: " + ds.getResult());
 
             Parser.writeResults(ds.getResult(), "src/main/resources/output.json");
         } catch (java.io.IOException e) {

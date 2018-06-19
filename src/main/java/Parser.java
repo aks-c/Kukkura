@@ -4,13 +4,15 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by akselcakmak on 15/06/2018.
  *
  */
 public class Parser {
+    /**
+     * This function de-serializes a specifically formatted JSON File into a DerivationSystem Object usable by us.
+     */
     public static DerivationSystem getDerivationSystem(String filename) throws FileNotFoundException {
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(filename));
@@ -20,6 +22,9 @@ public class Parser {
         return input;
     }
 
+    /**
+     * This function serializes the result we got from the DerivationSystem into a JSON File.
+     */
     public static void writeResults(ArrayList<String> result, String filename) throws IOException {
         Writer writer = new FileWriter(filename);
         Gson gson = new GsonBuilder().create();
