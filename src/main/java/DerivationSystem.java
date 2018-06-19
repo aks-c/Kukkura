@@ -6,6 +6,12 @@ import java.util.HashMap;
 /**
  * Created by akselcakmak on 16/06/2018.
  *
+ *
+ * This Class handles the Main Logic of this program.
+ * A DerivationSystem is composed of all the information needed to procedurally generate our intended stuff;
+ * It is composed of an axiom (ie the initial list of symbols), an alphabet of terminals and non-terminals,
+ * and a set of rules to be followed to derive the sentence we have from the axiom
+ * to some final result usable to generate content.
  */
 public class DerivationSystem {
     // The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from);
