@@ -24,13 +24,17 @@
     "A": [
       {
         "symbol": "B",
+        "size": {"sx": 0, "sy": 0, "sz": 0},
+        "position": {"x": 0, "y": 0, "z": 0},
         "delta_size": {"sx": "sx", "sy": "sy", "sz": "sz"},
         "delta_position": {"x": "x", "y": "y", "z": "z"},
         "material": "dirt"
       },
       {
         "symbol": "C",
-        "delta_size": {"sx": "sx", "sy": "1", "sz": "2"},
+        "size": {"sx": 0, "sy": 1, "sz": 2},
+        "position": {"x": 0, "y": 0, "z": 0},
+        "delta_size": {"sx": "sx", "sy": "0", "sz": "0"},
         "delta_position": {"x": "x", "y": "y", "z": "sz"},
         "material": "dirt"
       }
