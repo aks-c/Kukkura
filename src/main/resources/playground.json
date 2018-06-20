@@ -1,0 +1,42 @@
+{
+  "axiom": [
+    {
+      "symbol": "A",
+      "size": {"sx": 10, "sy": 10, "sz": 10},
+      "position": {"x": 0, "y": 0, "z": 0},
+      "material": "dirt"
+    },
+    {
+      "symbol": "B",
+      "size": {"sx": 10, "sy": 10, "sz": 10},
+      "position": {"x": 10, "y": 0, "z": 0},
+      "material": "dirt"
+    },
+    {
+      "symbol": "B",
+      "size": {"sx": 10, "sy": 10, "sz": 10},
+      "position": {"x": 20, "y": 0, "z": 0},
+      "material": "dirt"
+    }
+  ],
+
+  "rules": {
+    "A": [
+      {
+        "symbol": "B",
+        "delta_size": {"sx": "sx", "sy": "sy", "sz": "sz"},
+        "delta_position": {"x": "x", "y": "y", "z": "z"},
+        "material": "dirt"
+      },
+      {
+        "symbol": "C",
+        "delta_size": {"sx": "sx", "sy": "1", "sz": "2"},
+        "delta_position": {"x": "x", "y": "y", "z": "sz"},
+        "material": "dirt"
+      }
+    ]
+  },
+
+  "non-terminals" : ["A", "B"],
+  "terminals" : ["C"]
+}
