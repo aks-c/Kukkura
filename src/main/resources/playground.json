@@ -2,7 +2,7 @@
   "axiom": [
     {
       "symbol": "A",
-      "size": {"sx": 10, "sy": 10, "sz": 10},
+      "size": {"x": 10, "y": 10, "z": 10},
       "position": {"x": 0, "y": 0, "z": 0},
       "material": "dirt"
     }
@@ -12,17 +12,17 @@
     "A": [
       {
         "symbol": "B",
-        "size": {"sx": 0, "sy": 0, "sz": 0},
+        "size": {"x": 0, "y": 0, "z": 0},
         "position": {"x": 0, "y": 0, "z": 0},
-        "delta_size": {"sx": "sx", "sy": "sy", "sz": "sz"},
+        "delta_size": {"x": "sx", "y": "sy", "z": "sz"},
         "delta_position": {"x": "x", "y": "y", "z": "z"},
         "material": "dirt"
       },
       {
         "symbol": "B",
-        "size": {"sx": 0, "sy": 1, "sz": 2},
+        "size": {"x": 0, "y": 1, "z": 2},
         "position": {"x": 0, "y": 0, "z": 0},
-        "delta_size": {"sx": "sx", "sy": "0", "sz": "0"},
+        "delta_size": {"x": "sx", "y": "0", "z": "0"},
         "delta_position": {"x": "x", "y": "y", "z": "sz"},
         "material": "dirt"
       }

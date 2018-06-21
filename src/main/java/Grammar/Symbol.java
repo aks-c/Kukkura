@@ -1,7 +1,6 @@
 package Grammar;
 
-import MetaData.Position;
-import MetaData.Size;
+import MetaData.Coordinates;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -20,10 +19,10 @@ public class Symbol {
     // depending on whether the object comes from the axiom or a rule, size and position might or might not be needed.
     // Also, these are absolute values.
     @SerializedName("size")
-    Size size;
+    Coordinates size;
 
     @SerializedName("position")
-    Position position;
+    Coordinates position;
 
     // These fields are only relevant for objects instantiated from the grammar's rules.
     // They specify where/how this symbol should be placed with respect to the position/size of the symbol that produced it.
@@ -31,10 +30,10 @@ public class Symbol {
     // then apply these deltas.
 
     @SerializedName("delta_size")
-    Size delta_size;
+    Coordinates delta_size;
 
     @SerializedName("delta_position")
-    Position delta_position;
+    Coordinates delta_position;
 
     // This is only needed for MC.
     @SerializedName("material")
