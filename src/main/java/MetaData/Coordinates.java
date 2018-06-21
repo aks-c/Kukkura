@@ -59,7 +59,6 @@ public class Coordinates {
 
 
     private String getDelta(String field, Symbol symbol){
-        System.out.println("FIELD: " + field);
         String delta;
         switch (field) {
             case "x":
@@ -82,11 +81,9 @@ public class Coordinates {
                 delta = symbol.getSize().getZ();
                 break;
             default:
-                System.out.println("went to default");
                 delta = "0";
                 break;
         }
-        System.out.println("delta: " + delta);
         return delta;
     }
 }

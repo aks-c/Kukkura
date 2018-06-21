@@ -71,11 +71,6 @@ public class DerivationSystem {
             if (nonTerminals.contains(symbol.getSymbol())) {
                 ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
 
-                System.out.println("Base Symbol's Coordinates:");
-                symbol.getPosition().display();
-                symbol.getSize().display();
-                System.out.println();
-
                 for (Symbol result: derivation) {
                     result.getDeltaPosition().actualizeDelta(symbol);
                     result.getDeltaSize().actualizeDelta(symbol);
