@@ -11,9 +11,9 @@ package MetaData;
  * than to go from single unwieldy class => multiple single-purpose classes.)
  */
 public class Size {
-    int sx;
+    String sx;
 
-    int sy;
+    String sy;
 
-    int sz;
+    String sz;
 }

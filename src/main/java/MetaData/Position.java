@@ -7,9 +7,11 @@ package MetaData;
  * Handles the Position meta-data of our symbols.
  */
 public class Position {
-    int x;
+    // We use both absolute and relative values with respect to previous symbols to determine the Position of new derived symbols.
+    // This is why we use Strings and not ints for the coordinates.
+    String x;
 
-    int y;
+    String y;
 
-    int z;
+    String z;
 }
