@@ -39,4 +39,17 @@ public class Symbol {
     // This is only needed for MC.
     @SerializedName("material")
     String material;
+
+
+    public String getSymbol(){
+        return symbol;
+    }
+
+    public void displaySymbol() {
+        System.out.println("symbol: " + symbol);
+        size.displaySize();
+        position.displayPosition();
+        delta_size.displaySize();
+        delta_position.displayPosition();
+    }
 }
