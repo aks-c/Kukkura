@@ -60,7 +60,7 @@ public class DerivationSystem {
 
 
     /**
-     * This function is used to create a single derivation of the current result.
+     * Creates a single derivation of the current result.
      */
     private void deriveSingleStep() {
         // This is a temporary List, in which we add all the RHS productions of each symbol in the current result.
@@ -70,6 +70,19 @@ public class DerivationSystem {
             // Symbol is Terminal: Add the Symbol itself.
             if (nonTerminals.contains(symbol.getSymbol())) {
                 ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
+
+//                for each resultSymbol in derivation:
+//                    temp_pos = resultSymbol.getPos()
+//                    temp_size = resultSymbol.getSize()
+//                    delta_pos = resultSymbol.getDeltaPos().interpretWith(symbol)
+//                    delta_size = resultSymbol.getDeltaSize().interpretWith(symbol)
+//                    temp_pos.add(delta_pos)
+//                    temp_size.add(delta_size)
+//                    //add(resultSymbol.getPos(), resultSymbol.getDeltaPos().interpretWith(symbol))
+//                    resultSymbol.setPos(temp_pos)
+//                    resultSymbol.setSize(temp_size)
+
+
                 nextSentence.addAll(derivation);
             } else {
                 nextSentence.add(symbol);
@@ -82,7 +95,7 @@ public class DerivationSystem {
     }
 
     /**
-     * This function derives the whole result, from the axiom to one final list of Symbols.
+     * Computes the whole result, from the initial Axiom to one final list of Symbols.
      * It iteratively derives it, step by step, until the result contains only terminals.
      */
     void deriveResult() {
