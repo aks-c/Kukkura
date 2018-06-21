@@ -60,22 +60,29 @@ public class DerivationSystem {
 
 
     /**
-     * This function is used to create a single derivation of the current result.
+     * Creates a single derivation of the current result.
      */
     private void deriveSingleStep() {
-        System.out.println("in deriveSingleStep()");
         // This is a temporary List, in which we add all the RHS productions of each symbol in the current result.
         ArrayList<Symbol> nextSentence = new ArrayList<>();
         for (Symbol symbol: result) {
-            System.out.println("in for loop; symbol: " + symbol.getSymbol());
             // Symbol is Non-Terminal: Add its RHS Derivation.
             // Symbol is Terminal: Add the Symbol itself.
             if (nonTerminals.contains(symbol.getSymbol())) {
-                System.out.println("this is a non-terminal");
                 ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
+
+                // for each derived symbol, we figure out what the absolute values of the delta are,
+                // then we apply them to the actual Position/Size.
+                for (Symbol result: derivation) {
+                    result.getDeltaPosition().actualizeDelta(symbol);
+                    result.getDeltaSize().actualizeDelta(symbol);
+
+                    result.getPosition().applyDelta(result.getDeltaPosition());
+                    result.getSize().applyDelta(result.getDeltaSize());
+                }
+
                 nextSentence.addAll(derivation);
             } else {
-                System.out.println("this is a terminal");
                 nextSentence.add(symbol);
             }
         }
@@ -86,15 +93,13 @@ public class DerivationSystem {
     }
 
     /**
-     * This function derives the whole result, from the axiom to one final list of Symbols.
+     * Computes the whole result, from the initial Axiom to one final list of Symbols.
      * It iteratively derives it, step by step, until the result contains only terminals.
      */
     void deriveResult() {
-        System.out.println("in deriveResult()");
         result.addAll(axiom);
 
         while(resultContainsNT) {
-            System.out.println("in while() loop");
             deriveSingleStep();
             resultContainsNT = sentenceContainsNT(result);
         }

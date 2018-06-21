@@ -2,20 +2,8 @@
   "axiom": [
     {
       "symbol": "A",
-      "size": {"sx": 10, "sy": 10, "sz": 10},
-      "position": {"x": 0, "y": 0, "z": 0},
-      "material": "dirt"
-    },
-    {
-      "symbol": "B",
-      "size": {"sx": 10, "sy": 10, "sz": 10},
-      "position": {"x": 10, "y": 0, "z": 0},
-      "material": "dirt"
-    },
-    {
-      "symbol": "B",
-      "size": {"sx": 10, "sy": 10, "sz": 10},
-      "position": {"x": 20, "y": 0, "z": 0},
+      "size": {"x": 10, "y": 10, "z": 10},
+      "position": {"x": 1, "y": 2, "z": 3},
       "material": "dirt"
     }
   ],
@@ -24,41 +12,23 @@
     "A": [
       {
         "symbol": "B",
-        "size": {"sx": 0, "sy": 0, "sz": 0},
+        "size": {"x": 6, "y": 6, "z": 6},
         "position": {"x": 0, "y": 0, "z": 0},
-        "delta_size": {"sx": "sx", "sy": "sy", "sz": "sz"},
+        "delta_size": {"x": "sx", "y": "sy", "z": "sz"},
         "delta_position": {"x": "x", "y": "y", "z": "z"},
         "material": "dirt"
       },
       {
-        "symbol": "C",
-        "size": {"sx": 0, "sy": 1, "sz": 2},
+        "symbol": "B",
+        "size": {"x": 0, "y": 0, "z": 0},
         "position": {"x": 0, "y": 0, "z": 0},
-        "delta_size": {"sx": "sx", "sy": "0", "sz": "0"},
-        "delta_position": {"x": "x", "y": "y", "z": "sz"},
-        "material": "dirt"
-      }
-    ],
-    "B": [
-      {
-        "symbol": "C",
-        "size": {"sx": 0, "sy": 0, "sz": 0},
-        "position": {"x": 0, "y": 0, "z": 0},
-        "delta_size": {"sx": "sx", "sy": "sy", "sz": "sz"},
-        "delta_position": {"x": "x", "y": "y", "z": "z"},
-        "material": "dirt"
-      },
-      {
-        "symbol": "C",
-        "size": {"sx": 0, "sy": 1, "sz": 2},
-        "position": {"x": 0, "y": 0, "z": 0},
-        "delta_size": {"sx": "sx", "sy": "0", "sz": "0"},
-        "delta_position": {"x": "x", "y": "y", "z": "sz"},
+        "delta_size": {"x": "sx", "y": "0", "z": "0"},
+        "delta_position": {"x": "x", "y": "0", "z": "0"},
         "material": "dirt"
       }
     ]
   },
 
-  "non-terminals" : ["A", "B"],
-  "terminals" : ["C"]
+  "non-terminals" : ["A"],
+  "terminals" : ["B"]
 }
