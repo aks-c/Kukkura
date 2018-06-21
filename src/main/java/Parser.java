@@ -1,3 +1,4 @@
+import Grammar.Symbol;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -28,9 +29,9 @@ public class Parser {
     /**
      * This function serializes the result we got from the DerivationSystem into a JSON File.
      */
-    public static void writeResults(ArrayList<String> result, String filename) throws IOException {
+    public static void writeResults(ArrayList<Symbol> result, String filename) throws IOException {
         Writer writer = new FileWriter(filename);
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(result, writer);
         writer.close();
     }

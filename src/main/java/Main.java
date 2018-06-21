@@ -9,14 +9,13 @@ public class Main {
     public static void main (String args[]) {
         System.out.println("print");
         try {
-            DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/input.json");
-            ds.display();
+            DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/playground.json");
             ds.deriveResult();
-            System.out.println("result: " + ds.getResult());
 
             Parser.writeResults(ds.getResult(), "src/main/resources/output.json");
-        } catch (java.io.IOException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
+            System.out.println(e.toString());
         }
     }
 }
