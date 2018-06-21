@@ -71,17 +71,18 @@ public class DerivationSystem {
             if (nonTerminals.contains(symbol.getSymbol())) {
                 ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
 
-//                for each resultSymbol in derivation:
-//                    temp_pos = resultSymbol.getPos()
-//                    temp_size = resultSymbol.getSize()
-//                    delta_pos = resultSymbol.getDeltaPos().interpretWith(symbol)
-//                    delta_size = resultSymbol.getDeltaSize().interpretWith(symbol)
-//                    temp_pos.add(delta_pos)
-//                    temp_size.add(delta_size)
-//                    //add(resultSymbol.getPos(), resultSymbol.getDeltaPos().interpretWith(symbol))
-//                    resultSymbol.setPos(temp_pos)
-//                    resultSymbol.setSize(temp_size)
+                System.out.println("Base Symbol's Coordinates:");
+                symbol.getPosition().display();
+                symbol.getSize().display();
+                System.out.println();
 
+                for (Symbol result: derivation) {
+                    result.getDeltaPosition().actualizeDelta(symbol);
+                    result.getDeltaSize().actualizeDelta(symbol);
+
+                    result.getPosition().applyDelta(result.getDeltaPosition());
+                    result.getSize().applyDelta(result.getDeltaSize());
+                }
 
                 nextSentence.addAll(derivation);
             } else {
