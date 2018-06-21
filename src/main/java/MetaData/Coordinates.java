@@ -39,25 +39,43 @@ public class Coordinates {
         System.out.println("coordinates:: x=" + x + " y=" + y + " z=" +z);
     }
 
-    // this is for when the coordinates are relative
+    /**
+     * This is for when the coordinates are relative.
+     * It turns the deltas from relative String information (stuff like "x", "sz", etc..) into actual absolute delta values.
+     * It does so with respect to the properties (i.e. size and position) of the symbol provided.
+     */
     public void actualizeDelta(Symbol symbol) {
         x = getDelta(x, symbol);
         y = getDelta(y, symbol);
         z = getDelta(z, symbol);
     }
 
+    /**
+     * This is called only once the deltas are actualized, and not String descriptions.
+     * It applies the delta to the current values of this coordinate.
+     * Note that calling this function twice would add the deltas twice into the coordinates.
+     */
     public void applyDelta(Coordinates deltaCoordinates) {
         x = applyDelta(x, deltaCoordinates.getX());
         y = applyDelta(y, deltaCoordinates.getY());
         z = applyDelta(z, deltaCoordinates.getZ());
     }
 
+    /**
+     * Applies the delta to a single, individual field.
+     */
     private String applyDelta(String field, String delta) {
         int result = Integer.parseInt(field) + Integer.parseInt(delta);
         return String.valueOf(result);
     }
 
-
+    /**
+     * Deltas are applied relative to something: the value of a specific field inside the Coordinate of a symbol.
+     * This function retrieves the value of the appropriate field, from the base symbol,
+     * according to the String description in the delta field of this Coordinate.
+     * e.g.: a value of "sx" for the current delta field means that
+     * this field will add a value relative to the X size dimension of the base symbol.
+     */
     private String getDelta(String field, Symbol symbol){
         String delta;
         switch (field) {

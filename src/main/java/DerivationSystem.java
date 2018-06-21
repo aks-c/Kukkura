@@ -71,6 +71,8 @@ public class DerivationSystem {
             if (nonTerminals.contains(symbol.getSymbol())) {
                 ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
 
+                // for each derived symbol, we figure out what the absolute values of the delta are,
+                // then we apply them to the actual Position/Size.
                 for (Symbol result: derivation) {
                     result.getDeltaPosition().actualizeDelta(symbol);
                     result.getDeltaSize().actualizeDelta(symbol);
