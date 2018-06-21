@@ -48,13 +48,6 @@ public class DerivationSystem {
         return result;
     }
 
-//    private boolean sentenceContainsNT(ArrayList<String> sentence) {
-//        for (String symbol: sentence) {
-//            if (nonTerminals.contains(symbol))
-//                return true;
-//        }
-//        return false;
-//    }
 
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
@@ -64,23 +57,7 @@ public class DerivationSystem {
         return false;
     }
 
-    void display() {
-        System.out.println("axiom:");
-        for (Symbol symbol: axiom)
-            System.out.print(symbol.getSymbol() + " ");
-        System.out.println();
 
-        System.out.println("rules: " + rules);
-
-        System.out.println("alphabet: " + this.nonTerminals + this.terminals + "\n");
-    }
-
-    void displayResult() {
-        System.out.println("Result:");
-        for (Symbol symbol: result)
-            System.out.print(symbol.getSymbol() + " ");
-        System.out.println();
-    }
 
     /**
      * This function is used to create a single derivation of the current result.
@@ -115,7 +92,6 @@ public class DerivationSystem {
     void deriveResult() {
         System.out.println("in deriveResult()");
         result.addAll(axiom);
-        displayResult();
 
         while(resultContainsNT) {
             System.out.println("in while() loop");

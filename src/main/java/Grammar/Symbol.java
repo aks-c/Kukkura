@@ -44,12 +44,4 @@ public class Symbol {
     public String getSymbol(){
         return symbol;
     }
-
-    public void displaySymbol() {
-        System.out.println("symbol: " + symbol);
-        size.displaySize();
-        position.displayPosition();
-        delta_size.displaySize();
-        delta_position.displayPosition();
-    }
 }

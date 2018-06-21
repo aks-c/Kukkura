@@ -10,9 +10,7 @@ public class Main {
         System.out.println("print");
         try {
             DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/playground.json");
-            ds.display();
             ds.deriveResult();
-            System.out.println("result: " + ds.getResult());
 
             Parser.writeResults(ds.getResult(), "src/main/resources/output.json");
         } catch (Exception e) {

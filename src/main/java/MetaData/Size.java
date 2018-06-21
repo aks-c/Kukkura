@@ -21,11 +21,4 @@ public class Size {
 
     @SerializedName("sz")
     String sz;
-
-    public void displaySize() {
-        System.out.print("sx: " + sx + ", ");
-        System.out.print("sy: " + sy + ", ");
-        System.out.print("sz: " + sz + ", ");
-        System.out.println();
-    }
 }

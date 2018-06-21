@@ -19,11 +19,4 @@ public class Position {
 
     @SerializedName("z")
     String z;
-
-    public void displayPosition() {
-        System.out.print("x: " + x + ", ");
-        System.out.print("y: " + y + ", ");
-        System.out.print("z: " + z + ", ");
-        System.out.println();
-    }
 }
