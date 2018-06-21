@@ -7,4 +7,9 @@ package MetaData;
  * Handles the Position meta-data of our symbols.
  */
 public class Position {
+    int x;
+
+    int y;
+
+    int z;
 }
