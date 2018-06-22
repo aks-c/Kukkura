@@ -31,10 +31,10 @@ public class Symbol {
     // To get the final position and final size of the symbol, we first take into account its absolute size/pos values,
     // then apply these deltas.
     @SerializedName("delta_size")
-    private Coordinates delta_size;
+    private Coordinates deltaSize;
 
     @SerializedName("delta_position")
-    private Coordinates delta_position;
+    private Coordinates deltaPosition;
 
 
     // This following are only needed for MC.
@@ -45,10 +45,10 @@ public class Symbol {
     @SerializedName("material")
     private String material;
     @SerializedName("material_sub")
-    private String material_sub;
+    private String materialSub;
     // `material_state` stores info about the structure represented by the symbol, like whether it's hollow or not, etc..
     @SerializedName("symbol_state")
-    private String symbol_state;
+    private String symbolState;
 
     public String getSymbol(){
         return symbol;
@@ -63,11 +63,11 @@ public class Symbol {
     }
 
     public Coordinates getDeltaSize() {
-        return delta_size;
+        return deltaSize;
     }
 
     public Coordinates getDeltaPosition() {
-        return delta_position;
+        return deltaPosition;
     }
 
     public String getMaterial() {
@@ -75,11 +75,11 @@ public class Symbol {
     }
 
     public String getMaterialSub() {
-        return material_sub;
+        return materialSub;
     }
 
     public String getSymbolState() {
-        return symbol_state;
+        return symbolState;
     }
 
     //TODO: Complete this.
