@@ -37,6 +37,9 @@ public class Parser {
         writer.close();
     }
 
+    /**
+     * Serializes the result in a .mcfunction file, as a list of Minecraft-compatible commands.
+     */
     public static void writeToMinecraft(ArrayList<Symbol> result, String filename) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter(filename, ENCODING);
         for (Symbol symbol: result) {
