@@ -9,8 +9,8 @@ public class Main {
             DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/playground.json");
             ds.deriveResult();
 
-            Parser.writeToJSON(ds.getResult(), "src/main/resources/output.json");
-            Parser.writeToMinecraft(ds.getResult(), "src/main/resources/commands.mcfunction");
+            Parser.writeResults(ds.getResult(), "src/main/resources/output.json", Parser.FORMAT.JSON);
+            Parser.writeResults(ds.getResult(), "src/main/resources/commands.mcfunction", Parser.FORMAT.MINECRAFT);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println(e.toString());

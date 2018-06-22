@@ -15,6 +15,11 @@ import java.util.ArrayList;
  */
 public class Parser {
     private static final String ENCODING = "UTF-8";
+
+    public enum FORMAT {
+        JSON,
+        MINECRAFT
+    }
     /**
      * This function de-serializes a specifically formatted JSON File into a DerivationSystem Object usable by us.
      */
@@ -30,7 +35,7 @@ public class Parser {
     /**
      * This function serializes the result we got from the DerivationSystem into a JSON File.
      */
-    public static void writeToJSON(ArrayList<Symbol> result, String filename) throws IOException {
+    private static void writeToJSON(ArrayList<Symbol> result, String filename) throws IOException {
         Writer writer = new FileWriter(filename);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(result, writer);
@@ -40,11 +45,22 @@ public class Parser {
     /**
      * Serializes the result in a .mcfunction file, as a list of Minecraft-compatible commands.
      */
-    public static void writeToMinecraft(ArrayList<Symbol> result, String filename) throws FileNotFoundException, UnsupportedEncodingException {
+    private static void writeToMinecraft(ArrayList<Symbol> result, String filename) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter(filename, ENCODING);
         for (Symbol symbol: result) {
             writer.println(symbol.getAsMinecraftCommand());
         }
         writer.close();
+    }
+
+    public static void writeResults(ArrayList<Symbol> result, String filename, Parser.FORMAT format) throws IOException {
+        switch (format) {
+            case JSON:
+                writeToJSON(result, filename);
+                break;
+            case MINECRAFT:
+                writeToMinecraft(result, filename);
+                break;
+        }
     }
 }
