@@ -3,6 +3,8 @@ package MetaData;
 import Grammar.Symbol;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by akselcakmak on 21/06/2018.
  *
@@ -22,13 +24,22 @@ public class Coordinates {
     }
 
     @SerializedName("x")
-    public String x;
+    private String x;
 
     @SerializedName("y")
-    String y;
+    private String y;
 
     @SerializedName("z")
-    String z;
+    private String z;
+
+    @SerializedName("delta_x")
+    private ArrayList<String> delta_x;
+
+    @SerializedName("delta_y")
+    private ArrayList<String> delta_y;
+
+    @SerializedName("delta_z")
+    private ArrayList<String> delta_z;
 
     public String getX() {
         return x;
@@ -110,5 +121,15 @@ public class Coordinates {
         }
         return delta;
     }
+
+
+    /*
+    * Coordinates Class:
+    *   x, y, z, Strings
+    *
+    * Delta_Coordinate Class:
+    *   x, y, z, ArrayList<String>'s
+    *
+    * */
 
 }
