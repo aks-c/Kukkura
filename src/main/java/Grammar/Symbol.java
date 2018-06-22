@@ -82,12 +82,22 @@ public class Symbol {
         return symbolState;
     }
 
-    //TODO: Complete this.
+    /**
+     * serializes the Symbol Object into a String.
+     * That String can be executed as a syntactically valid command by the Minecraft interpreter
+     * (to create the structure associated with our symbol in the game).
+     */
     public String getAsMinecraftCommand() {
         Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());
         return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial(), getMaterialSub(), getSymbolState());
     }
 
+    /**
+     * A structure can be ringed by two 3D Coordinates.
+     * The first Coordinate to define those boundaries is just the Position field.
+     * The second position depends on: the first position and the Size of the Symbol/Structure.
+     * This function calculates said second position, bcs it's needed by MC's /fill command.
+     */
     public Coordinates getSecondPosition(Coordinates position, Coordinates size) {
         String x = Coordinates.applyDelta(position.getX(), size.getX());
         String y = Coordinates.applyDelta(position.getY(), size.getY());
