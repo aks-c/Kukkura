@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * Later on though, this will probably be a bit more developed.
  */
 public class Parser {
+    private static final String ENCODING = "UTF-8";
     /**
      * This function de-serializes a specifically formatted JSON File into a DerivationSystem Object usable by us.
      */
@@ -29,10 +30,18 @@ public class Parser {
     /**
      * This function serializes the result we got from the DerivationSystem into a JSON File.
      */
-    public static void writeResults(ArrayList<Symbol> result, String filename) throws IOException {
+    public static void writeToJSON(ArrayList<Symbol> result, String filename) throws IOException {
         Writer writer = new FileWriter(filename);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(result, writer);
+        writer.close();
+    }
+
+    public static void writeToMinecraft(ArrayList<Symbol> result, String filename) throws FileNotFoundException, UnsupportedEncodingException {
+        PrintWriter writer = new PrintWriter(filename, ENCODING);
+        for (Symbol symbol: result) {
+            writer.println(symbol.getAsMinecraftCommand());
+        }
         writer.close();
     }
 }
