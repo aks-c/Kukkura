@@ -73,6 +73,6 @@ public class Symbol {
     //TODO: Complete this.
     public String getAsMinecraftCommand() {
         Coordinates secondPosition = getPosition().getSecondPosition();
-        return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ());
+        return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial(), getMaterialSub(), getSymbolState());
     }
 }
