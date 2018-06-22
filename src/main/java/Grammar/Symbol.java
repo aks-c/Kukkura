@@ -84,12 +84,12 @@ public class Symbol {
 
     //TODO: Complete this.
     public String getAsMinecraftCommand() {
-        Coordinates secondPosition = Coordinates.getSecondPosition(this.getPosition(), this.getSize());
+        Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());
         return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial(), getMaterialSub(), getSymbolState());
     }
 
-//    public Coordinates getSecondPosition(Coordinates position, Coordinates size) {
-//        String x = position
-//        return this;
-//    }
+    public Coordinates getSecondPosition(Coordinates position, Coordinates size) {
+        String x = position
+        return this;
+    }
 }
