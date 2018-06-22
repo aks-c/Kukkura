@@ -70,6 +70,18 @@ public class Symbol {
         return delta_position;
     }
 
+    public String getMaterial() {
+        return material;
+    }
+
+    public String getMaterialSub() {
+        return material_sub;
+    }
+
+    public String getSymbolState() {
+        return symbol_state;
+    }
+
     //TODO: Complete this.
     public String getAsMinecraftCommand() {
         Coordinates secondPosition = getPosition().getSecondPosition();
