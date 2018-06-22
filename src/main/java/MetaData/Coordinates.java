@@ -14,6 +14,12 @@ import com.google.gson.annotations.SerializedName;
  * This is why the fields are Strings, and not numbers, like say, ints.
  */
 public class Coordinates {
+    
+    public Coordinates(String x, String y, String z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
 
     @SerializedName("x")
     public String x;
