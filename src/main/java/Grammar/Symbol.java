@@ -37,7 +37,6 @@ public class Symbol {
     private Coordinates delta_position;
 
 
-
     // This following are only needed for MC.
     // `material` represents the material name,
     // and `material_sub` represents the sub-ID (for a lack of a better name) of that material.
@@ -47,6 +46,9 @@ public class Symbol {
     private String material;
     @SerializedName("material_sub")
     private String material_sub;
+    // `material_state` stores info about the structure represented by the symbol, like whether it's hollow or not, etc..
+    @SerializedName("symbol_state")
+    private String symbol_state;
 
     public String getSymbol(){
         return symbol;

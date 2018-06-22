@@ -4,7 +4,9 @@
       "symbol": "A",
       "size": {"x": 10, "y": 10, "z": 10},
       "position": {"x": 1, "y": 2, "z": 3},
-      "material": "dirt"
+      "material": "dirt",
+      "material_sub": "0",
+      "symbol_state": "hollow"
     }
   ],
 
@@ -16,7 +18,9 @@
         "position": {"x": 0, "y": 0, "z": 0},
         "delta_size": {"x": "sx", "y": "sy", "z": "sz"},
         "delta_position": {"x": "x", "y": "y", "z": "z"},
-        "material": "dirt"
+        "material": "dirt",
+        "material_sub": "0",
+        "symbol_state": "hollow"
       },
       {
         "symbol": "B",
@@ -24,7 +28,9 @@
         "position": {"x": 0, "y": 0, "z": 0},
         "delta_size": {"x": "sx", "y": "0", "z": "0"},
         "delta_position": {"x": "x", "y": "0", "z": "0"},
-        "material": "dirt"
+        "material": "dirt",
+        "material_sub": "0",
+        "symbol_state": "hollow"
       }
     ]
   },
