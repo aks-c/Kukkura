@@ -18,6 +18,8 @@ public class Symbol {
     // The size and position of the symbol are not mandatory fields;
     // depending on whether the object comes from the axiom or a rule, size and position might or might not be needed.
     // Also, these are absolute values.
+    // Important Note ! Minecraft counts from 0; a path from 0 to 10 is 11 blocks long, not 10,
+    // and a structure of height "0" is 1 block high, not 0.
     @SerializedName("size")
     private Coordinates size;
 
