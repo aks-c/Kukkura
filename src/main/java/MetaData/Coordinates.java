@@ -83,7 +83,7 @@ public class Coordinates {
      * e.g.: a value of "sx" for the current delta field means that
      * this field will add a value relative to the X size dimension of the base symbol.
      */
-    private String getDelta(String field, Symbol symbol){
+    static private String getDelta(String field, Symbol symbol){
         String delta;
         switch (field) {
             case "x":
