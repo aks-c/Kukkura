@@ -24,21 +24,29 @@ public class Symbol {
     @SerializedName("position")
     private Coordinates position;
 
-    // These fields are only relevant for objects instantiated from the grammar's rules.
+
+
+    // The following delta_ fields are only relevant for objects instantiated from the grammar's rules.
     // They specify where/how this symbol should be placed with respect to the position/size of the symbol that produced it.
     // To get the final position and final size of the symbol, we first take into account its absolute size/pos values,
     // then apply these deltas.
-
     @SerializedName("delta_size")
     private Coordinates delta_size;
 
     @SerializedName("delta_position")
     private Coordinates delta_position;
 
-    // This is only needed for MC.
+
+
+    // This following are only needed for MC.
+    // `material` represents the material name,
+    // and `material_sub` represents the sub-ID (for a lack of a better name) of that material.
+    // eg: the tuple (material="planks", sub="0") represents Oak Wood Planks.
+    // eg: the tuple (material="planks", sub="3") represents Jungle Wood Planks.
     @SerializedName("material")
     private String material;
-
+    @SerializedName("material_sub")
+    private String material_sub;
 
     public String getSymbol(){
         return symbol;
