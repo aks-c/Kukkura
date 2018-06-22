@@ -76,6 +76,8 @@ public class DerivationSystem {
                 for (Symbol result: derivation) {
                     result.getDeltaPosition().actualizeDelta(symbol);
                     result.getDeltaSize().actualizeDelta(symbol);
+                    result.getPosition().actualizeDelta(symbol);
+                    result.getSize().actualizeDelta(symbol);
 
                     result.getPosition().applyDelta(result.getDeltaPosition());
                     result.getSize().applyDelta(result.getDeltaSize());

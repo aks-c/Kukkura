@@ -105,8 +105,11 @@ public class Coordinates {
             case "sz":
                 delta = symbol.getSize().getZ();
                 break;
-            default:
+            case "":
                 delta = "0";
+                break;
+            default:
+                delta = field;
                 break;
         }
         return delta;
