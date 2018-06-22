@@ -1,8 +1,3 @@
-import Grammar.Symbol;
-
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-
 /**
  * Created by akselcakmak on 15/06/2018.
  *
@@ -13,9 +8,6 @@ public class Main {
         try {
             DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/playground.json");
             ds.deriveResult();
-            for (Symbol result: ds.getResult()) {
-                System.out.println(result.getAsMinecraftCommand());
-            }
 
             Parser.writeResults(ds.getResult(), "src/main/resources/output.json");
         } catch (Exception e) {
