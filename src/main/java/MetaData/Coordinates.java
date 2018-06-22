@@ -71,7 +71,7 @@ public class Coordinates {
     /**
      * Applies a delta to a single field.
      */
-    static private String applyDelta(String field, String delta) {
+    static public String applyDelta(String field, String delta) {
         int result = Integer.parseInt(field) + Integer.parseInt(delta);
         return String.valueOf(result);
     }

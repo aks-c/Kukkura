@@ -89,7 +89,9 @@ public class Symbol {
     }
 
     public Coordinates getSecondPosition(Coordinates position, Coordinates size) {
-        String x = position
-        return this;
+        String x = Coordinates.applyDelta(position.getX(), size.getX());
+        String y = Coordinates.applyDelta(position.getY(), size.getY());
+        String z = Coordinates.applyDelta(position.getZ(), size.getZ());
+        return new Coordinates(x, y, z);
     }
 }
