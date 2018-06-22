@@ -42,10 +42,6 @@ public class Coordinates {
         return z;
     }
 
-    public void display() {
-        System.out.println("coordinates:: x=" + x + " y=" + y + " z=" +z);
-    }
-
     /**
      * This is for when the coordinates are relative.
      * It turns the deltas from relative String information (stuff like "x", "sz", etc..) into actual absolute delta values.
