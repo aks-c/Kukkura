@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
  * This is why the fields are Strings, and not numbers, like say, ints.
  */
 public class Coordinates {
-    
+
     public Coordinates(String x, String y, String z) {
         this.x = x;
         this.y = y;
@@ -63,15 +63,15 @@ public class Coordinates {
      * Note that calling this function twice would add the deltas twice into the coordinates.
      */
     public void applyDelta(Coordinates deltaCoordinates) {
-        x = applyDelta(x, deltaCoordinates.getX());
-        y = applyDelta(y, deltaCoordinates.getY());
-        z = applyDelta(z, deltaCoordinates.getZ());
+        x = Coordinates.applyDelta(x, deltaCoordinates.getX());
+        y = Coordinates.applyDelta(y, deltaCoordinates.getY());
+        z = Coordinates.applyDelta(z, deltaCoordinates.getZ());
     }
 
     /**
      * Applies a delta to a single field.
      */
-    private String applyDelta(String field, String delta) {
+    static private String applyDelta(String field, String delta) {
         int result = Integer.parseInt(field) + Integer.parseInt(delta);
         return String.valueOf(result);
     }
@@ -112,8 +112,4 @@ public class Coordinates {
         return delta;
     }
 
-    //TODO: fill this in.
-    public Coordinates getSecondPosition() {
-        return this;
-    }
 }
