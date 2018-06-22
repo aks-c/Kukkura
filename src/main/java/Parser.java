@@ -53,6 +53,9 @@ public class Parser {
         writer.close();
     }
 
+    /**
+     * The API of the Parser class only exposes writeResults(), and an Enum to choose the target format.
+     */
     public static void writeResults(ArrayList<Symbol> result, String filename, Parser.FORMAT format) throws IOException {
         switch (format) {
             case JSON:
