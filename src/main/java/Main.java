@@ -36,6 +36,10 @@ MVP 3
 - add utilities/library that converts JSON data into valid sequences of Vanilla Minecraft commands (`/fill`, etc..)
 
 MVP 4
-- Add support for priority levels of derivations (eg: Muller et al, or that other one)
-- Add support for higher levels of details (ie: until now, we could only safely generate valid Mass Models, but with this we'd also have valid façades and maybe valid details on top of that..)
+- add interface/GUI to easily modify the JSON input File to this system
+
+MVP 5
+- input and output from some external sources (ie not resource folder)
+- accept command line arguments to do so
+
 */

@@ -27,7 +27,6 @@ public class Symbol {
     private Coordinates position;
 
 
-
     // The following delta_ fields are only relevant for objects instantiated from the grammar's rules.
     // They specify where/how this symbol should be placed with respect to the position/size of the symbol that produced it.
     // To get the final position and final size of the symbol, we first take into account its absolute size/pos values,
@@ -51,6 +50,7 @@ public class Symbol {
     // `material_state` stores info about the structure represented by the symbol, like whether it's hollow or not, etc..
     @SerializedName("symbol_state")
     private String symbolState;
+
 
     public String getSymbol(){
         return symbol;
@@ -85,8 +85,6 @@ public class Symbol {
     }
 
 
-
-
     /**
      * serializes the Symbol Object into a String.
      * That String can be executed as a syntactically valid command by the Minecraft interpreter
@@ -104,8 +102,6 @@ public class Symbol {
      * This function calculates said second position, bcs it's needed by MC's /fill command.
      */
     public Coordinates getSecondPosition(Coordinates position, Coordinates size) {
-        position.actualizeDelta(this);
-        size.actualizeDelta(this);
         String x = getSecondPosition(position.getX(), size.getX());
         String y = getSecondPosition(position.getY(), size.getY());
         String z = getSecondPosition(position.getZ(), size.getZ());
