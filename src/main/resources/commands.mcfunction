@@ -1,5 +1,5 @@
-fill ~11 ~11 ~11 ~34 ~22 ~22 sandstone 0 hollow
-fill ~0 ~0 ~0 ~0 ~0 ~0 sandstone 1 
-fill ~0 ~0 ~0 ~0 ~0 ~0 sandstone 1 
-fill ~0 ~0 ~0 ~0 ~0 ~0 sandstone 1 
-fill ~0 ~0 ~0 ~0 ~0 ~0 sandstone 1 
+fill ~10 ~10 ~10 ~20 ~20 ~20 sandstone 0 hollow
+fill ~10 ~21 ~10 ~20 ~21 ~10 sandstone 1 
+fill ~10 ~21 ~10 ~10 ~21 ~20 sandstone 1 
+fill ~20 ~21 ~10 ~20 ~21 ~20 sandstone 1 
+fill ~10 ~21 ~20 ~20 ~21 ~20 sandstone 1 

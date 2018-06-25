@@ -14,9 +14,9 @@
     "A": [
       {
         "symbol": "AA",
-        "size": {"x": "1", "y": "1", "z": "1"},
-        "position": {"x": "1", "y": "1", "z": "1"},
-        "delta_size": {"delta_x": ["sx", "2", "sy"], "delta_y": ["sy"], "delta_z": ["sz"]},
+        "size": {"x": "0", "y": "0", "z": "0"},
+        "position": {"x": "0", "y": "0", "z": "0"},
+        "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
         "delta_position": {"delta_x": ["x"], "delta_y": ["y"], "delta_z": ["z"]},
         "material": "sandstone",
         "material_sub": "0",
@@ -26,8 +26,8 @@
         "symbol": "B",
         "size": {"x": "0", "y": "0", "z": "0"},
         "position": {"x": "", "y": "", "z": ""},
-        "delta_size": {"delta_x": [""], "delta_y": ["0"], "delta_z": ["0"]},
-        "delta_position": {"delta_x": ["0"], "delta_y": [""], "delta_z": ["0"]},
+        "delta_size": {"delta_x": ["sx"], "delta_y": ["0"], "delta_z": ["0"]},
+        "delta_position": {"delta_x": ["x"], "delta_y": ["y", "sy", "1"], "delta_z": ["z"]},
         "material": "sandstone",
         "material_sub": "1",
         "symbol_state": ""
@@ -36,8 +36,8 @@
         "symbol": "B",
         "size": {"x": "0", "y": "0", "z": "0"},
         "position": {"x": "", "y": "", "z": ""},
-        "delta_size": {"delta_x": ["0"], "delta_y": ["0"], "delta_z": [""]},
-        "delta_position": {"delta_x": ["0"], "delta_y": [""], "delta_z": ["0"]},
+        "delta_size": {"delta_x": [""], "delta_y": [""], "delta_z": ["sz"]},
+        "delta_position": {"delta_x": ["x"], "delta_y": ["y", "sy", "1"], "delta_z": ["z"]},
         "material": "sandstone",
         "material_sub": "1",
         "symbol_state": ""
@@ -46,8 +46,8 @@
         "symbol": "B",
         "size": {"x": "0", "y": "0", "z": "0"},
         "position": {"x": "", "y": "", "z": ""},
-        "delta_size": {"delta_x": [""], "delta_y": ["0"], "delta_z": ["0"]},
-        "delta_position": {"delta_x": ["0"], "delta_y": [""], "delta_z": [""]},
+        "delta_size": {"delta_x": [""], "delta_y": ["0"], "delta_z": ["sz"]},
+        "delta_position": {"delta_x": ["x", "sx"], "delta_y": ["y", "sy", "1"], "delta_z": ["z"]},
         "material": "sandstone",
         "material_sub": "1",
         "symbol_state": ""
@@ -56,8 +56,8 @@
         "symbol": "B",
         "size": {"x": "0", "y": "0", "z": "0"},
         "position": {"x": "", "y": "", "z": ""},
-        "delta_size": {"delta_x": ["0"], "delta_y": ["0"], "delta_z": [""]},
-        "delta_position": {"delta_x": [""], "delta_y": [""], "delta_z": ["0"]},
+        "delta_size": {"delta_x": ["sx"], "delta_y": ["0"], "delta_z": [""]},
+        "delta_position": {"delta_x": ["x"], "delta_y": ["y", "sy", "1"], "delta_z": ["z", "sz"]},
         "material": "sandstone",
         "material_sub": "1",
         "symbol_state": ""
