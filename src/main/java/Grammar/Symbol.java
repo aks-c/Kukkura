@@ -109,6 +109,7 @@ public class Symbol {
     }
 
     private String getSecondPosition(String field, String size){
+        System.out.println("get second position from:   position: " + field + "  size: " + size);
         return Coordinates.applyDelta(field, size);
     }
 }

@@ -50,6 +50,7 @@ public class Parser {
         for (Symbol symbol: result) {
             writer.println(symbol.getAsMinecraftCommand());
         }
+        writer.flush();
         writer.close();
     }
 
