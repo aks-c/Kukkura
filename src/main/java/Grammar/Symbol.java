@@ -84,6 +84,9 @@ public class Symbol {
         return symbolState;
     }
 
+
+
+
     /**
      * serializes the Symbol Object into a String.
      * That String can be executed as a syntactically valid command by the Minecraft interpreter
@@ -101,6 +104,8 @@ public class Symbol {
      * This function calculates said second position, bcs it's needed by MC's /fill command.
      */
     public Coordinates getSecondPosition(Coordinates position, Coordinates size) {
+        position.actualizeDelta(this);
+        size.actualizeDelta(this);
         String x = getSecondPosition(position.getX(), size.getX());
         String y = getSecondPosition(position.getY(), size.getY());
         String z = getSecondPosition(position.getZ(), size.getZ());
