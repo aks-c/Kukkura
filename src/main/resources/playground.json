@@ -3,32 +3,68 @@
     {
       "symbol": "A",
       "size": {"x": 10, "y": 10, "z": 10},
-      "position": {"x": 1, "y": 2, "z": 3},
-      "material": "dirt"
+      "position": {"x": 10, "y": 10, "z": 10},
+      "material": "sandstone",
+      "material_sub": "0",
+      "symbol_state": "hollow"
     }
   ],
 
   "rules": {
     "A": [
       {
-        "symbol": "B",
-        "size": {"x": 6, "y": 6, "z": 6},
-        "position": {"x": 0, "y": 0, "z": 0},
-        "delta_size": {"x": "sx", "y": "sy", "z": "sz"},
-        "delta_position": {"x": "x", "y": "y", "z": "z"},
-        "material": "dirt"
+        "symbol": "AA",
+        "size": {"x": "", "y": "", "z": ""},
+        "position": {"x": "", "y": "", "z": ""},
+        "delta_size": {"delta_x": ["0", "x"], "delta_y": ["0"], "delta_z": ["0"]},
+        "delta_position": {"delta_x": ["0", "x", "x"], "delta_y": ["0", "sz", "sy"], "delta_z": ["0"]},
+        "material": "sandstone",
+        "material_sub": "0",
+        "symbol_state": "hollow"
       },
       {
         "symbol": "B",
-        "size": {"x": 0, "y": 0, "z": 0},
-        "position": {"x": 0, "y": 0, "z": 0},
-        "delta_size": {"x": "sx", "y": "0", "z": "0"},
-        "delta_position": {"x": "x", "y": "0", "z": "0"},
-        "material": "dirt"
+        "size": {"x": "0", "y": "0", "z": "0"},
+        "position": {"x": "", "y": "", "z": ""},
+        "delta_size": {"delta_x": ["sx"], "delta_y": ["0"], "delta_z": ["0"]},
+        "delta_position": {"delta_x": ["0"], "delta_y": ["sy"], "delta_z": ["0"]},
+        "material": "sandstone",
+        "material_sub": "1",
+        "symbol_state": ""
+      },
+      {
+        "symbol": "B",
+        "size": {"x": "0", "y": "0", "z": "0"},
+        "position": {"x": "", "y": "", "z": ""},
+        "delta_size": {"delta_x": ["0"], "delta_y": ["0"], "delta_z": ["sz"]},
+        "delta_position": {"delta_x": ["0"], "delta_y": ["sy"], "delta_z": ["0"]},
+        "material": "sandstone",
+        "material_sub": "1",
+        "symbol_state": ""
+      },
+      {
+        "symbol": "B",
+        "size": {"x": "0", "y": "0", "z": "0"},
+        "position": {"x": "", "y": "", "z": ""},
+        "delta_size": {"delta_x": ["sx"], "delta_y": ["0"], "delta_z": ["0"]},
+        "delta_position": {"delta_x": ["0"], "delta_y": ["sy"], "delta_z": ["sz"]},
+        "material": "sandstone",
+        "material_sub": "1",
+        "symbol_state": ""
+      },
+      {
+        "symbol": "B",
+        "size": {"x": "0", "y": "0", "z": "0"},
+        "position": {"x": "", "y": "", "z": ""},
+        "delta_size": {"delta_x": ["0"], "delta_y": ["0"], "delta_z": ["sz"]},
+        "delta_position": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["0"]},
+        "material": "sandstone",
+        "material_sub": "1",
+        "symbol_state": ""
       }
     ]
   },
 
   "non-terminals" : ["A"],
-  "terminals" : ["B"]
+  "terminals" : ["B", "AA"]
 }

@@ -74,11 +74,16 @@ public class DerivationSystem {
                 // for each derived symbol, we figure out what the absolute values of the delta are,
                 // then we apply them to the actual Position/Size.
                 for (Symbol result: derivation) {
-                    result.getDeltaPosition().actualizeDelta(symbol);
-                    result.getDeltaSize().actualizeDelta(symbol);
-
-                    result.getPosition().applyDelta(result.getDeltaPosition());
-                    result.getSize().applyDelta(result.getDeltaSize());
+                    result.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
+                    result.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
+                    System.out.println("result:: " + "Pos: " + result.getPosition().getX() + " " + result.getPosition().getY() + " " + result.getPosition().getZ());
+//                    result.getDeltaPosition().actualizeDelta(symbol);
+//                    result.getDeltaSize().actualizeDelta(symbol);
+//                    result.getPosition().actualizeDelta(symbol);
+//                    result.getSize().actualizeDelta(symbol);
+//
+//                    result.getPosition().applyDelta(result.getDeltaPosition());
+//                    result.getSize().applyDelta(result.getDeltaSize());
                 }
 
                 nextSentence.addAll(derivation);

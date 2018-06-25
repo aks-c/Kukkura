@@ -1,5 +1,5 @@
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.io.IOException;
 
 /**
  * Created by akselcakmak on 15/06/2018.
@@ -12,10 +12,12 @@ public class Main {
             DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/playground.json");
             ds.deriveResult();
 
-            Parser.writeResults(ds.getResult(), "src/main/resources/output.json");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.toString());
+            Parser.writeResults(ds.getResult(), "src/main/resources/output.json", Parser.FORMAT.JSON);
+            Parser.writeResults(ds.getResult(), "src/main/resources/commands.mcfunction", Parser.FORMAT.MINECRAFT);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

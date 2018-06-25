@@ -3,6 +3,8 @@ package MetaData;
 import Grammar.Symbol;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by akselcakmak on 21/06/2018.
  *
@@ -14,14 +16,30 @@ import com.google.gson.annotations.SerializedName;
  * This is why the fields are Strings, and not numbers, like say, ints.
  */
 public class Coordinates {
+
+    public Coordinates(String x, String y, String z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
     @SerializedName("x")
-    public String x;
+    private String x;
 
     @SerializedName("y")
-    String y;
+    private String y;
 
     @SerializedName("z")
-    String z;
+    private String z;
+
+    @SerializedName("delta_x")
+    private ArrayList<String> delta_x;
+
+    @SerializedName("delta_y")
+    private ArrayList<String> delta_y;
+
+    @SerializedName("delta_z")
+    private ArrayList<String> delta_z;
 
     public String getX() {
         return x;
@@ -35,8 +53,16 @@ public class Coordinates {
         return z;
     }
 
-    public void display() {
-        System.out.println("coordinates:: x=" + x + " y=" + y + " z=" +z);
+    public ArrayList<String> getDelta_x() {
+        return delta_x;
+    }
+
+    public ArrayList<String> getDelta_y() {
+        return delta_y;
+    }
+
+    public ArrayList<String> getDelta_z() {
+        return delta_z;
     }
 
     /**
@@ -50,21 +76,25 @@ public class Coordinates {
         z = getDelta(z, symbol);
     }
 
-    /**
-     * This is called only once the deltas are actualized, and not String descriptions.
-     * It applies the delta to the current values of this coordinate.
-     * Note that calling this function twice would add the deltas twice into the coordinates.
-     */
-    public void applyDelta(Coordinates deltaCoordinates) {
-        x = applyDelta(x, deltaCoordinates.getX());
-        y = applyDelta(y, deltaCoordinates.getY());
-        z = applyDelta(z, deltaCoordinates.getZ());
+    public void setFinalCoordinates(Symbol symbol, Coordinates deltaCoordinates) {
+        x = setFinalValue(x, deltaCoordinates.getDelta_x(), symbol);
+        y = setFinalValue(y, deltaCoordinates.getDelta_y(), symbol);
+        z = setFinalValue(z, deltaCoordinates.getDelta_z(), symbol);
+    }
+
+    private String setFinalValue(String field, ArrayList<String> deltas, Symbol symbol) {
+        field = Coordinates.getDelta(field, symbol);
+        for (String delta : deltas) {
+            delta = Coordinates.getDelta(delta, symbol);
+            field = Coordinates.applyDelta(field, delta);
+        }
+        return field;
     }
 
     /**
-     * Applies the delta to a single, individual field.
+     * Applies a delta to a single field.
      */
-    private String applyDelta(String field, String delta) {
+    static public String applyDelta(String field, String delta) {
         int result = Integer.parseInt(field) + Integer.parseInt(delta);
         return String.valueOf(result);
     }
@@ -76,7 +106,7 @@ public class Coordinates {
      * e.g.: a value of "sx" for the current delta field means that
      * this field will add a value relative to the X size dimension of the base symbol.
      */
-    private String getDelta(String field, Symbol symbol){
+    static private String getDelta(String field, Symbol symbol){
         String delta;
         switch (field) {
             case "x":
@@ -98,8 +128,11 @@ public class Coordinates {
             case "sz":
                 delta = symbol.getSize().getZ();
                 break;
-            default:
+            case "":
                 delta = "0";
+                break;
+            default:
+                delta = field;
                 break;
         }
         return delta;
