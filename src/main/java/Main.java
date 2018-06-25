@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  * Created by akselcakmak on 15/06/2018.
  *
@@ -11,9 +14,10 @@ public class Main {
 
             Parser.writeResults(ds.getResult(), "src/main/resources/output.json", Parser.FORMAT.JSON);
             Parser.writeResults(ds.getResult(), "src/main/resources/commands.mcfunction", Parser.FORMAT.MINECRAFT);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
