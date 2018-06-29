@@ -20,7 +20,8 @@
         "delta_position": {"delta_x": ["x"], "delta_y": ["y"], "delta_z": ["z"]},
         "material": "planks",
         "material_sub": "0",
-        "symbol_state": "hollow"
+        "symbol_state": "hollow",
+        "probability": 100
       },
       {
         "symbol": "A",
@@ -30,6 +31,8 @@
         "delta_position": {"delta_x": ["x", "2", "sx"], "delta_y": ["y"], "delta_z": ["z"]},
         "material": "planks",
         "material_sub": "1",
+        "symbol_state": "hollow",
+        "probability": 75
         "symbol_state": "hollow"
       }
     ]
