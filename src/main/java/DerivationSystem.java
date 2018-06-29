@@ -72,7 +72,7 @@ public class DerivationSystem {
             // Symbol is Terminal: Add the Symbol itself.
             if (nonTerminals.contains(symbol.getSymbol())) {
                 ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
-                //ArrayList<Symbol> rulesCopy = new ArrayList<>();
+                // we make a deep copy of each symbol we got back from the rules map.
                 // for each derived symbol, we figure out what the absolute values of the deltas are,
                 // then we apply them to the actual Position/Size.
                 for (Symbol result: derivation) {
@@ -82,7 +82,6 @@ public class DerivationSystem {
                     copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
                     nextSentence.add(copy);
                 }
-                //nextSentence.addAll(rulesCopy);
             } else {
                 nextSentence.add(symbol);
             }
@@ -105,7 +104,6 @@ public class DerivationSystem {
             deriveSingleStep();
             resultContainsNT = sentenceContainsNT(result);
             iterations++;
-            System.out.println(iterations);
         }
     }
 }
