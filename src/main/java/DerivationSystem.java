@@ -45,7 +45,7 @@ public class DerivationSystem {
     // (i.e. so that our system knows when we got a final output, composed only of terminals).
     private boolean resultContainsNT = true;
 
-    private int ITERATION_LIMIT = 5;
+    private int ITERATION_LIMIT = 3;
 
     ArrayList<Symbol> getResult() {
         return result;
