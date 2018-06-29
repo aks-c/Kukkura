@@ -77,7 +77,7 @@ public class DerivationSystem {
                 // then we apply them to the actual Position/Size.
                 for (Symbol result: derivation) {
                     // only process this result if its probability of appearing is high enough.
-                    if(result.shouldBeAdded()) {
+                    if (result.shouldBeAdded()) {
                         Gson gson = new Gson();
                         Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
                         copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());

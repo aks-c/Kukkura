@@ -96,6 +96,11 @@ public class Coordinates {
         return String.valueOf(result);
     }
 
+    static public String applyMinus(String field) {
+        int result = Integer.parseInt(field) * -1;
+        return String.valueOf(result);
+    }
+
     /**
      * Deltas are applied relative to something: the value of a specific field inside the Coordinate of a symbol.
      * This function retrieves the value of the appropriate field, from the base symbol,
@@ -104,8 +109,12 @@ public class Coordinates {
      * this field will add a value relative to the X size dimension of the base symbol.
      */
     static private String getDelta(String field, Symbol symbol){
+        int offset = 0;
+        if (hasMinus(field))
+            offset = 1;
+
         String delta;
-        switch (field) {
+        switch (field.substring(offset)) {
             case "x":
                 delta = symbol.getPosition().getX();
                 break;
@@ -129,9 +138,17 @@ public class Coordinates {
                 delta = "0";
                 break;
             default:
-                delta = field;
+                delta = field.substring(offset);
                 break;
         }
+        if (hasMinus(field))
+            return "-" + delta;
         return delta;
+    }
+
+    // Small utility used only in getDelta()
+    // Handles the case when the deltas possibly hold negative values
+    private static boolean hasMinus(String field) {
+        return (field.charAt(0) == '-');
     }
 }
