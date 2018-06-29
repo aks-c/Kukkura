@@ -76,14 +76,11 @@ public class DerivationSystem {
                 // for each derived symbol, we figure out what the absolute values of the deltas are,
                 // then we apply them to the actual Position/Size.
                 for (Symbol result: derivation) {
-                    // only process this result if its probability of appearing is high enough.
-                    if(result.shouldBeAdded()) {
-                        Gson gson = new Gson();
-                        Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
-                        copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
-                        copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
-                        nextSentence.add(copy);
-                    }
+                    Gson gson = new Gson();
+                    Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
+                    copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
+                    copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
+                    nextSentence.add(copy);
                 }
             } else {
                 nextSentence.add(symbol);
