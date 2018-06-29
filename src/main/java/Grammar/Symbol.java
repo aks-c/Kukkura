@@ -3,6 +3,8 @@ package Grammar;
 import MetaData.Coordinates;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Random;
+
 /**
  * Created by akselcakmak on 21/06/2018.
  *
@@ -13,6 +15,16 @@ public class Symbol {
     // The actual symbol associated with this object.
     @SerializedName("symbol")
     private String symbol;
+
+    // Some rules might have this symbol in their RHS.
+    // This denotes the probability that the symbol will actually end up being added to the final result.
+    // A probability is encoded as a number in [0-100] (inclusive).
+    // It's not a float because:
+    // (1) It doesn't need to be a float in our specific limited use case
+    // (2) I don't want to add unnecessary complexity
+    // (and I'd also surmise it'd be faster this way, although tbf at this stage of development idc yet)
+    @SerializedName("probability")
+    private int probability;
 
 
     // The size and position of the symbol are not mandatory fields;
@@ -109,5 +121,11 @@ public class Symbol {
 
     private String getSecondPosition(String field, String size){
         return Coordinates.applyDelta(field, size);
+    }
+
+    public boolean shouldBeAdded() {
+        // the higher the probability, the higher the chance that (r < probability).
+        int r = new Random().nextInt(100);
+        return (r <= probability);
     }
 }
