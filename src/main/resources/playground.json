@@ -1,0 +1,40 @@
+{
+  "axiom": [
+    {
+      "symbol": "A",
+      "size": {"x": 10, "y": 10, "z": 10},
+      "position": {"x": 10, "y": 10, "z": 10},
+      "material": "sandstone",
+      "material_sub": "0",
+      "symbol_state": "hollow"
+    }
+  ],
+
+  "rules": {
+    "A": [
+      {
+        "symbol": "B",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
+        "delta_position": {"delta_x": ["x"], "delta_y": ["y"], "delta_z": ["z"]},
+        "material": "planks",
+        "material_sub": "0",
+        "symbol_state": "hollow"
+      },
+      {
+        "symbol": "A",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
+        "delta_position": {"delta_x": ["x", "2", "sx"], "delta_y": ["y"], "delta_z": ["z"]},
+        "material": "planks",
+        "material_sub": "1",
+        "symbol_state": "hollow"
+      }
+    ]
+  },
+
+  "non-terminals" : ["A"],
+  "terminals" : ["B"]
+}

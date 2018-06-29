@@ -1,8 +1,7 @@
 
 # the input/output test files
+src/main/resources/input.json
 src/main/resources/output.json
-src/main/resources/playground.json
-src/main/resources/commands.mcfunction
 
 target/*
 
