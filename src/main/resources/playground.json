@@ -14,43 +14,23 @@
     "A": [
       {
         "symbol": "B",
-        "size": {"x": "0", "y": "0", "z": "0"},
-        "position": {"x": "0", "y": "0", "z": "0"},
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
         "delta_position": {"delta_x": ["x"], "delta_y": ["y"], "delta_z": ["z"]},
-        "material": "sandstone",
+        "material": "planks",
         "material_sub": "0",
         "symbol_state": "hollow"
       },
       {
-        "symbol": "B",
-        "size": {"x": "0", "y": "0", "z": "0"},
-        "position": {"x": "0", "y": "0", "z": "0"},
+        "symbol": "A",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
-        "delta_position": {"delta_x": ["x", "x", "2"], "delta_y": ["y"], "delta_z": ["z"]},
-        "material": "sandstone",
-        "material_sub": "0",
+        "delta_position": {"delta_x": ["x", "2", "sx"], "delta_y": ["y"], "delta_z": ["z"]},
+        "material": "planks",
+        "material_sub": "1",
         "symbol_state": "hollow"
-      },
-      {
-        "symbol": "B",
-        "size": {"x": "0", "y": "0", "z": "0"},
-        "position": {"x": "", "y": "", "z": ""},
-        "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
-        "delta_position": {"delta_x": ["x", "x", "2"], "delta_y": ["y"], "delta_z": ["z", "z", "2"]},
-        "material": "sandstone",
-        "material_sub": "1",
-        "symbol_state": ""
-      },
-      {
-        "symbol": "B",
-        "size": {"x": "0", "y": "0", "z": "0"},
-        "position": {"x": "", "y": "", "z": ""},
-        "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
-        "delta_position": {"delta_x": ["x"], "delta_y": ["y"], "delta_z": ["z", "z", "2"]},
-        "material": "sandstone",
-        "material_sub": "1",
-        "symbol_state": ""
       }
     ]
   },

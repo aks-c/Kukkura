@@ -1,4 +1,5 @@
 import Grammar.Symbol;
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -44,6 +45,8 @@ public class DerivationSystem {
     // (i.e. so that our system knows when we got a final output, composed only of terminals).
     private boolean resultContainsNT = true;
 
+    private int ITERATION_LIMIT = 5;
+
     ArrayList<Symbol> getResult() {
         return result;
     }
@@ -58,7 +61,6 @@ public class DerivationSystem {
     }
 
 
-
     /**
      * Creates a single derivation of the current result.
      */
@@ -70,15 +72,17 @@ public class DerivationSystem {
             // Symbol is Terminal: Add the Symbol itself.
             if (nonTerminals.contains(symbol.getSymbol())) {
                 ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
-
-                // for each derived symbol, we figure out what the absolute values of the delta are,
+                //ArrayList<Symbol> rulesCopy = new ArrayList<>();
+                // for each derived symbol, we figure out what the absolute values of the deltas are,
                 // then we apply them to the actual Position/Size.
                 for (Symbol result: derivation) {
-                    result.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
-                    result.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
+                    Gson gson = new Gson();
+                    Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
+                    copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
+                    copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
+                    nextSentence.add(copy);
                 }
-
-                nextSentence.addAll(derivation);
+                //nextSentence.addAll(rulesCopy);
             } else {
                 nextSentence.add(symbol);
             }
@@ -94,13 +98,14 @@ public class DerivationSystem {
      * It iteratively derives it, step by step, until the result contains only terminals.
      */
     void deriveResult() {
+        int iterations = 0;
         result.addAll(axiom);
 
-        while(resultContainsNT) {
+        while(resultContainsNT & iterations < ITERATION_LIMIT) {
             deriveSingleStep();
             resultContainsNT = sentenceContainsNT(result);
+            iterations++;
+            System.out.println(iterations);
         }
     }
-
-
 }
