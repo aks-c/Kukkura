@@ -43,7 +43,7 @@ public class Coordinates {
 
     // Boolean to avoid setting deltas more than once.
     @SerializedName("deltaIsSet")
-    boolean deltaIsSet = false;
+    private boolean deltaIsSet = false;
 
     public String getX() {
         return x;
@@ -57,15 +57,15 @@ public class Coordinates {
         return z;
     }
 
-    public ArrayList<String> getDelta_x() {
+    private ArrayList<String> getDelta_x() {
         return delta_x;
     }
 
-    public ArrayList<String> getDelta_y() {
+    private ArrayList<String> getDelta_y() {
         return delta_y;
     }
 
-    public ArrayList<String> getDelta_z() {
+    private ArrayList<String> getDelta_z() {
         return delta_z;
     }
 
@@ -93,11 +93,6 @@ public class Coordinates {
      */
     static public String applyDelta(String field, String delta) {
         int result = Integer.parseInt(field) + Integer.parseInt(delta);
-        return String.valueOf(result);
-    }
-
-    static public String applyMinus(String field) {
-        int result = Integer.parseInt(field) * -1;
         return String.valueOf(result);
     }
 

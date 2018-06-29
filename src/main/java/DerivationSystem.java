@@ -19,7 +19,7 @@ public class DerivationSystem {
     // The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from);
     // By changing it, you change the output of the derivation system.
     @SerializedName("axiom")
-    ArrayList<Symbol> axiom;
+    private ArrayList<Symbol> axiom;
 
     // This specifies the derivation rules of the system;
     // For a given symbol in the current sentence, its rule specifies what it should be replaced by.
