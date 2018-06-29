@@ -1,5 +1,6 @@
-fill ~11 ~11 ~11 ~34 ~22 ~22 sandstone 0 hollow
-fill ~0 ~0 ~0 ~0 ~0 ~0 sandstone 1 
-fill ~0 ~0 ~0 ~0 ~0 ~0 sandstone 1 
-fill ~0 ~0 ~0 ~0 ~0 ~0 sandstone 1 
-fill ~0 ~0 ~0 ~0 ~0 ~0 sandstone 1 
+fill ~10 ~10 ~10 ~20 ~20 ~20 planks 0 hollow
+fill ~22 ~10 ~10 ~32 ~20 ~20 planks 0 hollow
+fill ~34 ~10 ~10 ~44 ~20 ~20 planks 0 hollow
+fill ~46 ~10 ~10 ~56 ~20 ~20 planks 0 hollow
+fill ~58 ~10 ~10 ~68 ~20 ~20 planks 0 hollow
+fill ~70 ~10 ~10 ~80 ~20 ~20 planks 1 hollow

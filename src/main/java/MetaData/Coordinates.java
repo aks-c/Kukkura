@@ -41,6 +41,10 @@ public class Coordinates {
     @SerializedName("delta_z")
     private ArrayList<String> delta_z;
 
+    // Boolean to avoid setting deltas more than once.
+    @SerializedName("deltaIsSet")
+    boolean deltaIsSet = false;
+
     public String getX() {
         return x;
     }
@@ -65,18 +69,11 @@ public class Coordinates {
         return delta_z;
     }
 
-    /**
-     * This is for when the coordinates are relative.
-     * It turns the deltas from relative String information (stuff like "x", "sz", etc..) into actual absolute delta values.
-     * It does so with respect to the properties (i.e. size and position) of the symbol provided.
-     */
-    public void actualizeDelta(Symbol symbol) {
-        x = getDelta(x, symbol);
-        y = getDelta(y, symbol);
-        z = getDelta(z, symbol);
-    }
 
     public void setFinalCoordinates(Symbol symbol, Coordinates deltaCoordinates) {
+        if (deltaIsSet)
+            return;
+        deltaIsSet = true;
         x = setFinalValue(x, deltaCoordinates.getDelta_x(), symbol);
         y = setFinalValue(y, deltaCoordinates.getDelta_y(), symbol);
         z = setFinalValue(z, deltaCoordinates.getDelta_z(), symbol);

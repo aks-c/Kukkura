@@ -36,9 +36,13 @@ MVP 3
 - add utilities/library that converts JSON data into valid sequences of Vanilla Minecraft commands (`/fill`, etc..)
 
 MVP 4
-- add interface/GUI to easily modify the JSON input File to this system
+- add randomization/non-determinism
+- add possible limit on the number of iterations
 
 MVP 5
+- add interface/GUI to easily modify the JSON input File to this system
+
+MVP 6
 - input and output from some external sources (ie not resource folder)
 - accept command line arguments to do so
 
