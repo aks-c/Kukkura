@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by akselcakmak on 16/06/2018.
@@ -86,7 +87,22 @@ public class DerivationSystem {
     // The symbol derived are chosen following a probability distribution.
     // Note that this PD is not normalised.
     private void deriveExclusiveRule(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
-        // stuff
+        // Each Symbol has a certain weight (Higher Weight => Higher Probability of being chosen).
+        // All the weights are summed up, then a random in that range is generated.
+        // The rand falls in the area of one of the symbols.
+        // That symbol is the one chosen for the derivation.
+        int sum = 0;
+        ArrayList<Integer> thresholds = new ArrayList<>();
+        for (Symbol result: derivation) {
+            sum += result.getProbability();
+            thresholds.add(sum);
+        }
+        int indexToDerive = 0;
+        int r = new Random().nextInt(sum);
+        while (thresholds.get(indexToDerive) < r) {
+            indexToDerive++;
+        }
+        addSymbol(nextSentence, symbol, derivation.get(indexToDerive));
     }
 
     private void deriveSingleSymbol(ArrayList<Symbol> nextSentence, Symbol symbol) {
