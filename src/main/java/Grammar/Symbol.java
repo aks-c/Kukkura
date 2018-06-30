@@ -100,6 +100,15 @@ public class Symbol {
         return symbolState;
     }
 
+    public int getProbability() {
+        return probability;
+    }
+
+    public boolean isExclusiveDerivation() {
+        return exclusiveDerivation;
+    }
+
+
     /**
      * serializes the Symbol Object into a String.
      * That String can be executed as a syntactically valid command by the Minecraft interpreter
