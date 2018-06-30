@@ -1,6 +1,7 @@
 package Grammar;
 
 import MetaData.Coordinates;
+import MetaData.CoordinatesDelta;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Random;
@@ -44,10 +45,10 @@ public class Symbol {
     // To get the final position and final size of the symbol, we first take into account its absolute size/pos values,
     // then apply these deltas.
     @SerializedName("delta_size")
-    private Coordinates deltaSize;
+    private CoordinatesDelta deltaSize;
 
     @SerializedName("delta_position")
-    private Coordinates deltaPosition;
+    private CoordinatesDelta deltaPosition;
 
 
     // This following are only needed for MC.
@@ -76,11 +77,11 @@ public class Symbol {
         return position;
     }
 
-    public Coordinates getDeltaSize() {
+    public CoordinatesDelta getDeltaSize() {
         return deltaSize;
     }
 
-    public Coordinates getDeltaPosition() {
+    public CoordinatesDelta getDeltaPosition() {
         return deltaPosition;
     }
 
@@ -120,7 +121,7 @@ public class Symbol {
     }
 
     private String getSecondPosition(String field, String size){
-        return Coordinates.applyDelta(field, size);
+        return CoordinatesDelta.applyDelta(field, size);
     }
 
     public boolean shouldBeAdded() {
