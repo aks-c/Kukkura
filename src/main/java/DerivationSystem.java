@@ -60,6 +60,14 @@ public class DerivationSystem {
         return false;
     }
 
+    // Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
+    private void addSymbol(ArrayList<Symbol> nextSentence, Symbol symbol, Symbol result) {
+        Gson gson = new Gson();
+        Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
+        copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
+        copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
+        nextSentence.add(copy);
+    }
 
     // A non-exclusive rule is one where:
     // every RHS symbol can be chosen or not, independently.
@@ -68,11 +76,7 @@ public class DerivationSystem {
         for (Symbol result: derivation) {
             // only process this result if its probability of appearing is high enough.
             if (result.shouldBeAdded()) {
-                Gson gson = new Gson();
-                Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
-                copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
-                copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
-                nextSentence.add(copy);
+                addSymbol(nextSentence, symbol, result);
             }
         }
     }
@@ -113,8 +117,9 @@ public class DerivationSystem {
 
             deriveSingleSymbol(nextSentence, symbol);
         }
-        // The symbols in `result` should be replaced by their derivation;
-        // We clear it to avoid an infinite loop.
+        // When a Symbol's rule is applied (and appropriate symbols are derived), the original Symbol should be deleted.
+        // That is so as to avoid infinite loops (i.e. we avoid deriving the same symbol over and over again).
+        // Only when the result is clean do we add the next sentence with the new symbols.
         result.clear();
         result.addAll(nextSentence);
     }
