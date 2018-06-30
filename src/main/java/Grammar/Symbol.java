@@ -4,6 +4,7 @@ import MetaData.Coordinates;
 import MetaData.CoordinatesDelta;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -104,7 +105,7 @@ public class Symbol {
         return probability;
     }
 
-    public boolean isExclusiveDerivation() {
+    public boolean isExclusiveDerivation(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
         return exclusiveDerivation;
     }
 

@@ -61,6 +61,41 @@ public class DerivationSystem {
     }
 
 
+    private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
+        for (Symbol result: derivation) {
+            // only process this result if its probability of appearing is high enough.
+            if (result.shouldBeAdded()) {
+                Gson gson = new Gson();
+                Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
+                copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
+                copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
+                nextSentence.add(copy);
+            }
+        }
+    }
+
+    private void deriveExclusiveRule() {
+        // stuff
+    }
+
+    private void deriveSingleSymbol(ArrayList<Symbol> nextSentence, Symbol symbol) {
+        // Symbol is Non-Terminal: Add its RHS Derivation.
+        // Symbol is Terminal: Add the Symbol itself.
+        if (nonTerminals.contains(symbol.getSymbol())) {
+            ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
+            // we make a deep copy of each symbol we got back from the rules map.
+            // for each derived symbol, we figure out what the absolute values of the deltas are,
+            // then we apply them to the actual Position/Size.
+            if (symbol.isExclusiveDerivation(nextSentence, symbol, derivation)) {
+                deriveExclusiveRule();
+            } else {
+                deriveNonExclusiveRule(nextSentence, symbol, derivation);
+            }
+        } else {
+            nextSentence.add(symbol);
+        }
+    }
+
     /**
      * Creates a single derivation of the current result.
      * TODO: Refactor this. It's too big and this nested stuff is getting real ugly.
@@ -76,33 +111,6 @@ public class DerivationSystem {
         // We clear it to avoid an infinite loop.
         result.clear();
         result.addAll(nextSentence);
-    }
-
-    private void deriveSingleSymbol(ArrayList<Symbol> nextSentence, Symbol symbol) {
-        // Symbol is Non-Terminal: Add its RHS Derivation.
-        // Symbol is Terminal: Add the Symbol itself.
-        if (nonTerminals.contains(symbol.getSymbol())) {
-            ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
-            // we make a deep copy of each symbol we got back from the rules map.
-            // for each derived symbol, we figure out what the absolute values of the deltas are,
-            // then we apply them to the actual Position/Size.
-            if (symbol.isExclusiveDerivation()) {
-                // stuff
-            } else {
-                for (Symbol result: derivation) {
-                    // only process this result if its probability of appearing is high enough.
-                    if (result.shouldBeAdded()) {
-                        Gson gson = new Gson();
-                        Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
-                        copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
-                        copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
-                        nextSentence.add(copy);
-                    }
-                }
-            }
-        } else {
-            nextSentence.add(symbol);
-        }
     }
 
     /**
