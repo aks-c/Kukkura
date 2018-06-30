@@ -28,6 +28,14 @@ public class Symbol {
     @SerializedName("probability")
     private int probability;
 
+//    This boolean is useful to differentiate between two possible systems of
+//    randomisation one might want to use.
+//    It specifies whether the rule coming from this symbol is exclusive or
+//    not.
+//    An exclusive rule is one where: out of all the RHS symbols of the rule,
+//    only one, and exactly one is chosen.
+//    A non-exclusive rule is one where: every RHS symbol can be chosen or
+//    not, independently. (This is the current default btw).
     @SerializedName("exclusive_derivation")
     private boolean exclusiveDerivation;
 

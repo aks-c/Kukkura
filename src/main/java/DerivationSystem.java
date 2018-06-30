@@ -61,6 +61,9 @@ public class DerivationSystem {
     }
 
 
+    // A non-exclusive rule is one where:
+    // every RHS symbol can be chosen or not, independently.
+    // This does not follow any probability distribution: each symbol is handled, one by one.
     private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
         for (Symbol result: derivation) {
             // only process this result if its probability of appearing is high enough.
@@ -74,6 +77,10 @@ public class DerivationSystem {
         }
     }
 
+    // An exclusive rule is one where:
+    // out of all the RHS symbols of the rule, only one, and exactly one is chosen.
+    // The symbol derived are chosen following a probability distribution.
+    // Note that this PD is not normalised.
     private void deriveExclusiveRule() {
         // stuff
     }
@@ -97,8 +104,7 @@ public class DerivationSystem {
     }
 
     /**
-     * Creates a single derivation of the current result.
-     * TODO: Refactor this. It's too big and this nested stuff is getting real ugly.
+     * Single iteration of the Derivation System.
      */
     private void deriveSingleStep() {
         // This is a temporary List, in which we add all the RHS productions of each symbol in the current result.
@@ -115,7 +121,6 @@ public class DerivationSystem {
 
     /**
      * Computes the whole result, from the initial Axiom to one final list of Symbols.
-     * It iteratively derives it, step by step, until the result contains only terminals.
      */
     void deriveResult() {
         int iterations = 0;
