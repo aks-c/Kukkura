@@ -27,6 +27,9 @@ public class Symbol {
     @SerializedName("probability")
     private int probability;
 
+    @SerializedName("exclusive_derivation")
+    private boolean exclusiveDerivation;
+
 
     // The size and position of the symbol are not mandatory fields;
     // depending on whether the object comes from the axiom or a rule, size and position might or might not be needed.

@@ -6,7 +6,8 @@
       "position": {"x": 10, "y": 10, "z": 10},
       "material": "sandstone",
       "material_sub": "0",
-      "symbol_state": "hollow"
+      "symbol_state": "hollow",
+      "exclusive_derivation": false
     }
   ],
 
@@ -21,7 +22,8 @@
         "material": "planks",
         "material_sub": "0",
         "symbol_state": "hollow",
-        "probability": 100
+        "probability": 100,
+        "exclusive_derivation": false
       },
       {
         "symbol": "A",
@@ -32,7 +34,8 @@
         "material": "planks",
         "material_sub": "1",
         "symbol_state": "hollow",
-        "probability": 100
+        "probability": 100,
+        "exclusive_derivation": false
       }
     ]
   },
