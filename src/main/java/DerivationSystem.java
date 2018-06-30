@@ -85,7 +85,7 @@ public class DerivationSystem {
     // out of all the RHS symbols of the rule, only one, and exactly one is chosen.
     // The symbol derived are chosen following a probability distribution.
     // Note that this PD is not normalised.
-    private void deriveExclusiveRule() {
+    private void deriveExclusiveRule(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
         // stuff
     }
 
@@ -97,8 +97,8 @@ public class DerivationSystem {
             // we make a deep copy of each symbol we got back from the rules map.
             // for each derived symbol, we figure out what the absolute values of the deltas are,
             // then we apply them to the actual Position/Size.
-            if (symbol.isExclusiveDerivation(nextSentence, symbol, derivation)) {
-                deriveExclusiveRule();
+            if (symbol.isExclusiveDerivation()) {
+                deriveExclusiveRule(nextSentence, symbol, derivation);
             } else {
                 deriveNonExclusiveRule(nextSentence, symbol, derivation);
             }

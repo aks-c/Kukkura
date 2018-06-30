@@ -113,7 +113,7 @@ public class Symbol {
         return probability;
     }
 
-    public boolean isExclusiveDerivation(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
+    public boolean isExclusiveDerivation() {
         return exclusiveDerivation;
     }
 
