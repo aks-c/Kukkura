@@ -40,9 +40,13 @@ MVP 4
 - add possible limit on the number of iterations
 
 MVP 5
-- add interface/GUI to easily modify the JSON input File to this system
+- add support for random rotations
+- add support for random resizing/transformations, within some range of acceptable values
 
 MVP 6
+- add interface/GUI to easily modify the JSON input File to this system
+
+MVP 7
 - input and output from some external sources (ie not resource folder)
 - accept command line arguments to do so
 
