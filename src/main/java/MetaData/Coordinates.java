@@ -61,10 +61,10 @@ public class Coordinates {
     }
 
     private String setFinalValue(String field, ArrayList<String> deltas, Symbol symbol) {
-        field = CoordinatesDelta.getDelta(field, symbol);
+        field = CoordinatesUtility.getDelta(field, symbol);
         for (String delta : deltas) {
-            delta = CoordinatesDelta.getDelta(delta, symbol);
-            field = CoordinatesDelta.applyDelta(field, delta);
+            delta = CoordinatesUtility.getDelta(delta, symbol);
+            field = CoordinatesUtility.applyDelta(field, delta);
         }
         return field;
     }

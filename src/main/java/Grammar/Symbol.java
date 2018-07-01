@@ -2,9 +2,8 @@ package Grammar;
 
 import MetaData.Coordinates;
 import MetaData.CoordinatesDelta;
+import MetaData.CoordinatesUtility;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -128,7 +127,7 @@ public class Symbol {
     public void applyResize() {
         if (!canBeResized)
             return;
-        
+
     }
 
     /**
@@ -155,7 +154,7 @@ public class Symbol {
     }
 
     private String getSecondPosition(String field, String size){
-        return CoordinatesDelta.applyDelta(field, size);
+        return CoordinatesUtility.applyDelta(field, size);
     }
 
     public boolean shouldBeAdded() {
