@@ -2,14 +2,15 @@
   "axiom": [
     {
       "symbol": "INITIAL",
-      "size": {"x": 10, "y": 10, "z": 10},
+      "size": {"x": 10, "y": 5, "z": 2},
       "position": {"x": 10, "y": 10, "z": 10},
       "material": "sandstone",
       "material_sub": "0",
       "symbol_state": "hollow",
       "exclusive_derivation": false,
       "can_be_resized": false,
-      "resize_coefficients": {"x": 0, "y": 0, "z": 0}
+      "resize_coefficients": {"x": 0, "y": 0, "z": 0},
+      "can_be_rotated": false
     }
   ],
 
@@ -27,7 +28,8 @@
         "probability": 100,
         "exclusive_derivation": true,
         "can_be_resized": false,
-        "resize_coefficients": {"x": 0, "y": 0, "z": 0}
+        "resize_coefficients": {"x": 0, "y": 0, "z": 0},
+        "can_be_rotated": false
       },
       {
         "symbol": "A",
@@ -41,7 +43,8 @@
         "probability": 100,
         "exclusive_derivation": true,
         "can_be_resized": false,
-        "resize_coefficients": {"x": 0, "y": 0, "z": 0}
+        "resize_coefficients": {"x": 0, "y": 0, "z": 0},
+        "can_be_rotated": false
       },
       {
         "symbol": "A",
@@ -55,7 +58,8 @@
         "probability": 100,
         "exclusive_derivation": true,
         "can_be_resized": false,
-        "resize_coefficients": {"x": 0, "y": 0, "z": 0}
+        "resize_coefficients": {"x": 0, "y": 0, "z": 0},
+        "can_be_rotated": false
       }
     ],
     "A": [
@@ -70,8 +74,9 @@
         "symbol_state": "hollow",
         "probability": 100,
         "exclusive_derivation": false,
-        "can_be_resized": true,
-        "resize_coefficients": {"x": 1, "y": 1, "z": 1}
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": true
       },
       {
         "symbol": "A2",
@@ -84,8 +89,9 @@
         "symbol_state": "hollow",
         "probability": 100,
         "exclusive_derivation": false,
-        "can_be_resized": true,
-        "resize_coefficients": {"x": 1, "y": 1, "z": 1}
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": true
       },
       {
         "symbol": "A3",
@@ -98,8 +104,9 @@
         "symbol_state": "hollow",
         "probability": 100,
         "exclusive_derivation": false,
-        "can_be_resized": true,
-        "resize_coefficients": {"x": 1, "y": 1, "z": 1}
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": true
       }
     ]
   },

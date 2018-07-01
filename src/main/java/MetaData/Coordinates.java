@@ -63,6 +63,20 @@ public class Coordinates {
         return "";
     }
 
+    public void setField(CoordinatesUtility.AXIS axis, String value) {
+        switch(axis) {
+            case X:
+                setX(value);
+                break;
+            case Y:
+                setY(value);
+                break;
+            case Z:
+                setZ(value);
+                break;
+        }
+    }
+
     public void setX(String x) {
         this.x = x;
     }
@@ -73,6 +87,15 @@ public class Coordinates {
 
     public void setZ(String z) {
         this.z = z;
+    }
+
+
+    // Utility that swaps the values of two given axes.
+    // For example, it is heavily used by the Rotation functions.
+    public void swap(CoordinatesUtility.AXIS firstAxis, CoordinatesUtility.AXIS secondAxis) {
+        String temp = getField(firstAxis);
+        setField(firstAxis, getField(secondAxis));
+        setField(secondAxis, temp);
     }
 
     public void setFinalCoordinates(Symbol symbol, CoordinatesDelta deltaCoordinates) {
