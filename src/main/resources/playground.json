@@ -9,7 +9,8 @@
       "symbol_state": "hollow",
       "exclusive_derivation": false,
       "can_be_resized": false,
-      "resize_coefficients": {"x": 0, "y": 0, "z": 0}
+      "resize_coefficients": {"x": 0, "y": 0, "z": 0},
+      "can_be_rotated": false
     }
   ],
 
@@ -27,7 +28,8 @@
         "probability": 100,
         "exclusive_derivation": true,
         "can_be_resized": false,
-        "resize_coefficients": {"x": 0, "y": 0, "z": 0}
+        "resize_coefficients": {"x": 0, "y": 0, "z": 0},
+        "can_be_rotated": false
       },
       {
         "symbol": "A",
@@ -41,7 +43,8 @@
         "probability": 100,
         "exclusive_derivation": true,
         "can_be_resized": false,
-        "resize_coefficients": {"x": 0, "y": 0, "z": 0}
+        "resize_coefficients": {"x": 0, "y": 0, "z": 0},
+        "can_be_rotated": false
       },
       {
         "symbol": "A",
@@ -55,7 +58,8 @@
         "probability": 100,
         "exclusive_derivation": true,
         "can_be_resized": false,
-        "resize_coefficients": {"x": 0, "y": 0, "z": 0}
+        "resize_coefficients": {"x": 0, "y": 0, "z": 0},
+        "can_be_rotated": false
       }
     ],
     "A": [
@@ -71,7 +75,8 @@
         "probability": 100,
         "exclusive_derivation": false,
         "can_be_resized": false,
-        "resize_coefficients": {"x": 1, "y": 1, "z": 1}
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": false
       },
       {
         "symbol": "A2",
@@ -85,7 +90,8 @@
         "probability": 100,
         "exclusive_derivation": false,
         "can_be_resized": false,
-        "resize_coefficients": {"x": 1, "y": 1, "z": 1}
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": false
       },
       {
         "symbol": "A3",
@@ -99,7 +105,8 @@
         "probability": 100,
         "exclusive_derivation": false,
         "can_be_resized": false,
-        "resize_coefficients": {"x": 1, "y": 1, "z": 1}
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": false
       }
     ]
   },

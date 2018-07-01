@@ -146,11 +146,15 @@ public class Symbol {
 
     // Apply a random rotation, with respect to a random axis.
     public void applyRandomRotation() {
+        if (!canBeRotated)
+            return;
         applyRotation(AXIS.randomAxis(), ROTATION.randomRotation());
     }
 
     // Apply a random rotation, with respect to some given axis.
     public void applyRandomRotation(AXIS axis) {
+        if (!canBeRotated)
+            return;
         applyRotation(axis, ROTATION.randomRotation());
     }
 
@@ -160,6 +164,8 @@ public class Symbol {
     // TBF, all the rotations can be expressed wrt a single axis anyway (X just happens to be the most convenient);
     // The rest might be implemented later if some rotations are more naturally expressed wrt other axes.
     public void applyRotation(AXIS axis, ROTATION rotation) {
+        if (!canBeRotated)
+            return;
         switch (axis) {
             case X:
                 applyRotationX(rotation);
