@@ -40,8 +40,19 @@ public class Symbol {
     private boolean exclusiveDerivation;
 
     // Whether this symbol is allowed to be randomly resized when created by some rule.
-    @SerializedName("can_resize")
+    @SerializedName("can_be_resized")
     private boolean canBeResized;
+
+    // This holds a triplet of coefficients for the resizing.
+    // The coefficients are with respect to the size of the symbol (ie: wrt sx, sy, sz).
+    // A resizing is a modification of one of these sx, sy, sz.
+    // This Tuple denotes the possible range of said modification.
+    // For a given size field, s, the modification will be as follows: s = s + rand in [ - coef * s * 1/2; + coef * s * 1/2 ]
+    // eg: if the value for x is say 1, and x is say x=10,
+    // then the new value of x will be in between: x=10 + rand=(-5) and x=10 rand=(5).
+    // i.e. x will be in the range [5, 15].
+    @SerializedName("resize_coefficients")
+    private Coordinates resizeCoefficients;
 
     // The size and position of the symbol are not mandatory fields;
     // depending on whether the object comes from the axiom or a rule, size and position might or might not be needed.
