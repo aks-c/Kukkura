@@ -165,13 +165,13 @@ public class Symbol {
         int coefficient = Integer.parseInt(getResizeCoefficients().getField(axis));
         // By convention, if the coefficient is 0, it signifies that there should be no resize.
         if (coefficient == 0)
-            return getPosition().getField(axis);
+            return getSize().getField(axis);
 
         int sizeField = Integer.parseInt(getSize().getField(axis));
         int intervalBound = coefficient * sizeField;
         int delta = new Random().nextInt(intervalBound);
         delta -= sizeField >> 1;
-        return applyResizeToField(getPosition().getField(axis), delta);
+        return applyResizeToField(getSize().getField(axis), delta);
     }
 
     // Apply deterministic Resize to a specific field.

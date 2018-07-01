@@ -8,7 +8,8 @@
       "material_sub": "0",
       "symbol_state": "hollow",
       "exclusive_derivation": false,
-      "resizing": false
+      "can_be_resized": false,
+      "resize_coefficients": {"x": 0, "y": 0, "z": 0}
     }
   ],
 
@@ -24,31 +25,37 @@
         "material_sub": "0",
         "symbol_state": "hollow",
         "probability": 100,
-        "exclusive_derivation": true
+        "exclusive_derivation": true,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 0, "y": 0, "z": 0}
       },
       {
         "symbol": "A",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
-        "delta_position": {"delta_x": ["x", "sx", "2"], "delta_y": ["y"], "delta_z": ["z"]},
+        "delta_position": {"delta_x": ["x", "sx", "5"], "delta_y": ["y"], "delta_z": ["z"]},
         "material": "planks",
         "material_sub": "1",
         "symbol_state": "hollow",
         "probability": 100,
-        "exclusive_derivation": true
+        "exclusive_derivation": true,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 0, "y": 0, "z": 0}
       },
       {
         "symbol": "A",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
-        "delta_position": {"delta_x": ["x", "sx", "sx", "2", "2"], "delta_y": ["y"], "delta_z": ["z"]},
+        "delta_position": {"delta_x": ["x", "sx", "sx", "5", "5"], "delta_y": ["y"], "delta_z": ["z"]},
         "material": "planks",
         "material_sub": "1",
         "symbol_state": "hollow",
         "probability": 100,
-        "exclusive_derivation": true
+        "exclusive_derivation": true,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 0, "y": 0, "z": 0}
       }
     ],
     "A": [
@@ -62,7 +69,9 @@
         "material_sub": "0",
         "symbol_state": "hollow",
         "probability": 100,
-        "exclusive_derivation": false
+        "exclusive_derivation": false,
+        "can_be_resized": true,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1}
       },
       {
         "symbol": "A2",
@@ -74,7 +83,9 @@
         "material_sub": "1",
         "symbol_state": "hollow",
         "probability": 100,
-        "exclusive_derivation": false
+        "exclusive_derivation": false,
+        "can_be_resized": true,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1}
       },
       {
         "symbol": "A3",
@@ -86,7 +97,9 @@
         "material_sub": "2",
         "symbol_state": "hollow",
         "probability": 100,
-        "exclusive_derivation": false
+        "exclusive_derivation": false,
+        "can_be_resized": true,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1}
       }
     ]
   },

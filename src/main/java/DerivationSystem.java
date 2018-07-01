@@ -67,6 +67,7 @@ public class DerivationSystem {
         Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
         copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
         copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
+        copy.applyRandomResize();
         nextSentence.add(copy);
     }
 
