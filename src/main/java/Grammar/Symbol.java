@@ -3,8 +3,9 @@ package Grammar;
 import MetaData.Coordinates;
 import MetaData.CoordinatesDelta;
 import MetaData.CoordinatesUtility;
+import MetaData.CoordinatesUtility.AXIS;
+import MetaData.CoordinatesUtility.ROTATION;
 import com.google.gson.annotations.SerializedName;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.Random;
 
@@ -141,12 +142,12 @@ public class Symbol {
 
     // Apply a random rotation, with respect to a random axis.
     public void applyRandomRotation() {
-        applyRotation(CoordinatesUtility.AXIS.randomAxis(), CoordinatesUtility.ROTATION.randomRotation());
+        applyRotation(AXIS.randomAxis(), ROTATION.randomRotation());
     }
 
     // Apply a random rotation, with respect to some given axis.
-    public void applyRandomRotation(CoordinatesUtility.AXIS axis) {
-        applyRotation(axis, CoordinatesUtility.ROTATION.randomRotation());
+    public void applyRandomRotation(AXIS axis) {
+        applyRotation(axis, ROTATION.randomRotation());
     }
 
     // Applies a given rotation with respect to some given axis.
@@ -154,7 +155,7 @@ public class Symbol {
     // For now, only the X axis is supported.
     // TBF, all the rotations can be expressed wrt a single axis anyway (X just happens to be the most convenient);
     // The rest might be implemented later if some rotations are more naturally expressed wrt other axes.
-    public void applyRotation(CoordinatesUtility.AXIS axis, CoordinatesUtility.ROTATION rotation) {
+    public void applyRotation(AXIS axis, ROTATION rotation) {
         switch (axis) {
             case X:
                 applyRotationX(rotation);
@@ -164,28 +165,42 @@ public class Symbol {
         }
     }
 
-    private void applyRotationX(CoordinatesUtility.ROTATION rotation) {
-        String temp;
+    // Handles every defined Rotation, for the X axis only.
+    //
+    // RIGHT and DOWN apply the same absolute rotations as LEFT and UP respectively,
+    // (as in, the Size fields change by the same absolute values),
+    // but they change the orientation of said rotation.
+    // For example, a RIGHT rotation orients the symbol towards the viewer; i.e. it sets a negative value for sz.
+    // We want to avoid negative values of Sizes;
+    // They can and are being handled, but it just doesn't make to think about them this way IMO.
+    // So then instead of setting negative Sizes,
+    // we apply the "normal" (non-negative) rotation (i.e. LEFT or UP), then apply a negative offset to the Position,
+    // which brings about the same net effect as an actual RIGHT/DOWN rotation, without the drawback of having to deal with weird shit.
+    private void applyRotationX(ROTATION rotation) {
         switch (rotation) {
-            case LEFT:
-
+            case LEFT:  // swap sx and sz; sy unchanged;
+                getSize().swap(AXIS.X, AXIS.Z);
                 break;
-            case UP:
+            case UP:    // swap sx and sy; sz unchanged;
+                getSize().swap(AXIS.X, AXIS.Y);
                 break;
-            case RIGHT:
+            case RIGHT: // same as LEFT; also decrease z
+                applyRotationX(ROTATION.LEFT);
+                CoordinatesUtility.applyDelta(getPosition().getField(AXIS.Y), "-" + getSize().getField(AXIS.Y));
                 break;
-            case DOWN:
+            case DOWN:  // same as UP;   also decrease y
+                applyRotationX(ROTATION.UP);
+                CoordinatesUtility.applyDelta(getPosition().getField(AXIS.Z), "-" + getSize().getField(AXIS.Z));
                 break;
         }
     }
 
-    // TODO: "cleaner" way of doing this ?
     public void applyRandomResize() {
         if (!canBeResized())
             return;
-        getSize().setX(applyRandomResizeToField(CoordinatesUtility.AXIS.X));
-        getSize().setY(applyRandomResizeToField(CoordinatesUtility.AXIS.Y));
-        getSize().setZ(applyRandomResizeToField(CoordinatesUtility.AXIS.Z));
+        getSize().setX(applyRandomResizeToField(AXIS.X));
+        getSize().setY(applyRandomResizeToField(AXIS.Y));
+        getSize().setZ(applyRandomResizeToField(AXIS.Z));
     }
 
     // Apply a randomized Resize on a specific field.
@@ -200,7 +215,7 @@ public class Symbol {
     // For example, say sx= 10, coeff = 1.
     // Then the delta will belong to the following range: [-5 ; 5].
     // Then, after we actually apply the resizing, x will be in the following range: [ 5 ; 15 ].
-    private String applyRandomResizeToField(CoordinatesUtility.AXIS axis) {
+    private String applyRandomResizeToField(AXIS axis) {
         int coefficient = Integer.parseInt(getResizeCoefficients().getField(axis));
         // By convention, if the coefficient is 0, it signifies that there should be no resize.
         if (coefficient == 0)

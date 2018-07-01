@@ -37,6 +37,9 @@ public class CoordinatesUtility {
     }
 
     // Specifies what kind of rotation should be applied.
+    // How these are defined, in an intuitive way:
+    // Take the considered axis vector; position yourself on this axis, then look at its direction;
+    // Then Left/Right/etc... are defined wrt that point of view.
     public enum ROTATION {
         LEFT,
         RIGHT,
