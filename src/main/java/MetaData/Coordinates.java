@@ -49,6 +49,8 @@ public class Coordinates {
         return z;
     }
 
+    // Some methods need to get a specific field dynamically;
+    // Returns x, y, z, depending on what the AXIS passed describes.
     public String getField(CoordinatesUtility.AXIS axis) {
         switch(axis) {
             case X:
