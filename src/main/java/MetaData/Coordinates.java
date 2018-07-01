@@ -49,8 +49,10 @@ public class Coordinates {
         return z;
     }
 
-    // Some methods need to get a specific field dynamically;
-    // Returns x, y, z, depending on what the AXIS passed describes.
+    /**
+     * Some methods need to get a specific field dynamically;
+     * This returns x, y, z, depending on what the AXIS passed describes.
+     */
     public String getField(CoordinatesUtility.AXIS axis) {
         switch(axis) {
             case X:
@@ -63,6 +65,10 @@ public class Coordinates {
         return "";
     }
 
+    /**
+     * Some methods need to set a specific field dynamically;
+     * This sets x, y, z to some value, depending on what the AXIS passed describes.
+     */
     public void setField(CoordinatesUtility.AXIS axis, String value) {
         switch(axis) {
             case X:
@@ -90,14 +96,24 @@ public class Coordinates {
     }
 
 
-    // Utility that swaps the values of two given axes.
-    // For example, it is heavily used by the Rotation functions.
+    /**
+     * Utility that swaps the values of two given axes.
+     * For example, it is heavily used by the Rotation functions.
+     */
     public void swap(CoordinatesUtility.AXIS firstAxis, CoordinatesUtility.AXIS secondAxis) {
         String temp = getField(firstAxis);
         setField(firstAxis, getField(secondAxis));
         setField(secondAxis, temp);
     }
 
+    /**
+     * This is only called once.
+     * It takes all the delta fields, actualises them all, and applies all of them to this Object,
+     * to get some finalised Coordinate values.
+     * Note that those values are finalised, and not really "final";
+     * We still modify these fields with one last touch as we apply some *possible* rotations and resizing.
+     * But for all intent and purposes, the result of this is pretty much final (or very close to it).
+     */
     public void setFinalCoordinates(Symbol symbol, CoordinatesDelta deltaCoordinates) {
         if (deltaIsSet)
             return;

@@ -20,7 +20,9 @@ import java.util.Random;
 // This is why I've decided to keep this ugly duplication, for now, which will be refactored along with other stuff,
 // in the planned CleanUp PRs following this mvp5.
 public class CoordinatesUtility {
-    // Helper for some functions that need to know what axis the field they work on belongs to.
+    /**
+     * Helper for some functions that need to know what axis the field they work on belongs to.
+     */
     public enum AXIS {
         X,
         Y,
@@ -36,10 +38,12 @@ public class CoordinatesUtility {
         }
     }
 
-    // Specifies what kind of rotation should be applied.
-    // How these are defined, in an intuitive way:
-    // Take the considered axis vector; position yourself on this axis, then look at its direction;
-    // Then Left/Right/etc... are defined wrt that point of view.
+    /**
+     * Specifies what kind of rotation should be applied.
+     * How these are defined, in an intuitive way:
+     * Take the considered axis vector; position yourself on this axis, then look at its direction;
+     * Then Left/Right/etc... are defined wrt that point of view.
+     */
     public enum ROTATION {
         LEFT,
         RIGHT,

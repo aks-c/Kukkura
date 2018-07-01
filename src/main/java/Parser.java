@@ -21,7 +21,7 @@ public class Parser {
         MINECRAFT
     }
     /**
-     * This function de-serializes a specifically formatted JSON File into a DerivationSystem Object usable by us.
+     * De-serializes a specifically formatted JSON File into a DerivationSystem Object usable by us.
      */
     public static DerivationSystem getDerivationSystem(String filename) throws FileNotFoundException {
         Gson gson = new Gson();
@@ -33,7 +33,7 @@ public class Parser {
     }
 
     /**
-     * This function serializes the result we got from the DerivationSystem into a JSON File.
+     * Serializes the result we got from the DerivationSystem into a JSON File.
      */
     private static void writeToJSON(ArrayList<Symbol> result, String filename) throws IOException {
         Writer writer = new FileWriter(filename);
@@ -56,6 +56,7 @@ public class Parser {
 
     /**
      * The API of the Parser class only exposes writeResults(), and an Enum to choose the target format.
+     * Then results are only written wrt said FORMAT enum.
      */
     public static void writeResults(ArrayList<Symbol> result, String filename, Parser.FORMAT format) throws IOException {
         switch (format) {

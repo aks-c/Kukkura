@@ -89,8 +89,10 @@ public class Symbol {
     // eg: the tuple (material="planks", sub="3") represents Jungle Wood Planks.
     @SerializedName("material")
     private String material;
+
     @SerializedName("material_sub")
     private String materialSub;
+
     // Stores info about the structure represented by the symbol, like whether it's hollow or not, etc..
     @SerializedName("symbol_state")
     private String symbolState;
@@ -144,32 +146,40 @@ public class Symbol {
         return canBeResized;
     }
 
-    // Apply a random Rotation, with respect to a random Axis.
+    /**
+     * Apply a random Rotation, with respect to a random Axis.
+     */
     public void applyRandomRotation() {
         if (!canBeRotated)
             return;
         applyRotation(AXIS.randomAxis(), ROTATION.randomRotation());
     }
 
-    // Apply a given Rotation, with respect to some random Axis.
+    /**
+     * Apply a given Rotation, with respect to some random Axis.
+     */
     public void applyRandomRotation(ROTATION rotation) {
         if (!canBeRotated)
             return;
         applyRotation(AXIS.randomAxis(), rotation);
     }
 
-    // Apply a random Rotation, with respect to some given Axis.
+    /**
+     * Apply a random Rotation, with respect to some given Axis.
+     */
     public void applyRandomRotation(AXIS axis) {
         if (!canBeRotated)
             return;
         applyRotation(axis, ROTATION.randomRotation());
     }
 
-    // Applies a given Rotation with respect to some given Axis.
-    //
-    // For now, only the X Axis is supported.
-    // TBF, all the rotations can be expressed wrt a single Axis anyway (X just happens to be the most convenient);
-    // The rest might be implemented later if some Rotations are more naturally expressed wrt other axes.
+    /**
+     * Applies a given Rotation with respect to some given Axis.
+     *
+     * For now, only the X Axis is supported.
+     * TBF, all the rotations can be expressed wrt a single Axis anyway (X just happens to be the most convenient);
+     * The rest might be implemented later if some Rotations are more naturally expressed wrt other axes.
+     */
     public void applyRotation(AXIS axis, ROTATION rotation) {
         if (!canBeRotated)
             return;
@@ -183,17 +193,19 @@ public class Symbol {
         }
     }
 
-    // Handles every defined Rotation, for the X axis only.
-    //
-    // RIGHT and DOWN apply the same absolute rotations as LEFT and UP respectively,
-    // (as in, the Size fields change by the same absolute values),
-    // but they change the orientation of said rotation.
-    // For example, a RIGHT rotation orients the symbol towards the viewer; i.e. it sets a negative value for sz.
-    // We want to avoid negative values of Sizes;
-    // They can and are being handled, but it just doesn't make to think about them this way IMO.
-    // So then instead of setting negative Sizes,
-    // we apply the "normal" (non-negative) rotation (i.e. LEFT or UP), then apply a negative offset to the Position,
-    // which brings about the same net effect as an actual RIGHT/DOWN rotation, without the drawback of having to deal with weird shit.
+    /**
+     *  Handles every defined Rotation, for the X axis only.
+     *
+     *  RIGHT and DOWN apply the same absolute rotations as LEFT and UP respectively,
+     *  (as in, the Size fields change by the same absolute values),
+     *  but they change the orientation of said rotation.
+     *  For example, a RIGHT rotation orients the symbol towards the viewer; i.e. it sets a negative value for sz.
+     *  We want to avoid negative values of Sizes;
+     *  They can and are being handled, but it just doesn't make to think about them this way IMO.
+     *  So then instead of setting negative Sizes,
+     *  we apply the "normal" (non-negative) rotation (i.e. LEFT or UP), then apply a negative offset to the Position,
+     *  which brings about the same net effect as an actual RIGHT/DOWN rotation, without the drawback of having to deal with weird shit.
+     */
     private void applyRotationX(ROTATION rotation) {
         switch (rotation) {
             case LEFT:  // swap sx and sz; sy unchanged;
@@ -223,18 +235,20 @@ public class Symbol {
         getSize().setZ(applyRandomResizeToField(AXIS.Z));
     }
 
-    // Apply a randomized Resize on a specific field.
-    //
-    // We want to modify some field.
-    // We apply some random resizing to it, but this resizing needs to be within some defined range.
-    // Call that resizing `delta`.
-    // We define the range delta belongs to, using:
-    // (1) The appropriate coefficient in the ResizeCoefficients triple
-    // (2) The size of our symbol
-    // We want the delta to belong in the following range: [ - coeff * size * 1/2 ; + coeff * size * 1/2 ].
-    // For example, say sx= 10, coeff = 1.
-    // Then the delta will belong to the following range: [-5 ; 5].
-    // Then, after we actually apply the resizing, x will be in the following range: [ 5 ; 15 ].
+    /**
+     * Apply a randomized Resize on a specific field.
+     *
+     * We want to modify some field.
+     * We apply some random resizing to it, but this resizing needs to be within some defined range.
+     * Call that resizing `delta`.
+     * We define the range delta belongs to, using:
+     * (1) The appropriate coefficient in the ResizeCoefficients triple
+     * (2) The size of our symbol
+     * We want the delta to belong in the following range: [ - coeff * size * 1/2 ; + coeff * size * 1/2 ].
+     * For example, say sx= 10, coeff = 1.
+     * Then the delta will belong to the following range: [-5 ; 5].
+     * Then, after we actually apply the resizing, x will be in the following range: [ 5 ; 15 ].
+     */
     private String applyRandomResizeToField(AXIS axis) {
         int coefficient = Integer.parseInt(getResizeCoefficients().getField(axis));
         // By convention, if the coefficient is 0, it signifies that there should be no resize.
@@ -248,15 +262,17 @@ public class Symbol {
         return applyResizeToField(getSize().getField(axis), delta);
     }
 
-    // Apply deterministic Resize to a specific field.
+    /**
+     * Apply deterministic Resize to a specific field.
+     */
     private String applyResizeToField(String field, int delta) {
         return CoordinatesUtility.applyDelta(field, delta);
     }
 
     /**
-     * serializes the Symbol Object into a String.
-     * That String can be executed as a syntactically valid command by the Minecraft interpreter
-     * (to create the structure associated with our symbol in the game).
+     * Serializes the Symbol Object into a String.
+     * That String can be executed as a syntactically valid command by the Minecraft interpreter.
+     * (in order to create the structure associated with our symbol in the game).
      */
     public String getAsMinecraftCommand() {
         Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());
@@ -280,9 +296,11 @@ public class Symbol {
         return CoordinatesUtility.applyDelta(field, size);
     }
 
-    // Used only when the derivation rule is Inclusive.
-    // In that situation, every symbol is processed independently, one by one.
-    // Then, a particular symbol should be added iff its weight/probability is high enough.
+    /**
+     * Used only when the derivation rule is Inclusive.
+     * In that situation, every symbol is processed independently, one by one.
+     * Then, a particular symbol should be added iff its weight/probability is high enough.
+     */
     public boolean shouldBeAdded() {
         // the higher the probability, the higher the chance that (r < probability).
         int r = new Random().nextInt(100);

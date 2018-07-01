@@ -61,7 +61,9 @@ public class DerivationSystem {
         return false;
     }
 
-    // Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
+    /**
+     * Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
+     */
     private void addSymbol(ArrayList<Symbol> nextSentence, Symbol symbol, Symbol result) {
         Gson gson = new Gson();
         Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
@@ -72,9 +74,11 @@ public class DerivationSystem {
         nextSentence.add(copy);
     }
 
-    // A non-exclusive rule is one where:
-    // every RHS symbol can be chosen or not, independently.
-    // This does not follow any probability distribution: each symbol is handled, one by one.
+    /**
+     * A non-exclusive rule is one where:
+     * Every RHS symbol can be chosen or not, independently.
+     * This does not follow any probability distribution: each symbol is handled, one by one.
+     */
     private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
         for (Symbol result: derivation) {
             // only process this result if its probability of appearing is high enough.
@@ -84,10 +88,12 @@ public class DerivationSystem {
         }
     }
 
-    // An exclusive rule is one where:
-    // out of all the RHS symbols of the rule, only one, and exactly one is chosen.
-    // The symbol derived are chosen following a probability distribution.
-    // Note that this PD is not normalised.
+    /**
+     * An exclusive rule is one where:
+     * Out of all the RHS symbols of the rule, only one, and exactly one is chosen.
+     * The symbol derived are chosen following a probability distribution.
+     * Note that this PD is not normalised.
+     */
     private void deriveExclusiveRule(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
         // Each Symbol has a certain weight (Higher Weight => Higher Probability of being chosen).
         // All the weights are summed up, then a random in that range is generated.
@@ -127,6 +133,9 @@ public class DerivationSystem {
 
     /**
      * Single iteration of the Derivation System.
+     * Note an important point: an single iteration is not synonymous with a single derivation;
+     * An iteration is intuitively defined as: a single step where all current non-terminals in the system derive once.
+     * Then, most of the time, several derivations happen in a single iteration.
      */
     private void deriveSingleStep() {
         // This is a temporary List, in which we add all the RHS productions of each symbol in the current result.
