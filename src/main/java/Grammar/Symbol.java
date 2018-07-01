@@ -178,6 +178,7 @@ public class Symbol {
                 applyRotationX(rotation);
                 break;
             default:
+                applyRotationX(rotation);
                 break;
         }
     }
