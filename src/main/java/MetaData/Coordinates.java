@@ -49,6 +49,18 @@ public class Coordinates {
         return z;
     }
 
+    public String getField(CoordinatesUtility.AXIS axis) {
+        switch(axis) {
+            case X:
+                return getX();
+            case Y:
+                return getY();
+            case Z:
+                return getZ();
+        }
+        return "";
+    }
+
     public void setX(String x) {
         this.x = x;
     }
