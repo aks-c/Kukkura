@@ -2,9 +2,10 @@ package Grammar;
 
 import MetaData.Coordinates;
 import MetaData.CoordinatesDelta;
+import MetaData.CoordinatesUtility;
 import com.google.gson.annotations.SerializedName;
+import com.sun.xml.internal.bind.v2.TODO;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -20,25 +21,38 @@ public class Symbol {
 
     // Some rules might have this symbol in their RHS.
     // This denotes the probability that the symbol will actually end up being added to the final result.
-    // A probability is encoded as a number in [0-100] (inclusive).
+    // For Inclusive Rules: The probability is encoded as a number in [0-100].
+    // For Exclusive Rules: The field is interpreted as an integer weight:
+    // The higher the weight, the higher the chance that this would be the symbol chosen.
     // It's not a float because:
-    // (1) It doesn't need to be a float in our specific limited use case
-    // (2) I don't want to add unnecessary complexity
-    // (and I'd also surmise it'd be faster this way, although tbf at this stage of development idc yet)
+    // (1) It doesn't need to be a float in our specific limited use case.
+    // (2) I don't want to add unnecessary complexity.
+    // (and I'd also surmise it'd be faster this way, although tbf at this stage of development idc yet).
+    // (3) Turns out that in the context of exclusive rules, an int field just makes a lot more sense.
     @SerializedName("probability")
     private int probability;
 
-//    This boolean is useful to differentiate between two possible systems of
-//    randomisation one might want to use.
-//    It specifies whether the rule coming from this symbol is exclusive or
-//    not.
-//    An exclusive rule is one where: out of all the RHS symbols of the rule,
-//    only one, and exactly one is chosen.
-//    A non-exclusive rule is one where: every RHS symbol can be chosen or
-//    not, independently. (This is the current default btw).
+    // This boolean is useful to differentiate between two possible systems of randomisation one might want to use.
+    // It specifies whether the rule coming from this symbol is exclusive or not.
+    // An exclusive rule is one where: out of all the RHS symbols of the rule, only one, and exactly one is chosen.
+    // A non-exclusive rule is one where: every RHS symbol can be chosen or not, independently. (This is the current default btw).
     @SerializedName("exclusive_derivation")
     private boolean exclusiveDerivation;
 
+    // Whether this symbol is allowed to be randomly resized when created by some rule.
+    @SerializedName("can_be_resized")
+    private boolean canBeResized;
+
+    // This holds a triplet of coefficients for the resizing.
+    // The coefficients are with respect to the size of the symbol (ie: wrt sx, sy, sz).
+    // A resizing is a modification of one of these sx, sy, sz.
+    // This Tuple denotes the possible range of said modification.
+    // For a given size field, s, the modification will be as follows: s = s + rand in [ - coef * s * 1/2; + coef * s * 1/2 ]
+    // eg: if the value for x is say 1, and x is say x=10,
+    // then the new value of x will be in between: x=10 + rand=(-5) and x=10 rand=(5).
+    // i.e. x will be in the range [5, 15].
+    @SerializedName("resize_coefficients")
+    private Coordinates resizeCoefficients;
 
     // The size and position of the symbol are not mandatory fields;
     // depending on whether the object comes from the axiom or a rule, size and position might or might not be needed.
@@ -72,7 +86,7 @@ public class Symbol {
     private String material;
     @SerializedName("material_sub")
     private String materialSub;
-    // `material_state` stores info about the structure represented by the symbol, like whether it's hollow or not, etc..
+    // Stores info about the structure represented by the symbol, like whether it's hollow or not, etc..
     @SerializedName("symbol_state")
     private String symbolState;
 
@@ -113,10 +127,57 @@ public class Symbol {
         return probability;
     }
 
+    public Coordinates getResizeCoefficients() {
+        return resizeCoefficients;
+    }
+
     public boolean isExclusiveDerivation() {
         return exclusiveDerivation;
     }
 
+    public boolean canBeResized() {
+        return canBeResized;
+    }
+
+
+    // TODO: "cleaner" way of doing this ?
+    public void applyRandomResize() {
+        if (!canBeResized)
+            return;
+        getSize().setX(applyRandomResizeToField(CoordinatesUtility.AXIS.X));
+        getSize().setY(applyRandomResizeToField(CoordinatesUtility.AXIS.Y));
+        getSize().setZ(applyRandomResizeToField(CoordinatesUtility.AXIS.Z));
+    }
+
+    // Apply a randomized Resize on a specific field.
+    //
+    // We want to modify some field.
+    // We apply some random resizing to it, but this resizing needs to be within some defined range.
+    // Call that resizing `delta`.
+    // We define the range delta belongs to, using:
+    // (1) The appropriate coefficient in the ResizeCoefficients triple
+    // (2) The size of our symbol
+    // We want the delta to belong in the following range: [ - coeff * size * 1/2 ; + coeff * size * 1/2 ].
+    // For example, say sx= 10, coeff = 1.
+    // Then the delta will belong to the following range: [-5 ; 5].
+    // Then, after we actually apply the resizing, x will be in the following range: [ 5 ; 15 ].
+    private String applyRandomResizeToField(CoordinatesUtility.AXIS axis) {
+        int coefficient = Integer.parseInt(getResizeCoefficients().getField(axis));
+        // By convention, if the coefficient is 0, it signifies that there should be no resize.
+        if (coefficient == 0)
+            return getSize().getField(axis);
+
+        int sizeField = Integer.parseInt(getSize().getField(axis));
+        int intervalBound = coefficient * sizeField;
+        int delta = new Random().nextInt(intervalBound);
+        delta -= sizeField >> 1;
+        return applyResizeToField(getSize().getField(axis), delta);
+    }
+
+    // Apply deterministic Resize to a specific field.
+    private String applyResizeToField(String field, int delta) {
+        return CoordinatesUtility.applyDelta(field, delta);
+    }
 
     /**
      * serializes the Symbol Object into a String.
@@ -142,7 +203,7 @@ public class Symbol {
     }
 
     private String getSecondPosition(String field, String size){
-        return CoordinatesDelta.applyDelta(field, size);
+        return CoordinatesUtility.applyDelta(field, size);
     }
 
     public boolean shouldBeAdded() {

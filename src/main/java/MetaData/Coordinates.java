@@ -49,7 +49,31 @@ public class Coordinates {
         return z;
     }
 
+    // Some methods need to get a specific field dynamically;
+    // Returns x, y, z, depending on what the AXIS passed describes.
+    public String getField(CoordinatesUtility.AXIS axis) {
+        switch(axis) {
+            case X:
+                return getX();
+            case Y:
+                return getY();
+            case Z:
+                return getZ();
+        }
+        return "";
+    }
 
+    public void setX(String x) {
+        this.x = x;
+    }
+
+    public void setY(String y) {
+        this.y = y;
+    }
+
+    public void setZ(String z) {
+        this.z = z;
+    }
 
     public void setFinalCoordinates(Symbol symbol, CoordinatesDelta deltaCoordinates) {
         if (deltaIsSet)
@@ -61,10 +85,10 @@ public class Coordinates {
     }
 
     private String setFinalValue(String field, ArrayList<String> deltas, Symbol symbol) {
-        field = CoordinatesDelta.getDelta(field, symbol);
+        field = CoordinatesUtility.getDelta(field, symbol);
         for (String delta : deltas) {
-            delta = CoordinatesDelta.getDelta(delta, symbol);
-            field = CoordinatesDelta.applyDelta(field, delta);
+            delta = CoordinatesUtility.getDelta(delta, symbol);
+            field = CoordinatesUtility.applyDelta(field, delta);
         }
         return field;
     }
