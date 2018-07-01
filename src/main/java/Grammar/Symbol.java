@@ -139,9 +139,23 @@ public class Symbol {
         return canBeResized;
     }
 
+    public void applyRandomRotation(CoordinatesUtility.AXIS axis) {
 
-public void applyRandomRotation(CoordinatesUtility.AXIS axis, CoordinatesUtility.ROTATION rotation) {
+    }
 
+    // Applies a rotation with respect to some given axis.
+    //
+    // For now, only the X axis is supported.
+    // TBF, all the rotations can be expressed wrt a single axis anyway (X just happens to be the most convenient);
+    // The rest might be implemented later if some rotations are more naturally expressed wrt other axes.
+    public void applyRotation(CoordinatesUtility.AXIS axis, CoordinatesUtility.ROTATION rotation) {
+        switch (axis) {
+            case X:
+
+                break;
+            default:
+                break;
+        }
     }
 
     // TODO: "cleaner" way of doing this ?
