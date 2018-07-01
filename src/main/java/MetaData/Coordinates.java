@@ -49,7 +49,54 @@ public class Coordinates {
         return z;
     }
 
+    // Some methods need to get a specific field dynamically;
+    // Returns x, y, z, depending on what the AXIS passed describes.
+    public String getField(CoordinatesUtility.AXIS axis) {
+        switch(axis) {
+            case X:
+                return getX();
+            case Y:
+                return getY();
+            case Z:
+                return getZ();
+        }
+        return "";
+    }
 
+    public void setField(CoordinatesUtility.AXIS axis, String value) {
+        switch(axis) {
+            case X:
+                setX(value);
+                break;
+            case Y:
+                setY(value);
+                break;
+            case Z:
+                setZ(value);
+                break;
+        }
+    }
+
+    public void setX(String x) {
+        this.x = x;
+    }
+
+    public void setY(String y) {
+        this.y = y;
+    }
+
+    public void setZ(String z) {
+        this.z = z;
+    }
+
+
+    // Utility that swaps the values of two given axes.
+    // For example, it is heavily used by the Rotation functions.
+    public void swap(CoordinatesUtility.AXIS firstAxis, CoordinatesUtility.AXIS secondAxis) {
+        String temp = getField(firstAxis);
+        setField(firstAxis, getField(secondAxis));
+        setField(secondAxis, temp);
+    }
 
     public void setFinalCoordinates(Symbol symbol, CoordinatesDelta deltaCoordinates) {
         if (deltaIsSet)
@@ -61,10 +108,10 @@ public class Coordinates {
     }
 
     private String setFinalValue(String field, ArrayList<String> deltas, Symbol symbol) {
-        field = CoordinatesDelta.getDelta(field, symbol);
+        field = CoordinatesUtility.getDelta(field, symbol);
         for (String delta : deltas) {
-            delta = CoordinatesDelta.getDelta(delta, symbol);
-            field = CoordinatesDelta.applyDelta(field, delta);
+            delta = CoordinatesUtility.getDelta(delta, symbol);
+            field = CoordinatesUtility.applyDelta(field, delta);
         }
         return field;
     }

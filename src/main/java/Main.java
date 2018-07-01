@@ -41,6 +41,7 @@ MVP 4
 
 MVP 5
 - add support for random rotations
+- add support for random repositioning
 - add support for random resizing/transformations, within some range of acceptable values
 
 MVP 6
