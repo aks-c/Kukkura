@@ -140,9 +140,9 @@ public class Symbol {
     public void applyRandomResize() {
         if (!canBeResized)
             return;
-        getPosition().setX(applyRandomResizeToField(getPosition().getX()));
-        getPosition().setY(applyRandomResizeToField(getPosition().getY()));
-        getPosition().setZ(applyRandomResizeToField(getPosition().getZ()));
+        getSize().setX(applyRandomResizeToField(getSize().getX()));
+        getSize().setY(applyRandomResizeToField(getSize().getY()));
+        getSize().setZ(applyRandomResizeToField(getSize().getZ()));
     }
 
     // TODO: generate the random delta within range to apply
