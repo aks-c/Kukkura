@@ -55,6 +55,10 @@ public class Symbol {
     @SerializedName("resize_coefficients")
     private Coordinates resizeCoefficients;
 
+    // Whether this symbol is allowed to be randomly rotated when created by some rule.
+    @SerializedName("can_be_rotated")
+    private boolean canBeRotated;
+
     // The size and position of the symbol are not mandatory fields;
     // depending on whether the object comes from the axiom or a rule, size and position might or might not be needed.
     // Also, these are absolute values.
