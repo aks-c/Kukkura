@@ -157,9 +157,24 @@ public class Symbol {
     public void applyRotation(CoordinatesUtility.AXIS axis, CoordinatesUtility.ROTATION rotation) {
         switch (axis) {
             case X:
-
+                applyRotationX(rotation);
                 break;
             default:
+                break;
+        }
+    }
+
+    private void applyRotationX(CoordinatesUtility.ROTATION rotation) {
+        String temp;
+        switch (rotation) {
+            case LEFT:
+                
+                break;
+            case UP:
+                break;
+            case RIGHT:
+                break;
+            case DOWN:
                 break;
         }
     }
