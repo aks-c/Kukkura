@@ -139,11 +139,17 @@ public class Symbol {
         return canBeResized;
     }
 
-    public void applyRandomRotation(CoordinatesUtility.AXIS axis) {
-
+    // Apply a random rotation, with respect to a random axis.
+    public void applyRandomRotation() {
+        applyRotation(CoordinatesUtility.AXIS.randomAxis(), CoordinatesUtility.ROTATION.randomRotation());
     }
 
-    // Applies a rotation with respect to some given axis.
+    // Apply a random rotation, with respect to some given axis.
+    public void applyRandomRotation(CoordinatesUtility.AXIS axis) {
+        applyRotation(axis, CoordinatesUtility.ROTATION.randomRotation());
+    }
+
+    // Applies a given rotation with respect to some given axis.
     //
     // For now, only the X axis is supported.
     // TBF, all the rotations can be expressed wrt a single axis anyway (X just happens to be the most convenient);
