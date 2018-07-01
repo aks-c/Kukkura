@@ -144,25 +144,32 @@ public class Symbol {
         return canBeResized;
     }
 
-    // Apply a random rotation, with respect to a random axis.
+    // Apply a random Rotation, with respect to a random Axis.
     public void applyRandomRotation() {
         if (!canBeRotated)
             return;
         applyRotation(AXIS.randomAxis(), ROTATION.randomRotation());
     }
 
-    // Apply a random rotation, with respect to some given axis.
+    // Apply a given Rotation, with respect to some random Axis.
+    public void applyRandomRotation(ROTATION rotation) {
+        if (!canBeRotated)
+            return;
+        applyRotation(AXIS.randomAxis(), rotation);
+    }
+
+    // Apply a random Rotation, with respect to some given Axis.
     public void applyRandomRotation(AXIS axis) {
         if (!canBeRotated)
             return;
         applyRotation(axis, ROTATION.randomRotation());
     }
 
-    // Applies a given rotation with respect to some given axis.
+    // Applies a given Rotation with respect to some given Axis.
     //
-    // For now, only the X axis is supported.
-    // TBF, all the rotations can be expressed wrt a single axis anyway (X just happens to be the most convenient);
-    // The rest might be implemented later if some rotations are more naturally expressed wrt other axes.
+    // For now, only the X Axis is supported.
+    // TBF, all the rotations can be expressed wrt a single Axis anyway (X just happens to be the most convenient);
+    // The rest might be implemented later if some Rotations are more naturally expressed wrt other axes.
     public void applyRotation(AXIS axis, ROTATION rotation) {
         if (!canBeRotated)
             return;
