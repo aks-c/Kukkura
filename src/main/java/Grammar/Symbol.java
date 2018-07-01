@@ -168,7 +168,7 @@ public class Symbol {
         String temp;
         switch (rotation) {
             case LEFT:
-                
+
                 break;
             case UP:
                 break;

@@ -63,6 +63,20 @@ public class Coordinates {
         return "";
     }
 
+    public void setField(CoordinatesUtility.AXIS axis, String value) {
+        switch(axis) {
+            case X:
+                setX(value);
+                break;
+            case Y:
+                setY(value);
+                break;
+            case Z:
+                setZ(value);
+                break;
+        }
+    }
+
     public void setX(String x) {
         this.x = x;
     }
@@ -74,6 +88,13 @@ public class Coordinates {
     public void setZ(String z) {
         this.z = z;
     }
+
+
+
+//    public void swap(CoordinatesUtility.AXIS firstValue, CoordinatesUtility.AXIS secondValue) {
+//        String temp = getField(firstValue);
+//        getField(secondValue)
+//    }
 
     public void setFinalCoordinates(Symbol symbol, CoordinatesDelta deltaCoordinates) {
         if (deltaIsSet)
