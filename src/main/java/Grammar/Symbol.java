@@ -142,7 +142,7 @@ public class Symbol {
 
     // TODO: "cleaner" way of doing this ?
     public void applyRandomResize() {
-        if (!canBeResized)
+        if (!canBeResized())
             return;
         getSize().setX(applyRandomResizeToField(CoordinatesUtility.AXIS.X));
         getSize().setY(applyRandomResizeToField(CoordinatesUtility.AXIS.Y));
@@ -206,6 +206,9 @@ public class Symbol {
         return CoordinatesUtility.applyDelta(field, size);
     }
 
+    // Used only when the derivation rule is Inclusive.
+    // In that situation, every symbol is processed independently, one by one.
+    // Then, a particular symbol should be added iff its weight/probability is high enough.
     public boolean shouldBeAdded() {
         // the higher the probability, the higher the chance that (r < probability).
         int r = new Random().nextInt(100);
