@@ -140,6 +140,10 @@ public class Symbol {
     }
 
 
+public void applyRandomRotation(CoordinatesUtility.AXIS axis, CoordinatesUtility.ROTATION rotation) {
+
+    }
+
     // TODO: "cleaner" way of doing this ?
     public void applyRandomResize() {
         if (!canBeResized())

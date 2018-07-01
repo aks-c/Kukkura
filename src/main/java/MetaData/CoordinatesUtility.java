@@ -17,6 +17,14 @@ public class CoordinatesUtility {
         Z
     }
 
+    // Specifies what kind of rotation should be applied.
+    public enum ROTATION {
+        LEFT,
+        RIGHT,
+        UP,
+        DOWN
+    }
+
     /**
      * Applies a delta to a single field.
      */
