@@ -124,6 +124,13 @@ public class Symbol {
 
 
 
+    public void applyRandomResize() {
+        if (!canBeResized)
+            return;
+        applyResize();
+
+    }
+
     public void applyResize() {
         if (!canBeResized)
             return;
