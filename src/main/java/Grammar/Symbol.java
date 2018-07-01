@@ -127,6 +127,10 @@ public class Symbol {
         return probability;
     }
 
+    public Coordinates getResizeCoefficients() {
+        return resizeCoefficients;
+    }
+
     public boolean isExclusiveDerivation() {
         return exclusiveDerivation;
     }
@@ -148,6 +152,7 @@ public class Symbol {
     // TODO: generate the random delta within range to apply
     // Apply randomized Resize on a specific field.
     private String applyRandomResizeToField(String field) {
+        //int coefficient = getResizeCoefficients().getField(axis) or smthing similar
         int intervalOffset = 0;
         // stuff here
         return applyResizeToField(field, intervalOffset);
