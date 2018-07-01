@@ -90,11 +90,13 @@ public class Coordinates {
     }
 
 
-
-//    public void swap(CoordinatesUtility.AXIS firstValue, CoordinatesUtility.AXIS secondValue) {
-//        String temp = getField(firstValue);
-//        getField(secondValue)
-//    }
+    // Utility that swaps the values of two given axes.
+    // For example, it is heavily used by the Rotation functions.
+    public void swap(CoordinatesUtility.AXIS firstAxis, CoordinatesUtility.AXIS secondAxis) {
+        String temp = getField(firstAxis);
+        setField(firstAxis, getField(secondAxis));
+        setField(secondAxis, temp);
+    }
 
     public void setFinalCoordinates(Symbol symbol, CoordinatesDelta deltaCoordinates) {
         if (deltaIsSet)
