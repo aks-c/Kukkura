@@ -49,7 +49,17 @@ public class Coordinates {
         return z;
     }
 
+    public void setX(String x) {
+        this.x = x;
+    }
 
+    public void setY(String y) {
+        this.y = y;
+    }
+
+    public void setZ(String z) {
+        this.z = z;
+    }
 
     public void setFinalCoordinates(Symbol symbol, CoordinatesDelta deltaCoordinates) {
         if (deltaIsSet)

@@ -4,6 +4,8 @@ import MetaData.Coordinates;
 import MetaData.CoordinatesDelta;
 import MetaData.CoordinatesUtility;
 import com.google.gson.annotations.SerializedName;
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.Random;
 
 /**
@@ -123,18 +125,26 @@ public class Symbol {
     }
 
 
-
+    // TODO: "cleaner" way of doing this ?
     public void applyRandomResize() {
         if (!canBeResized)
             return;
-        applyResize();
-
+        getPosition().setX(applyRandomResizeToField(getPosition().getX()));
+        getPosition().setY(applyRandomResizeToField(getPosition().getY()));
+        getPosition().setZ(applyRandomResizeToField(getPosition().getZ()));
     }
 
-    public void applyResize() {
-        if (!canBeResized)
-            return;
+    // TODO: generate the random delta within range to apply
+    // Apply randomized Resize on a specific field.
+    private String applyRandomResizeToField(String field) {
+        int intervalOffset = 0;
+        // stuff here
+        return applyResizeToField(field, intervalOffset);
+    }
 
+    // Apply deterministic Resize to a specific field.
+    private String applyResizeToField(String field, int delta) {
+        return CoordinatesUtility.applyDelta(field, delta);
     }
 
     /**

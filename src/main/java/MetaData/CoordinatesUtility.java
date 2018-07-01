@@ -18,6 +18,10 @@ public class CoordinatesUtility {
         return String.valueOf(result);
     }
 
+    static public String applyDelta(String field, int delta) {
+        return applyDelta(field, String.valueOf(delta));
+    }
+
     /**
      * Deltas are applied relative to something: the value of a specific field inside the Coordinate of a symbol.
      * This function retrieves the value of the appropriate field, from the base symbol,
