@@ -20,25 +20,27 @@ public class Symbol {
 
     // Some rules might have this symbol in their RHS.
     // This denotes the probability that the symbol will actually end up being added to the final result.
-    // A probability is encoded as a number in [0-100] (inclusive).
+    // For Inclusive Rules: The probability is encoded as a number in [0-100].
+    // For Exclusive Rules: The field is interpreted as an integer weight:
+    // The higher the weight, the higher the chance that this would be the symbol chosen.
     // It's not a float because:
-    // (1) It doesn't need to be a float in our specific limited use case
-    // (2) I don't want to add unnecessary complexity
-    // (and I'd also surmise it'd be faster this way, although tbf at this stage of development idc yet)
+    // (1) It doesn't need to be a float in our specific limited use case.
+    // (2) I don't want to add unnecessary complexity.
+    // (and I'd also surmise it'd be faster this way, although tbf at this stage of development idc yet).
+    // (3) Turns out that in the context of exclusive rules, an int field just makes a lot more sense.
     @SerializedName("probability")
     private int probability;
 
-//    This boolean is useful to differentiate between two possible systems of
-//    randomisation one might want to use.
-//    It specifies whether the rule coming from this symbol is exclusive or
-//    not.
-//    An exclusive rule is one where: out of all the RHS symbols of the rule,
-//    only one, and exactly one is chosen.
-//    A non-exclusive rule is one where: every RHS symbol can be chosen or
-//    not, independently. (This is the current default btw).
+    // This boolean is useful to differentiate between two possible systems of randomisation one might want to use.
+    // It specifies whether the rule coming from this symbol is exclusive or not.
+    // An exclusive rule is one where: out of all the RHS symbols of the rule, only one, and exactly one is chosen.
+    // A non-exclusive rule is one where: every RHS symbol can be chosen or not, independently. (This is the current default btw).
     @SerializedName("exclusive_derivation")
     private boolean exclusiveDerivation;
 
+    // Whether this symbol is allowed to be randomly resized when created by some rule.
+    @SerializedName("can_resize")
+    private boolean canBeResized;
 
     // The size and position of the symbol are not mandatory fields;
     // depending on whether the object comes from the axiom or a rule, size and position might or might not be needed.
@@ -115,6 +117,10 @@ public class Symbol {
 
     public boolean isExclusiveDerivation() {
         return exclusiveDerivation;
+    }
+
+    public boolean canBeResized() {
+        return canBeResized;
     }
 
 

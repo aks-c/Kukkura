@@ -130,7 +130,6 @@ public class DerivationSystem {
         // This is a temporary List, in which we add all the RHS productions of each symbol in the current result.
         ArrayList<Symbol> nextSentence = new ArrayList<>();
         for (Symbol symbol: result) {
-
             deriveSingleSymbol(nextSentence, symbol);
         }
         // When a Symbol's rule is applied (and appropriate symbols are derived), the original Symbol should be deleted.
