@@ -10,6 +10,13 @@ import Grammar.Symbol;
  * For now, they're all in this Utility kind of class, until a better refactor is found.
  */
 public class CoordinatesUtility {
+    // Helper for some functions that need to know what axis the field they work on belongs to.
+    public enum AXIS {
+        X,
+        Y,
+        Z
+    }
+
     /**
      * Applies a delta to a single field.
      */
