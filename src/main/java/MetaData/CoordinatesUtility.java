@@ -14,6 +14,11 @@ import java.util.Random;
  * They're all used to modify in one way or the other the Coordinates of a certain Symbol, but none of them truly belongs to any of those classes.
  * For now, they're all in this Utility kind of class, until a better refactor is found.
  */
+// TODO: Refactor the common behaviour of the two enums and the random field selection.
+// I tried a bunch of things that didn't work; well (1) I don't want to stop the progress rn,
+// and (2) I know this specific behaviour won't be changed.
+// This is why I've decided to keep this ugly duplication, for now, which will be refactored along with other stuff,
+// in the planned CleanUp PRs following this mvp5.
 public class CoordinatesUtility {
     // Helper for some functions that need to know what axis the field they work on belongs to.
     public enum AXIS {
@@ -26,7 +31,7 @@ public class CoordinatesUtility {
         private static final Random RANDOM = new Random();
         // Sometimes when applying a random Rotation, we want to apply wrt a random axis too.
         // That's when this function is used.
-        public static AXIS randomAxis()  {
+        public static AXIS randomAxis() {
             return VALUES.get(RANDOM.nextInt(SIZE));
         }
     }
@@ -36,8 +41,19 @@ public class CoordinatesUtility {
         LEFT,
         RIGHT,
         UP,
-        DOWN
+        DOWN;
+        // Hold the values() of this enum in a final immutable list that can then be used to return a random field from the enum.
+        private static final List<ROTATION> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
+        private static final int SIZE = VALUES.size();
+        private static final Random RANDOM = new Random();
+        // Sometimes when applying a random Rotation, we want to apply wrt a random axis too.
+        // That's when this function is used.
+        public static ROTATION randomRotation() {
+            return VALUES.get(RANDOM.nextInt(SIZE));
+        }
     }
+
+
 
     /**
      * Applies a delta to a single field.
