@@ -144,18 +144,18 @@ public class Symbol {
     public void applyRandomResize() {
         if (!canBeResized)
             return;
-        getSize().setX(applyRandomResizeToField(getSize().getX()));
-        getSize().setY(applyRandomResizeToField(getSize().getY()));
-        getSize().setZ(applyRandomResizeToField(getSize().getZ()));
+        getSize().setX(applyRandomResizeToField(CoordinatesUtility.AXIS.X));
+        getSize().setY(applyRandomResizeToField(CoordinatesUtility.AXIS.Y));
+        getSize().setZ(applyRandomResizeToField(CoordinatesUtility.AXIS.Z));
     }
 
     // TODO: generate the random delta within range to apply
     // Apply randomized Resize on a specific field.
-    private String applyRandomResizeToField(String field) {
-        //int coefficient = getResizeCoefficients().getField(axis) or smthing similar
+    private String applyRandomResizeToField(CoordinatesUtility.AXIS axis) {
+        int coefficient = Integer.parseInt(getResizeCoefficients().getField(axis));
         int intervalOffset = 0;
         // stuff here
-        return applyResizeToField(field, intervalOffset);
+        return applyResizeToField(getPosition().getField(axis), intervalOffset);
     }
 
     // Apply deterministic Resize to a specific field.
