@@ -209,6 +209,8 @@ public class Symbol {
                 applyRotationX(ROTATION.UP);
                 CoordinatesUtility.applyDelta(getPosition().getField(AXIS.Z), "-" + getSize().getField(AXIS.Z));
                 break;
+            case NONE:
+                break;
         }
     }
 

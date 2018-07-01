@@ -44,7 +44,8 @@ public class CoordinatesUtility {
         LEFT,
         RIGHT,
         UP,
-        DOWN;
+        DOWN,
+        NONE;
         // Hold the values() of this enum in a final immutable list that can then be used to return a random field from the enum.
         private static final List<ROTATION> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
         private static final int SIZE = VALUES.size();
