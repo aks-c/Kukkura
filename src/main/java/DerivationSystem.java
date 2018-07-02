@@ -46,7 +46,7 @@ public class DerivationSystem {
     // (i.e. so that our system knows when we got a final output, composed only of terminals).
     private boolean resultContainsNT = true;
 
-    private int ITERATION_LIMIT = 5;
+    private int ITERATION_LIMIT = 6;
 
     ArrayList<Symbol> getResult() {
         return result;
@@ -117,7 +117,7 @@ public class DerivationSystem {
         // Symbol is Non-Terminal: Add its RHS Derivation.
         // Symbol is Terminal: Add the Symbol itself.
         if (nonTerminals.contains(symbol.getSymbol())) {
-            ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
+            final ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
             // we make a deep copy of each symbol we got back from the rules map.
             // for each derived symbol, we figure out what the absolute values of the deltas are,
             // then we apply them to the actual Position/Size.
