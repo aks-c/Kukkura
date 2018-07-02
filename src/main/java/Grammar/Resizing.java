@@ -9,12 +9,12 @@ import java.util.Random;
  *
  */
 public class Resizing {
-    public void applyRandomResize() {
-        if (!canBeResized())
+    public static void applyRandomResize(Symbol symbol) {
+        if (!symbol.canBeResized())
             return;
-        getSize().setX(applyRandomResizeToField(CoordinatesUtility.AXIS.X));
-        getSize().setY(applyRandomResizeToField(CoordinatesUtility.AXIS.Y));
-        getSize().setZ(applyRandomResizeToField(CoordinatesUtility.AXIS.Z));
+        symbol.getSize().setX(applyRandomResizeToField(symbol, CoordinatesUtility.AXIS.X));
+        symbol.getSize().setY(applyRandomResizeToField(symbol, CoordinatesUtility.AXIS.Y));
+        symbol.getSize().setZ(applyRandomResizeToField(symbol, CoordinatesUtility.AXIS.Z));
     }
 
     /**
@@ -31,23 +31,23 @@ public class Resizing {
      * Then the delta will belong to the following range: [-5 ; 5].
      * Then, after we actually apply the resizing, x will be in the following range: [ 5 ; 15 ].
      */
-    private String applyRandomResizeToField(CoordinatesUtility.AXIS axis) {
-        int coefficient = Integer.parseInt(getResizeCoefficients().getField(axis));
+    private static String applyRandomResizeToField(Symbol symbol, CoordinatesUtility.AXIS axis) {
+        int coefficient = Integer.parseInt(symbol.getResizeCoefficients().getField(axis));
         // By convention, if the coefficient is 0, it signifies that there should be no resize.
         if (coefficient == 0)
-            return getSize().getField(axis);
+            return symbol.getSize().getField(axis);
 
-        int sizeField = Integer.parseInt(getSize().getField(axis));
+        int sizeField = Integer.parseInt(symbol.getSize().getField(axis));
         int intervalBound = coefficient * sizeField;
         int delta = new Random().nextInt(intervalBound);
         delta -= sizeField >> 1;
-        return applyResizeToField(getSize().getField(axis), delta);
+        return applyResizeToField(symbol.getSize().getField(axis), delta);
     }
 
     /**
      * Apply deterministic Resize to a specific field.
      */
-    private String applyResizeToField(String field, int delta) {
+    private static String applyResizeToField(String field, int delta) {
         return CoordinatesUtility.applyDelta(field, delta);
     }
 
