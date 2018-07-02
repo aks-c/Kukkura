@@ -154,6 +154,7 @@ public class Symbol {
 
     /**
      * Apply a random Rotation, with respect to a random Axis.
+     * Entirely random.
      */
     public void applyRandomRotation() {
         Rotation.applyRandomRotation(this);
@@ -161,6 +162,7 @@ public class Symbol {
 
     /**
      * Applies a given Rotation with respect to some given Axis.
+     * Entirely deterministic (i.e. no randomization).
      */
     public void applyRotation(AXIS axis, CoordinatesUtility.ROTATION rotation) {
         Rotation.applyRotation(this, axis, rotation);
