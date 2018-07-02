@@ -152,6 +152,21 @@ public class Symbol {
 
 
 
+    /**
+     * Apply a random Rotation, with respect to a random Axis.
+     */
+    public void applyRandomRotation() {
+        Rotation.applyRandomRotation(this);
+    }
+
+    /**
+     * Applies a given Rotation with respect to some given Axis.
+     */
+    public void applyRotation(AXIS axis, CoordinatesUtility.ROTATION rotation) {
+        Rotation.applyRotation(this, axis, rotation);
+    }
+
+
     public void applyRandomResize() {
         if (!canBeResized())
             return;

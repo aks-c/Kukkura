@@ -11,7 +11,7 @@ public class Rotation {
     /**
      * Apply a random Rotation, with respect to a random Axis.
      */
-    public void applyRandomRotation(Symbol symbol) {
+    public static void applyRandomRotation(Symbol symbol) {
         if (!symbol.canBeRotated())
             return;
         applyRotation(symbol, AXIS.randomAxis(), CoordinatesUtility.ROTATION.randomRotation());
@@ -20,7 +20,7 @@ public class Rotation {
     /**
      * Apply a given Rotation, with respect to some random Axis.
      */
-    public void applyRandomRotation(Symbol symbol, CoordinatesUtility.ROTATION rotation) {
+    public static void applyRandomRotation(Symbol symbol, CoordinatesUtility.ROTATION rotation) {
         if (!symbol.canBeRotated())
             return;
         applyRotation(symbol, AXIS.randomAxis(), rotation);
@@ -29,7 +29,7 @@ public class Rotation {
     /**
      * Apply a random Rotation, with respect to some given Axis.
      */
-    public void applyRandomRotation(Symbol symbol, AXIS axis) {
+    public static void applyRandomRotation(Symbol symbol, AXIS axis) {
         if (!symbol.canBeRotated())
             return;
         applyRotation(symbol, axis, CoordinatesUtility.ROTATION.randomRotation());
@@ -42,7 +42,7 @@ public class Rotation {
      * TBF, all the rotations can be expressed wrt a single Axis anyway (X just happens to be the most convenient);
      * The rest might be implemented later if some Rotations are more naturally expressed wrt other axes.
      */
-    public void applyRotation(Symbol symbol, AXIS axis, CoordinatesUtility.ROTATION rotation) {
+    public static void applyRotation(Symbol symbol, AXIS axis, CoordinatesUtility.ROTATION rotation) {
         if (!symbol.canBeRotated())
             return;
         switch (axis) {
@@ -68,7 +68,7 @@ public class Rotation {
      *  we apply the "normal" (non-negative) rotation (i.e. LEFT or UP), then apply a negative offset to the Position,
      *  which brings about the same net effect as an actual RIGHT/DOWN rotation, without the drawback of having to deal with weird shit.
      */
-    private void applyRotationX(Symbol symbol, CoordinatesUtility.ROTATION rotation) {
+    private static void applyRotationX(Symbol symbol, CoordinatesUtility.ROTATION rotation) {
         switch (rotation) {
             case LEFT:  // swap sx and sz; sy unchanged;
                 symbol.getSize().swap(AXIS.X, AXIS.Z);
