@@ -146,6 +146,10 @@ public class Symbol {
         return canBeResized;
     }
 
+    public boolean canBeRotated() {
+        return canBeRotated;
+    }
+
 
 
     public void applyRandomResize() {

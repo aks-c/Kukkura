@@ -11,28 +11,28 @@ public class Rotation {
     /**
      * Apply a random Rotation, with respect to a random Axis.
      */
-    public void applyRandomRotation() {
-        if (!canBeRotated)
+    public void applyRandomRotation(Symbol symbol) {
+        if (!symbol.canBeRotated())
             return;
-        applyRotation(AXIS.randomAxis(), CoordinatesUtility.ROTATION.randomRotation());
+        applyRotation(symbol, AXIS.randomAxis(), CoordinatesUtility.ROTATION.randomRotation());
     }
 
     /**
      * Apply a given Rotation, with respect to some random Axis.
      */
-    public void applyRandomRotation(CoordinatesUtility.ROTATION rotation) {
-        if (!canBeRotated)
+    public void applyRandomRotation(Symbol symbol, CoordinatesUtility.ROTATION rotation) {
+        if (!symbol.canBeRotated())
             return;
-        applyRotation(AXIS.randomAxis(), rotation);
+        applyRotation(symbol, AXIS.randomAxis(), rotation);
     }
 
     /**
      * Apply a random Rotation, with respect to some given Axis.
      */
-    public void applyRandomRotation(AXIS axis) {
-        if (!canBeRotated)
+    public void applyRandomRotation(Symbol symbol, AXIS axis) {
+        if (!symbol.canBeRotated())
             return;
-        applyRotation(axis, CoordinatesUtility.ROTATION.randomRotation());
+        applyRotation(symbol, axis, CoordinatesUtility.ROTATION.randomRotation());
     }
 
     /**
@@ -42,15 +42,15 @@ public class Rotation {
      * TBF, all the rotations can be expressed wrt a single Axis anyway (X just happens to be the most convenient);
      * The rest might be implemented later if some Rotations are more naturally expressed wrt other axes.
      */
-    public void applyRotation(AXIS axis, CoordinatesUtility.ROTATION rotation) {
-        if (!canBeRotated)
+    public void applyRotation(Symbol symbol, AXIS axis, CoordinatesUtility.ROTATION rotation) {
+        if (!symbol.canBeRotated())
             return;
         switch (axis) {
             case X:
-                applyRotationX(rotation);
+                applyRotationX(symbol, rotation);
                 break;
             default:
-                applyRotationX(rotation);
+                applyRotationX(symbol, rotation);
                 break;
         }
     }
@@ -68,21 +68,21 @@ public class Rotation {
      *  we apply the "normal" (non-negative) rotation (i.e. LEFT or UP), then apply a negative offset to the Position,
      *  which brings about the same net effect as an actual RIGHT/DOWN rotation, without the drawback of having to deal with weird shit.
      */
-    private void applyRotationX(CoordinatesUtility.ROTATION rotation) {
+    private void applyRotationX(Symbol symbol, CoordinatesUtility.ROTATION rotation) {
         switch (rotation) {
             case LEFT:  // swap sx and sz; sy unchanged;
-                getSize().swap(AXIS.X, AXIS.Z);
+                symbol.getSize().swap(AXIS.X, AXIS.Z);
                 break;
             case UP:    // swap sx and sy; sz unchanged;
-                getSize().swap(AXIS.X, AXIS.Y);
+                symbol.getSize().swap(AXIS.X, AXIS.Y);
                 break;
             case RIGHT: // same as LEFT; also decrease z
-                applyRotationX(CoordinatesUtility.ROTATION.LEFT);
-                CoordinatesUtility.applyDelta(getPosition().getField(AXIS.Y), "-" + getSize().getField(AXIS.Y));
+                applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
+                CoordinatesUtility.applyDelta(symbol.getPosition().getField(AXIS.Y), "-" + symbol.getSize().getField(AXIS.Y));
                 break;
             case DOWN:  // same as UP;   also decrease y
-                applyRotationX(CoordinatesUtility.ROTATION.UP);
-                CoordinatesUtility.applyDelta(getPosition().getField(AXIS.Z), "-" + getSize().getField(AXIS.Z));
+                applyRotationX(symbol, CoordinatesUtility.ROTATION.UP);
+                CoordinatesUtility.applyDelta(symbol.getPosition().getField(AXIS.Z), "-" + symbol.getSize().getField(AXIS.Z));
                 break;
             case NONE:
                 break;
