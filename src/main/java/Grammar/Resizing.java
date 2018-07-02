@@ -9,6 +9,10 @@ import java.util.Random;
  *
  */
 public class Resizing {
+    /**
+     * Apply a random Resize on a Symbol.
+     * This resize is chosen randomly within some defined interval.
+     */
     public static void applyRandomResize(Symbol symbol) {
         if (!symbol.canBeResized())
             return;

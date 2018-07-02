@@ -168,6 +168,13 @@ public class Symbol {
         Rotation.applyRotation(this, axis, rotation);
     }
 
+    /**
+     * Apply a random Resize on a Symbol.
+     * This resize is chosen randomly within some defined interval.
+     */
+    public void applyRandomResize() {
+        Resizing.applyRandomResize(this);
+    }
 
     /**
      * Serializes the Symbol Object into a String.
