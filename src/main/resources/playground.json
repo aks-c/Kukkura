@@ -2,8 +2,8 @@
   "axiom": [
     {
       "symbol": "INITIAL",
-      "size": {"x": 10, "y": 5, "z": 2},
-      "position": {"x": 10, "y": 10, "z": 10},
+      "size": {"x": 9, "y": 8, "z": 7},
+      "position": {"x": 10, "y": 0, "z": 10},
       "material": "sandstone",
       "material_sub": "0",
       "symbol_state": "hollow",
@@ -18,6 +18,7 @@
     "INITIAL": [
       {
         "symbol": "A",
+        "description": "an infinite generator of symbols",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
@@ -26,7 +27,7 @@
         "material_sub": "0",
         "symbol_state": "hollow",
         "probability": 100,
-        "exclusive_derivation": true,
+        "exclusive_derivation": false,
         "can_be_resized": false,
         "resize_coefficients": {"x": 0, "y": 0, "z": 0},
         "can_be_rotated": false
@@ -36,12 +37,12 @@
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
-        "delta_position": {"delta_x": ["x", "sx", "5"], "delta_y": ["y"], "delta_z": ["z"]},
+        "delta_position": {"delta_x": ["x", "sx", "sx", "sx"], "delta_y": ["y"], "delta_z": ["z"]},
         "material": "planks",
         "material_sub": "1",
         "symbol_state": "hollow",
         "probability": 100,
-        "exclusive_derivation": true,
+        "exclusive_derivation": false,
         "can_be_resized": false,
         "resize_coefficients": {"x": 0, "y": 0, "z": 0},
         "can_be_rotated": false
@@ -51,12 +52,12 @@
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
-        "delta_position": {"delta_x": ["x", "sx", "sx", "5", "5"], "delta_y": ["y"], "delta_z": ["z"]},
+        "delta_position": {"delta_x": ["x", "sx", "sx", "sx", "sx", "sx", "sx"], "delta_y": ["y"], "delta_z": ["z"]},
         "material": "planks",
         "material_sub": "1",
         "symbol_state": "hollow",
         "probability": 100,
-        "exclusive_derivation": true,
+        "exclusive_derivation": false,
         "can_be_resized": false,
         "resize_coefficients": {"x": 0, "y": 0, "z": 0},
         "can_be_rotated": false
@@ -64,53 +65,104 @@
     ],
     "A": [
       {
-        "symbol": "A1",
+        "symbol": "B",
+        "description": "a thing that loosely defines where a building block should be",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
         "delta_position": {"delta_x": ["x"], "delta_y": ["y"], "delta_z": ["z"]},
+        "material": "sandstone",
+        "material_sub": "0",
+        "symbol_state": "hollow",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": true,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": true
+      },
+      {
+        "symbol": "B",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
+        "delta_position": {"delta_x": ["x", "3"], "delta_y": ["y"], "delta_z": ["z", "2"]},
+        "material": "sandstone",
+        "material_sub": "0",
+        "symbol_state": "hollow",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": true,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": true
+      },
+      {
+        "symbol": "A",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
+        "delta_position": {"delta_x": ["x"], "delta_y": ["y"], "delta_z": ["z", "sx", "sx"]},
         "material": "planks",
         "material_sub": "0",
         "symbol_state": "hollow",
         "probability": 100,
         "exclusive_derivation": false,
         "can_be_resized": false,
-        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
-        "can_be_rotated": true
-      },
+        "resize_coefficients": {"x": 0, "y": 1, "z": 0},
+        "can_be_rotated": false
+      }
+    ],
+    "B": [
       {
-        "symbol": "A2",
+        "symbol": "C",
+        "description": "a building block",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
         "delta_position": {"delta_x": ["x"], "delta_y": ["y"], "delta_z": ["z"]},
-        "material": "planks",
+        "material": "sandstone",
+        "material_sub": "0",
+        "symbol_state": "hollow",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "C",
+        "description": "guardrails on top of the building/roof",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {"delta_x": ["sx"], "delta_y": ["0"], "delta_z": ["sz"]},
+        "delta_position": {"delta_x": ["x"], "delta_y": ["y", "sy", "1"], "delta_z": ["z"]},
+        "material": "sandstone",
         "material_sub": "1",
         "symbol_state": "hollow",
         "probability": 100,
         "exclusive_derivation": false,
         "can_be_resized": false,
         "resize_coefficients": {"x": 1, "y": 1, "z": 1},
-        "can_be_rotated": true
+        "can_be_rotated": false
       },
       {
-        "symbol": "A3",
+        "symbol": "C",
+        "description": "negative space; for the guardrails",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size": {"delta_x": ["sx"], "delta_y": ["sy"], "delta_z": ["sz"]},
-        "delta_position": {"delta_x": ["x"], "delta_y": ["y"], "delta_z": ["z"]},
-        "material": "planks",
-        "material_sub": "2",
+        "delta_size": {"delta_x": ["sx", "-2"], "delta_y": ["0"], "delta_z": ["sz", "-2"]},
+        "delta_position": {"delta_x": ["x", "1"], "delta_y": ["y", "sy", "1"], "delta_z": ["z", "1"]},
+        "material": "air",
+        "material_sub": "0",
         "symbol_state": "hollow",
         "probability": 100,
         "exclusive_derivation": false,
         "can_be_resized": false,
         "resize_coefficients": {"x": 1, "y": 1, "z": 1},
-        "can_be_rotated": true
+        "can_be_rotated": false
       }
     ]
   },
 
-  "non-terminals" : ["INITIAL", "A"],
-  "terminals" : ["A1", "A2", "A3"]
+  "non-terminals" : ["INITIAL", "A", "B"],
+  "terminals" : ["C"]
 }
