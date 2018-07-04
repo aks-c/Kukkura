@@ -68,7 +68,9 @@ public class Rotation {
      *  we apply the "normal" (non-negative) rotation (i.e. LEFT or UP), then apply a negative offset to the Position,
      *  which brings about the same net effect as an actual RIGHT/DOWN rotation, without the drawback of having to deal with weird shit.
      */
-    private static void applyRotationX(Symbol symbol, CoordinatesUtility.ROTATION rotation) {
+    public static void applyRotationX(Symbol symbol, CoordinatesUtility.ROTATION rotation) {
+        if (!symbol.canBeRotated())
+            return;
         switch (rotation) {
             case LEFT:  // swap sx and sz; sy unchanged;
                 symbol.getSize().swap(AXIS.X, AXIS.Z);

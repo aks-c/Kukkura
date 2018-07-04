@@ -1,4 +1,5 @@
 import Grammar.Symbol;
+import MetaData.CoordinatesUtility;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -46,7 +47,7 @@ public class DerivationSystem {
     // (i.e. so that our system knows when we got a final output, composed only of terminals).
     private boolean resultContainsNT = true;
 
-    private int ITERATION_LIMIT = 6;
+    private int ITERATION_LIMIT = 20;
 
     ArrayList<Symbol> getResult() {
         return result;
@@ -70,7 +71,7 @@ public class DerivationSystem {
         copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
         copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
         copy.applyRandomResize();
-        copy.applyRandomRotation();
+        copy.applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
         nextSentence.add(copy);
     }
 
