@@ -21,6 +21,10 @@ public class Material {
     @SerializedName("subID")
     private String subID;
 
+    // Stores meta-data about the structure of the material, like whether it's hollow or not, etc..
+    @SerializedName("state")
+    private String state;
+
 
     public String getMainID() {
         return mainID;

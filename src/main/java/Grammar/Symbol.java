@@ -86,10 +86,6 @@ public class Symbol {
     @SerializedName("material")
     private Material material;
 
-    // Stores info about the structure represented by the symbol, like whether it's hollow or not, etc..
-    @SerializedName("symbol_state")
-    private String symbolState;
-
 
     public String getSymbol(){
         return symbol;
