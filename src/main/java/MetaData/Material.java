@@ -21,7 +21,7 @@ public class Material {
     @SerializedName("subID")
     private String subID;
 
-    
+
     public String getMainID() {
         return mainID;
     }
