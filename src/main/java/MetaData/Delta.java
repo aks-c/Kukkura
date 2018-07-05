@@ -1,5 +1,6 @@
 package MetaData;
 
+import Grammar.Symbol;
 import com.google.gson.annotations.SerializedName;
 
 /**

@@ -64,15 +64,20 @@ public class CoordinatesUtility {
 
 
     /**
-     * Applies a delta to a single field.
+     * Adds a delta to a single field.
      */
     static public String addDelta(String field, String delta) {
         int result = Integer.parseInt(field) + Integer.parseInt(delta);
         return String.valueOf(result);
     }
 
-    static public String addDelta(String field, int delta) {
-        return addDelta(field, String.valueOf(delta));
+    static public String multiplyDelta(String delta, String factor) {
+        float result = (Integer.parseInt(delta) * Float.parseFloat(factor));
+        return String.format("%.0f%n", result);
+    }
+
+    static public String getDeltaValue(Delta delta, Symbol symbol) {
+        return getDeltaValue(delta.getDelta(), symbol);
     }
 
     /**
@@ -82,47 +87,40 @@ public class CoordinatesUtility {
      * e.g.: a value of "sx" for the current delta field means that
      * this field will add a value relative to the X size dimension of the base symbol.
      */
-    static public String getDelta(String field, Symbol symbol){
-        int offset = 0;
-        if (hasMinus(field))
-            offset = 1;
+    static public String getDeltaValue(String delta, Symbol symbol){
+        String result;
 
-        String delta;
-        switch (field.substring(offset)) {
+        switch (delta) {
             case "x":
-                delta = symbol.getPosition().getX();
+                result = symbol.getPosition().getX();
                 break;
             case "y":
-                delta = symbol.getPosition().getY();
+                result = symbol.getPosition().getY();
                 break;
             case "z":
-                delta = symbol.getPosition().getZ();
+                result = symbol.getPosition().getZ();
                 break;
 
             case "sx":
-                delta = symbol.getSize().getX();
+                result = symbol.getSize().getX();
                 break;
             case "sy":
-                delta = symbol.getSize().getY();
+                result = symbol.getSize().getY();
                 break;
             case "sz":
-                delta = symbol.getSize().getZ();
+                result = symbol.getSize().getZ();
                 break;
             case "":
-                delta = "0";
+                result = "0";
                 break;
             default:
-                delta = field.substring(offset);
+                result = delta;
                 break;
         }
-        if (hasMinus(field))
-            return "-" + delta;
-        return delta;
+        return result;
     }
 
-    // Small utility used only in getDelta()
-    // Handles the case when the deltas possibly hold negative values
-    private static boolean hasMinus(String field) {
-        return (field.charAt(0) == '-');
+    static public String addDelta(String field, int delta) {
+        return addDelta(field, String.valueOf(delta));
     }
 }

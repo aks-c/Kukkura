@@ -124,9 +124,9 @@ public class Coordinates {
     }
 
     private String setFinalValue(String field, ArrayList<Delta> deltas, Symbol symbol) {
-        field = CoordinatesUtility.getDelta(field, symbol);
+        field = CoordinatesUtility.getDeltaValue(field, symbol);
         for (Delta delta : deltas) {
-            delta.setDelta(CoordinatesUtility.getDelta(delta.getDelta(), symbol));
+            delta.setDelta(CoordinatesUtility.getDeltaValue(delta.getDelta(), symbol));
             field = CoordinatesUtility.addDelta(field, delta.getDelta());
         }
         return field;
