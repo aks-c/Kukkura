@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by akselcakmak on 05/07/2018.
  *
+ * A Delta Object holds 2 values:
+ * - A "delta" String, which represents some value relative to the parent Symbol.
+ * (i.e. the Symbol that was on the RHS of the rule that created the current Symbol).
+ * - A factor (can support Floating pt values). It is used to multiply the value represented by the delta field.
  */
 public class Delta {
 
