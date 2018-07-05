@@ -12,16 +12,22 @@ public class Material {
     // eg: the tuple (mainID="planks", subID="0") represents Oak Wood Planks.
     // eg: the tuple (mainID="planks", subID="3") represents Jungle Wood Planks.
 
-    // The mainID is the name of the material (i.e. "planks", "dirt", etc..).
+    /**
+     * The mainID is the name of the material (i.e. "planks", "dirt", etc..).
+     */
     @SerializedName("mainID")
     private String mainID;
 
-    // The subID is used to differentiate between different planks, stones, etc..
-    // It is typically an int.
+    /**
+     * The subID is used to differentiate between different planks, stones, etc..
+     * It is typically an int.
+     */
     @SerializedName("subID")
     private String subID;
 
-    // Stores meta-data about the structure of the material, like whether it's hollow or not, etc..
+    /**
+     * Stores meta-data about the structure of the material, like whether it's hollow or not, etc..
+     */
     @SerializedName("state")
     private String state;
 

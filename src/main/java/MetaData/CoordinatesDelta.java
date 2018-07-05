@@ -11,6 +11,11 @@ import java.util.ArrayList;
  */
 public class CoordinatesDelta {
 
+    /**
+     * Each one of these is a list of deltas to be eventually applied to their respective fields.
+     * The deltas hold some value relative to the parent Symbol,
+     * so that these values can be passed down as appropriate to the current Symbol.
+     */
     @SerializedName("d_x")
     private ArrayList<Delta> deltaX;
 

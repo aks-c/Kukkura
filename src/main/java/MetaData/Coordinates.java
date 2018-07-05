@@ -23,6 +23,11 @@ public class Coordinates {
         this.z = z;
     }
 
+    /**
+     * These Coordinates are Strings that actually represent some int values.
+     * What happens is that these values are modified according to the system's rules,
+     * and to some lists of deltas to apply.
+     */
     @SerializedName("x")
     private String x;
 
