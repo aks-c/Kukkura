@@ -14,10 +14,18 @@ public class Material {
 
     // The mainID is the name of the material (i.e. "planks", "dirt", etc..).
     @SerializedName("mainID")
-    String mainID;
+    private String mainID;
 
     // The subID is used to differentiate between different planks, stones, etc..
     // It is typically an int.
     @SerializedName("subID")
-    String subID;
+    private String subID;
+
+    public String getMainID() {
+        return mainID;
+    }
+
+    public String getSubID() {
+        return subID;
+    }
 }
