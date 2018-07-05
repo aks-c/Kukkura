@@ -5,6 +5,7 @@ import MetaData.CoordinatesDelta;
 import MetaData.CoordinatesUtility;
 import MetaData.CoordinatesUtility.AXIS;
 import MetaData.CoordinatesUtility.ROTATION;
+import MetaData.Material;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Random;
@@ -81,17 +82,9 @@ public class Symbol {
     @SerializedName("delta_position")
     private CoordinatesDelta deltaPosition;
 
-
-    // This following are only needed for MC.
-    // `material` represents the material name,
-    // and `material_sub` represents the sub-ID (for a lack of a better name) of that material.
-    // eg: the tuple (material="planks", sub="0") represents Oak Wood Planks.
-    // eg: the tuple (material="planks", sub="3") represents Jungle Wood Planks.
+    // Holds the information needed to ID a specific material.
     @SerializedName("material")
-    private String material;
-
-    @SerializedName("material_sub")
-    private String materialSub;
+    private Material material;
 
     // Stores info about the structure represented by the symbol, like whether it's hollow or not, etc..
     @SerializedName("symbol_state")
@@ -118,12 +111,8 @@ public class Symbol {
         return deltaPosition;
     }
 
-    public String getMaterial() {
+    public Material getMaterial() {
         return material;
-    }
-
-    public String getMaterialSub() {
-        return materialSub;
     }
 
     public String getSymbolState() {
@@ -187,7 +176,7 @@ public class Symbol {
      */
     public String getAsMinecraftCommand() {
         Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());
-        return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial(), getMaterialSub(), getSymbolState());
+        return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial().getMainID(), getMaterial().getSubID(), getSymbolState());
     }
 
     /**

@@ -1,1 +1,1 @@
-fill ~22 ~0 ~0 ~32 ~15 ~10 sandstone 0 hollow
+fill ~2 ~0 ~0 ~12 ~10 ~10 sandstone 0 hollow
