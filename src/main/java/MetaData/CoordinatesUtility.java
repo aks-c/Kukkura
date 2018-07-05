@@ -64,23 +64,37 @@ public class CoordinatesUtility {
 
 
     /**
-     * Adds a delta to a single field.
+     * Adds the value of a delta to a field.
      */
     static public String addDelta(String field, String delta) {
         int result = Integer.parseInt(field.trim()) + Integer.parseInt(delta.trim());
         return String.valueOf(result);
     }
 
+    static public String addDelta(String field, int delta) {
+        return addDelta(field, String.valueOf(delta));
+    }
+
+    /**
+     * Multiplies the value of a delta with some factor.
+     * Because our system only works with discrete blocks/units, the return value is trimmed.
+     */
     static public String multiplyDelta(String delta, String factor) {
         float result = (Integer.parseInt(delta.trim()) * Float.parseFloat(factor.trim()));
         return String.format("%.0f%n", result);
     }
 
+    /**
+     * Gets the value represented by the delta ("sx", "y", etc..) and multiplies it by its associated factor.
+     */
     static public String getDeltaValueWithFactor(Delta delta, Symbol symbol) {
         String withoutFactor = getDeltaValue(delta, symbol);
         return multiplyDelta(withoutFactor, delta.getFactor());
     }
 
+    /**
+     * Only gets the value represented by the given delta ("sx", "y", etc..).
+     */
     static public String getDeltaValue(Delta delta, Symbol symbol) {
         return getDeltaValue(delta.getDelta(), symbol);
     }
@@ -123,9 +137,5 @@ public class CoordinatesUtility {
                 break;
         }
         return result;
-    }
-
-    static public String addDelta(String field, int delta) {
-        return addDelta(field, String.valueOf(delta));
     }
 }

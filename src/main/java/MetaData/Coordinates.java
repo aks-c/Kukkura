@@ -123,6 +123,11 @@ public class Coordinates {
         z = setFinalValue(z, deltaCoordinates.getDeltaZ(), symbol);
     }
 
+    /**
+     * For a given field,
+     * get all the values the deltas represent (i.e. map the "x" and "sy" and all to actual values), multiply them by their associated factors,
+     * and apply them all to the field, one by one.
+     */
     private String setFinalValue(String field, ArrayList<Delta> deltas, Symbol symbol) {
         field = CoordinatesUtility.getDeltaValue(field, symbol);
         for (Delta delta : deltas) {
