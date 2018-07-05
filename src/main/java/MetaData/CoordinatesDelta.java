@@ -12,24 +12,24 @@ import java.util.ArrayList;
 public class CoordinatesDelta {
 
     @SerializedName("d_x")
-    private ArrayList<Delta> delta_x;
+    private ArrayList<Delta> deltaX;
 
     @SerializedName("d_y")
-    private ArrayList<Delta> delta_y;
+    private ArrayList<Delta> deltaY;
 
     @SerializedName("d_z")
-    private ArrayList<Delta> delta_z;
+    private ArrayList<Delta> deltaZ;
 
 
-    public ArrayList<Delta> getDelta_x() {
-        return delta_x;
+    public ArrayList<Delta> getDeltaX() {
+        return deltaX;
     }
 
-    public ArrayList<Delta> getDelta_y() {
-        return delta_y;
+    public ArrayList<Delta> getDeltaY() {
+        return deltaY;
     }
 
-    public ArrayList<Delta> getDelta_z() {
-        return delta_z;
+    public ArrayList<Delta> getDeltaZ() {
+        return deltaZ;
     }
 }

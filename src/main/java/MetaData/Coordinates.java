@@ -118,9 +118,9 @@ public class Coordinates {
         if (deltaIsSet)
             return;
         deltaIsSet = true;
-        x = setFinalValue(x, deltaCoordinates.getDelta_x(), symbol);
-        y = setFinalValue(y, deltaCoordinates.getDelta_y(), symbol);
-        z = setFinalValue(z, deltaCoordinates.getDelta_z(), symbol);
+        x = setFinalValue(x, deltaCoordinates.getDeltaX(), symbol);
+        y = setFinalValue(y, deltaCoordinates.getDeltaY(), symbol);
+        z = setFinalValue(z, deltaCoordinates.getDeltaZ(), symbol);
     }
 
     private String setFinalValue(String field, ArrayList<Delta> deltas, Symbol symbol) {
