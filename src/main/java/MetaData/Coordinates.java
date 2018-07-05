@@ -123,11 +123,11 @@ public class Coordinates {
         z = setFinalValue(z, deltaCoordinates.getDelta_z(), symbol);
     }
 
-    private String setFinalValue(String field, ArrayList<String> deltas, Symbol symbol) {
+    private String setFinalValue(String field, ArrayList<Delta> deltas, Symbol symbol) {
         field = CoordinatesUtility.getDelta(field, symbol);
-        for (String delta : deltas) {
-            delta = CoordinatesUtility.getDelta(delta, symbol);
-            field = CoordinatesUtility.applyDelta(field, delta);
+        for (Delta delta : deltas) {
+            delta.setDelta(CoordinatesUtility.getDelta(delta.getDelta(), symbol));
+            field = CoordinatesUtility.applyDelta(field, delta.getDelta());
         }
         return field;
     }
