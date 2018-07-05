@@ -21,11 +21,20 @@ public class Material {
     @SerializedName("subID")
     private String subID;
 
+    
     public String getMainID() {
         return mainID;
     }
 
     public String getSubID() {
         return subID;
+    }
+
+    public void setMainID(String mainID) {
+        this.mainID = mainID;
+    }
+
+    public void setSubID(String subID) {
+        this.subID = subID;
     }
 }
