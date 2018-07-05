@@ -118,16 +118,21 @@ public class Coordinates {
         if (deltaIsSet)
             return;
         deltaIsSet = true;
-        x = setFinalValue(x, deltaCoordinates.getDelta_x(), symbol);
-        y = setFinalValue(y, deltaCoordinates.getDelta_y(), symbol);
-        z = setFinalValue(z, deltaCoordinates.getDelta_z(), symbol);
+        x = setFinalValue(x, deltaCoordinates.getDeltaX(), symbol);
+        y = setFinalValue(y, deltaCoordinates.getDeltaY(), symbol);
+        z = setFinalValue(z, deltaCoordinates.getDeltaZ(), symbol);
     }
 
-    private String setFinalValue(String field, ArrayList<String> deltas, Symbol symbol) {
-        field = CoordinatesUtility.getDelta(field, symbol);
-        for (String delta : deltas) {
-            delta = CoordinatesUtility.getDelta(delta, symbol);
-            field = CoordinatesUtility.applyDelta(field, delta);
+    /**
+     * For a given field,
+     * get all the values the deltas represent (i.e. map the "x" and "sy" and all to actual values), multiply them by their associated factors,
+     * and apply them all to the field, one by one.
+     */
+    private String setFinalValue(String field, ArrayList<Delta> deltas, Symbol symbol) {
+        field = CoordinatesUtility.getDeltaValue(field, symbol);
+        for (Delta delta : deltas) {
+            delta.setDelta(CoordinatesUtility.getDeltaValueWithFactor(delta, symbol));
+            field = CoordinatesUtility.addDelta(field, delta.getDelta());
         }
         return field;
     }

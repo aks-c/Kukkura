@@ -64,15 +64,39 @@ public class CoordinatesUtility {
 
 
     /**
-     * Applies a delta to a single field.
+     * Adds the value of a delta to a field.
      */
-    static public String applyDelta(String field, String delta) {
-        int result = Integer.parseInt(field) + Integer.parseInt(delta);
+    static public String addDelta(String field, String delta) {
+        int result = Integer.parseInt(field.trim()) + Integer.parseInt(delta.trim());
         return String.valueOf(result);
     }
 
-    static public String applyDelta(String field, int delta) {
-        return applyDelta(field, String.valueOf(delta));
+    static public String addDelta(String field, int delta) {
+        return addDelta(field, String.valueOf(delta));
+    }
+
+    /**
+     * Multiplies the value of a delta with some factor.
+     * Because our system only works with discrete blocks/units, the return value is trimmed.
+     */
+    static public String multiplyDelta(String delta, String factor) {
+        float result = (Integer.parseInt(delta.trim()) * Float.parseFloat(factor.trim()));
+        return String.format("%.0f%n", result);
+    }
+
+    /**
+     * Gets the value represented by the delta ("sx", "y", etc..) and multiplies it by its associated factor.
+     */
+    static public String getDeltaValueWithFactor(Delta delta, Symbol symbol) {
+        String withoutFactor = getDeltaValue(delta, symbol);
+        return multiplyDelta(withoutFactor, delta.getFactor());
+    }
+
+    /**
+     * Only gets the value represented by the given delta ("sx", "y", etc..).
+     */
+    static public String getDeltaValue(Delta delta, Symbol symbol) {
+        return getDeltaValue(delta.getDelta(), symbol);
     }
 
     /**
@@ -82,47 +106,36 @@ public class CoordinatesUtility {
      * e.g.: a value of "sx" for the current delta field means that
      * this field will add a value relative to the X size dimension of the base symbol.
      */
-    static public String getDelta(String field, Symbol symbol){
-        int offset = 0;
-        if (hasMinus(field))
-            offset = 1;
+    static public String getDeltaValue(String delta, Symbol symbol){
+        String result;
 
-        String delta;
-        switch (field.substring(offset)) {
+        switch (delta) {
             case "x":
-                delta = symbol.getPosition().getX();
+                result = symbol.getPosition().getX();
                 break;
             case "y":
-                delta = symbol.getPosition().getY();
+                result = symbol.getPosition().getY();
                 break;
             case "z":
-                delta = symbol.getPosition().getZ();
+                result = symbol.getPosition().getZ();
                 break;
 
             case "sx":
-                delta = symbol.getSize().getX();
+                result = symbol.getSize().getX();
                 break;
             case "sy":
-                delta = symbol.getSize().getY();
+                result = symbol.getSize().getY();
                 break;
             case "sz":
-                delta = symbol.getSize().getZ();
+                result = symbol.getSize().getZ();
                 break;
             case "":
-                delta = "0";
+                result = "0";
                 break;
             default:
-                delta = field.substring(offset);
+                result = delta;
                 break;
         }
-        if (hasMinus(field))
-            return "-" + delta;
-        return delta;
-    }
-
-    // Small utility used only in getDelta()
-    // Handles the case when the deltas possibly hold negative values
-    private static boolean hasMinus(String field) {
-        return (field.charAt(0) == '-');
+        return result;
     }
 }

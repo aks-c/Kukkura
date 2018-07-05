@@ -80,11 +80,11 @@ public class Rotation {
                 break;
             case RIGHT: // same as LEFT; also decrease z
                 applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
-                CoordinatesUtility.applyDelta(symbol.getPosition().getField(AXIS.Y), "-" + symbol.getSize().getField(AXIS.Y));
+                CoordinatesUtility.addDelta(symbol.getPosition().getField(AXIS.Y), "-" + symbol.getSize().getField(AXIS.Y));
                 break;
             case DOWN:  // same as UP;   also decrease y
                 applyRotationX(symbol, CoordinatesUtility.ROTATION.UP);
-                CoordinatesUtility.applyDelta(symbol.getPosition().getField(AXIS.Z), "-" + symbol.getSize().getField(AXIS.Z));
+                CoordinatesUtility.addDelta(symbol.getPosition().getField(AXIS.Z), "-" + symbol.getSize().getField(AXIS.Z));
                 break;
             case NONE:
                 break;

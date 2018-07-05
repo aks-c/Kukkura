@@ -204,7 +204,7 @@ public class Symbol {
     }
 
     private String getSecondPosition(String field, String size){
-        return CoordinatesUtility.applyDelta(field, size);
+        return CoordinatesUtility.addDelta(field, size);
     }
 
     /**
