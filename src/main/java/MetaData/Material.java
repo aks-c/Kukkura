@@ -41,4 +41,12 @@ public class Material {
     public void setSubID(String subID) {
         this.subID = subID;
     }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }
