@@ -67,13 +67,18 @@ public class CoordinatesUtility {
      * Adds a delta to a single field.
      */
     static public String addDelta(String field, String delta) {
-        int result = Integer.parseInt(field) + Integer.parseInt(delta);
+        int result = Integer.parseInt(field.trim()) + Integer.parseInt(delta.trim());
         return String.valueOf(result);
     }
 
     static public String multiplyDelta(String delta, String factor) {
-        float result = (Integer.parseInt(delta) * Float.parseFloat(factor));
+        float result = (Integer.parseInt(delta.trim()) * Float.parseFloat(factor.trim()));
         return String.format("%.0f%n", result);
+    }
+
+    static public String getDeltaValueWithFactor(Delta delta, Symbol symbol) {
+        String withoutFactor = getDeltaValue(delta, symbol);
+        return multiplyDelta(withoutFactor, delta.getFactor());
     }
 
     static public String getDeltaValue(Delta delta, Symbol symbol) {
