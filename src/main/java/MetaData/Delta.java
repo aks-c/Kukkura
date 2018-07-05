@@ -4,6 +4,14 @@ package MetaData;
  * Created by akselcakmak on 05/07/2018.
  */
 public class Delta {
-    String delta;
-    String factor;
+    private String delta;
+    private String factor;
+
+    public String getDelta() {
+        return delta;
+    }
+
+    public String getFactor() {
+        return factor;
+    }
 }
