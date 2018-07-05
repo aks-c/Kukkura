@@ -127,7 +127,7 @@ public class Coordinates {
         field = CoordinatesUtility.getDelta(field, symbol);
         for (Delta delta : deltas) {
             delta.setDelta(CoordinatesUtility.getDelta(delta.getDelta(), symbol));
-            field = CoordinatesUtility.applyDelta(field, delta.getDelta());
+            field = CoordinatesUtility.addDelta(field, delta.getDelta());
         }
         return field;
     }

@@ -66,13 +66,13 @@ public class CoordinatesUtility {
     /**
      * Applies a delta to a single field.
      */
-    static public String applyDelta(String field, String delta) {
+    static public String addDelta(String field, String delta) {
         int result = Integer.parseInt(field) + Integer.parseInt(delta);
         return String.valueOf(result);
     }
 
-    static public String applyDelta(String field, int delta) {
-        return applyDelta(field, String.valueOf(delta));
+    static public String addDelta(String field, int delta) {
+        return addDelta(field, String.valueOf(delta));
     }
 
     /**

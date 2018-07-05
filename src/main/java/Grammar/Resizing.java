@@ -52,7 +52,7 @@ public class Resizing {
      * Apply deterministic Resize to a specific field.
      */
     private static String applyResizeToField(String field, int delta) {
-        return CoordinatesUtility.applyDelta(field, delta);
+        return CoordinatesUtility.addDelta(field, delta);
     }
 
 }
