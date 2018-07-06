@@ -107,10 +107,11 @@ public class Symbol {
 
     /**
      * To avoid duplication and avoid redefining the same materials again and again,
-     * one can reference the material used by this symbol by this field.
+     * one can reference the material of this symbol with this field.
      */
     @SerializedName("material_ref")
     private Material materialReference;
+
 
 
     public String getSymbol(){
@@ -158,6 +159,10 @@ public class Symbol {
     }
 
 
+
+//    private Material setMaterialFromRef() {
+//        return
+//    }
 
     /**
      * Apply a random Rotation, with respect to a random Axis.

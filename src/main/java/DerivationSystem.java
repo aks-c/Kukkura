@@ -52,7 +52,9 @@ public class DerivationSystem {
     private boolean resultContainsNT = true;
 
 
-    private ArrayList<Material> materials;
+    // A list of the most used material of this system.
+    // Helps in making the rules much smaller and much easier to read/follow.
+    private HashMap<String, Material> materials;
 
 
 
