@@ -23,16 +23,16 @@ public class DerivationSystem {
     private int ITERATION_LIMIT = 20;
 
     /**
-     * The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from);
-     * By changing it, you change the output of the derivation system.
+     * The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from).
      */
     @SerializedName("axiom")
     private ArrayList<Symbol> axiom;
 
     /**
-     * This specifies the derivation rules of the system;
+     * This specifies the production/derivation rules of the system;
      * For a given symbol in the current sentence, its rule specifies what it should be replaced by.
-     * If a symbol doesn't have an associated rule, it means it's a terminal.
+     * eg: A -> B means that in the sentence, A's will be replaced by B's.
+     * If a symbol doesn't have an associated rule, we say it's a terminal.
      */
     @SerializedName("rules")
     private HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
@@ -46,14 +46,16 @@ public class DerivationSystem {
 
     /**
      * Non-Terminals are symbols that have an associated production rule.
+     * Note that the sets of Terminals and Non-Terminals are disjoint:
+     * i.e. a symbol cannot be both a T and a NT.
      */
     @SerializedName("non-terminals")
     private ArrayList<String> nonTerminals = new ArrayList<>();
 
     /**
-     * This holds the current sentence derived by our system.
-     * Note that from an external API point of view, there are only two states `result` eventually goes through:
-     * Being an empty list (after initialization), and holding an actual derivation (after calling deriveResult()).
+     * This holds the current sentence produced by our system.
+     * Note that from an external API point of view, there are only two states `result` seems to eventually go through:
+     * Being an empty list (after initialization), and holding an actual final sentence (after calling deriveResult()).
      */
     private ArrayList<Symbol> result = new ArrayList<>();
 
@@ -73,7 +75,7 @@ public class DerivationSystem {
 
     /**
      * When using the Symbol::materialReference field, one can reference to some predefined materials.
-     * One can also reference to whatever material the parent Symbol had.
+     * But one can also reference to whatever material the parent Symbol had.
      * For that, we need to define a String that specifies when that is indeed the case.
      */
     @SerializedName("ref_to_previous_material")
@@ -97,14 +99,14 @@ public class DerivationSystem {
     /**
      * Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
      */
-    private void addSymbol(ArrayList<Symbol> nextSentence, Symbol symbol, Symbol result) {
+    private void addSymbol(ArrayList<Symbol> nextSentence, Symbol previousSymbol, Symbol symbolToAdd) {
         Gson gson = new Gson();
-        Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
-        copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
-        copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
+        Symbol copy = gson.fromJson(gson.toJson(symbolToAdd), Symbol.class);
+        copy.getSize().setFinalCoordinates(previousSymbol, symbolToAdd.getDeltaSize());
+        copy.getPosition().setFinalCoordinates(previousSymbol, symbolToAdd.getDeltaPosition());
         copy.applyRandomResize();
-        copy.applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
-        copy.setMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, symbol);
+        copy.applyRotationX(previousSymbol, CoordinatesUtility.ROTATION.LEFT);
+        copy.setMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, previousSymbol);
         nextSentence.add(copy);
     }
 
