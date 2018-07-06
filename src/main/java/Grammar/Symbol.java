@@ -111,7 +111,7 @@ public class Symbol {
      * one can reference the material of this symbol with this field.
      */
     @SerializedName("material_ref")
-    private Material materialReference;
+    private String materialReference;
 
 
 
@@ -159,7 +159,7 @@ public class Symbol {
         return canBeRotated;
     }
 
-    public Material getMaterialReference() {
+    public String getMaterialReference() {
         return materialReference;
     }
 

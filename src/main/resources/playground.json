@@ -4,7 +4,7 @@
       "symbol": "INITIAL",
       "size": {"x": 10, "y": 10, "z": 10},
       "position": {"x": 2, "y": 0, "z": 0},
-      "material": {"mainID": "sandstone", "subID": "0", "state": "hollow"},
+      "material_ref": "main_block",
       "exclusive_derivation": false,
       "can_be_resized": false,
       "resize_coefficients": {"x": 0, "y": 0, "z": 0},
@@ -20,7 +20,7 @@
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {"d_x": [{"d": "sx", "fac": "1"}], "d_y": [{"d": "sy", "fac": "1"}], "d_z": [{"d": "sz", "fac": "1"}]},
         "delta_position": {"d_x": [{"d":"x", "fac":"1"}], "d_y": [{"d": "y", "fac": "1"}], "d_z": [{"d": "z", "fac": "1"}]},
-        "material": {"mainID": "sandstone", "subID": "0", "state": "hollow"},
+        "material_ref": "secondary_block",
         "probability": 100,
         "exclusive_derivation": false,
         "can_be_resized": false,
@@ -31,5 +31,14 @@
   },
 
   "non-terminals" : ["INITIAL"],
-  "terminals" : ["FINAL"]
+  "terminals" : ["FINAL"],
+
+  "materials": {
+    "main_block": {"mainID": "sandstone", "subID": "0", "state": "hollow"},
+    "secondary_block": {"mainID": "sandstone", "subID": "1", "state": "hollow"},
+    "main_road": {"mainID": "hardened_clay", "subID": "0", "state": "hollow"},
+    "secondary_road": {"mainID": "stained_hardened_clay", "subID": "7", "state": "hollow"},
+    "torch": {"mainID": "torch", "subID": "0", "state": "hollow"},
+    "fence": {"mainID": "fence", "subID": "0", "state": "hollow"}
+  }
 }
