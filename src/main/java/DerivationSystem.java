@@ -1,5 +1,6 @@
 import Grammar.Symbol;
 import MetaData.CoordinatesUtility;
+import MetaData.Material;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -18,6 +19,9 @@ import java.util.Random;
  * to some final result usable to generate content.
  */
 public class DerivationSystem {
+
+    private int ITERATION_LIMIT = 20;
+
     // The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from);
     // By changing it, you change the output of the derivation system.
     @SerializedName("axiom")
@@ -47,7 +51,12 @@ public class DerivationSystem {
     // (i.e. so that our system knows when we got a final output, composed only of terminals).
     private boolean resultContainsNT = true;
 
-    private int ITERATION_LIMIT = 20;
+
+    // A list of the most used material of this system.
+    // Helps in making the rules much smaller and much easier to read/follow.
+    private HashMap<String, Material> materials;
+
+
 
     ArrayList<Symbol> getResult() {
         return result;
@@ -72,6 +81,7 @@ public class DerivationSystem {
         copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
         copy.applyRandomResize();
         copy.applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
+        copy.setMaterialFromRef(materials);
         nextSentence.add(copy);
     }
 
