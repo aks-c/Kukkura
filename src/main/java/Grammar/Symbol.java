@@ -178,10 +178,10 @@ public class Symbol {
         // (Sometimes one might want to explicitly state materials for all their symbols).
         if (getMaterialReference() == null)
             return;
-        if (getMaterialReference() == referenceToPreviousMaterial)
+        if (getMaterialReference().equals(referenceToPreviousMaterial))
             setMaterial(previousSymbol.getMaterial());
-
-        setMaterial(materials.get(getMaterialReference()));
+        else
+            setMaterial(materials.get(getMaterialReference()));
     }
 
     /**
