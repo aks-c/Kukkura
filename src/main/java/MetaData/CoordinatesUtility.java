@@ -87,16 +87,16 @@ public class CoordinatesUtility {
     /**
      * Gets the value represented by the delta ("sx", "y", etc..) and multiplies it by its associated factor.
      */
-    static public String getDeltaValueWithFactor(Delta delta, Symbol symbol) {
-        String withoutFactor = getDeltaValue(delta, symbol);
+    static public String getDeltaValueWithFactor(Delta delta, Symbol parentSymbol) {
+        String withoutFactor = getDeltaValue(delta, parentSymbol);
         return multiplyDelta(withoutFactor, delta.getFactor());
     }
 
     /**
      * Only gets the value represented by the given delta ("sx", "y", etc..).
      */
-    static public String getDeltaValue(Delta delta, Symbol symbol) {
-        return getDeltaValue(delta.getDelta(), symbol);
+    static public String getDeltaValue(Delta delta, Symbol parentSymbol) {
+        return getDeltaValue(delta.getDelta(), parentSymbol);
     }
 
     /**
