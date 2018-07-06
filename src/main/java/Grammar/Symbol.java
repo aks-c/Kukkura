@@ -105,6 +105,13 @@ public class Symbol {
     @SerializedName("material")
     private Material material;
 
+    /**
+     * To avoid duplication and avoid redefining the same materials again and again,
+     * one can reference the material used by this symbol by this field.
+     */
+    @SerializedName("material_ref")
+    private Material materialReference;
+
 
     public String getSymbol(){
         return symbol;
