@@ -81,6 +81,7 @@ public class DerivationSystem {
         copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
         copy.applyRandomResize();
         copy.applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
+        copy.setMaterialFromRef(materials);
         nextSentence.add(copy);
     }
 

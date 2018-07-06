@@ -8,6 +8,7 @@ import MetaData.CoordinatesUtility.ROTATION;
 import MetaData.Material;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -160,9 +161,9 @@ public class Symbol {
 
 
 
-//    private Material setMaterialFromRef() {
-//        return
-//    }
+    public void setMaterialFromRef(HashMap<String, Material> materials) {
+
+    }
 
     /**
      * Apply a random Rotation, with respect to a random Axis.
