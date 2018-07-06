@@ -54,7 +54,16 @@ public class DerivationSystem {
 
     // A list of the most used material of this system.
     // Helps in making the rules much smaller and much easier to read/follow.
+    @SerializedName("materials")
     private HashMap<String, Material> materials;
+
+    /**
+     * When using the Symbol::materialReference field, one can reference to some predefined materials.
+     * One can also reference to whatever material the parent Symbol had.
+     * For that, we need to define a String that specifies when that is indeed the case.
+     */
+    @SerializedName("ref_to_previous_material")
+    private String REF_TO_PREVIOUS_MATERIAL;
 
 
 
@@ -81,7 +90,7 @@ public class DerivationSystem {
         copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
         copy.applyRandomResize();
         copy.applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
-        copy.setMaterialFromRef(materials);
+        copy.setMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, symbol);
         nextSentence.add(copy);
     }
 
