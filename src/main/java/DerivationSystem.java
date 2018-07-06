@@ -129,16 +129,20 @@ public class DerivationSystem {
      * Out of all the RHS symbols of the rule, only one, and exactly one is chosen.
      * The symbol derived are chosen following a probability distribution.
      * Note that this PD is not normalised.
+     *
+     * Each Symbol has a certain weight (Higher Weight => Higher Probability of being chosen).
+     * All the weights are summed up, then a random number in that range is generated.
+     * The weights represent the size of the area "owned" by each Symbol.
+     * The generated rand then falls in the area of one of the symbols.
+     * The Symbol we end up adding is the one that owns the area the rand fell into.
      */
-    private void deriveExclusiveRule(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
-        // Each Symbol has a certain weight (Higher Weight => Higher Probability of being chosen).
-        // All the weights are summed up, then a random in that range is generated.
-        // The rand falls in the area of one of the symbols.
-        // That symbol is the one chosen for the derivation.
+    private void deriveExclusiveRule(ArrayList<Symbol> nextSentence, Symbol previousSymbol, ArrayList<Symbol> derivation) {
+        // The thresholds represent the upper limits of each Symbols' domains.
+        // Then, we can represent the ownership of the entire range with a precomputed ArrayList of all the thresholds.
         int sum = 0;
         ArrayList<Integer> thresholds = new ArrayList<>();
-        for (Symbol result: derivation) {
-            sum += result.getProbability();
+        for (Symbol symbolDerived: derivation) {
+            sum += symbolDerived.getProbability();
             thresholds.add(sum);
         }
         int indexToDerive = 0;
@@ -146,7 +150,7 @@ public class DerivationSystem {
         while (thresholds.get(indexToDerive) < r) {
             indexToDerive++;
         }
-        addSymbol(nextSentence, symbol, derivation.get(indexToDerive));
+        addSymbol(nextSentence, previousSymbol, derivation.get(indexToDerive));
     }
 
     private void deriveSingleSymbol(ArrayList<Symbol> nextSentence, Symbol symbol) {
