@@ -159,10 +159,22 @@ public class Symbol {
         return canBeRotated;
     }
 
+    public Material getMaterialReference() {
+        return materialReference;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
 
 
+    /**
+     * The MaterialReference field holds some String value.
+     * This String represents the name of a commonly used material.
+     * This sets the current material of the Symbol to whatever is referenced by the MaterialReference String.
+     */
     public void setMaterialFromRef(HashMap<String, Material> materials) {
-
+        setMaterial(materials.get(getMaterialReference()));
     }
 
     /**
