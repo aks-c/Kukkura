@@ -113,13 +113,13 @@ public class DerivationSystem {
     /**
      * A non-exclusive rule is one where:
      * Every RHS symbol can be chosen or not, independently.
-     * This does not follow any probability distribution: each symbol is handled, one by one.
+     * This does not follow a global probability distribution: each symbol is handled one by one.
      */
-    private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
-        for (Symbol result: derivation) {
-            // only process this result if its probability of appearing is high enough.
-            if (result.shouldBeAdded()) {
-                addSymbol(nextSentence, symbol, result);
+    private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol previousSymbol, ArrayList<Symbol> derivation) {
+        for (Symbol symbolDerived: derivation) {
+            // only process this symbol if its probability of appearing is high enough.
+            if (symbolDerived.shouldBeAdded()) {
+                addSymbol(nextSentence, previousSymbol, symbolDerived);
             }
         }
     }
