@@ -22,38 +22,52 @@ public class DerivationSystem {
 
     private int ITERATION_LIMIT = 20;
 
-    // The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from);
-    // By changing it, you change the output of the derivation system.
+    /**
+     * The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from);
+     * By changing it, you change the output of the derivation system.
+     */
     @SerializedName("axiom")
     private ArrayList<Symbol> axiom;
 
-    // This specifies the derivation rules of the system;
-    // For a given symbol in the current sentence, its rule specifies what it should be replaced by.
-    // If a symbol doesn't have an associated rule, it means it's a terminal.
+    /**
+     * This specifies the derivation rules of the system;
+     * For a given symbol in the current sentence, its rule specifies what it should be replaced by.
+     * If a symbol doesn't have an associated rule, it means it's a terminal.
+     */
     @SerializedName("rules")
     private HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
 
-    // We explicitly separate our alphabet into lists of terminals and non-terminals because it makes processing easier.
-    // Terminals are symbols that don't have an associated production rule.
+    /**
+     * We explicitly separate our alphabet into lists of terminals and non-terminals because it makes processing easier.
+     * Terminals are symbols that don't have an associated production rule.
+     */
     @SerializedName("terminals")
     private ArrayList<String> terminals = new ArrayList<>();
 
-    // Non-Terminals are symbols that have an associated production rule.
+    /**
+     * Non-Terminals are symbols that have an associated production rule.
+     */
     @SerializedName("non-terminals")
     private ArrayList<String> nonTerminals = new ArrayList<>();
 
-    // This holds the current sentence derived by our system.
-    // Note that from an external API point of view, there are only two states `result` eventually goes through:
-    // Being an empty list (after initialization), and holding an actual derivation (after calling deriveResult()).
+    /**
+     * This holds the current sentence derived by our system.
+     * Note that from an external API point of view, there are only two states `result` eventually goes through:
+     * Being an empty list (after initialization), and holding an actual derivation (after calling deriveResult()).
+     */
     private ArrayList<Symbol> result = new ArrayList<>();
 
-    // A boolean used by deriveResult() so the function knows when it should stop trying to derive
-    // (i.e. so that our system knows when we got a final output, composed only of terminals).
+    /**
+     * A boolean used by deriveResult() so the function knows when it should stop trying to derive.
+     * (i.e. so that our system knows when we got a final output, composed only of terminals).
+     */
     private boolean resultContainsNT = true;
 
 
-    // A list of the most used material of this system.
-    // Helps in making the rules much smaller and much easier to read/follow.
+    /**
+     * A list of the most used material of this system.
+     * Helps in making the rules much smaller and much easier to read/follow.
+     */
     @SerializedName("materials")
     private HashMap<String, Material> materials;
 
