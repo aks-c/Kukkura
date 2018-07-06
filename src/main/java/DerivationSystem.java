@@ -88,7 +88,7 @@ public class DerivationSystem {
 
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
-            if (nonTerminals.contains(symbol.getSymbol()))
+            if (nonTerminals.contains(symbol.getSymbolID()))
                 return true;
         }
         return false;
@@ -150,8 +150,8 @@ public class DerivationSystem {
     private void deriveSingleSymbol(ArrayList<Symbol> nextSentence, Symbol symbol) {
         // Symbol is Non-Terminal: Add its RHS Derivation.
         // Symbol is Terminal: Add the Symbol itself.
-        if (nonTerminals.contains(symbol.getSymbol())) {
-            final ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
+        if (nonTerminals.contains(symbol.getSymbolID())) {
+            final ArrayList<Symbol> derivation = rules.get(symbol.getSymbolID());
             // we make a deep copy of each symbol we got back from the rules map.
             // for each derived symbol, we figure out what the absolute values of the deltas are,
             // then we apply them to the actual Position/Size.

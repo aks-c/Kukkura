@@ -22,7 +22,7 @@ public class Symbol {
      * The actual symbol associated with this object.
      */
     @SerializedName("symbol")
-    private String symbol;
+    private String symbolID;
 
     /**
      * Some rules might have this symbol in their RHS.
@@ -115,8 +115,8 @@ public class Symbol {
 
 
 
-    public String getSymbol(){
-        return symbol;
+    public String getSymbolID(){
+        return symbolID;
     }
 
     public Coordinates getSize() {
