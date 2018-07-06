@@ -174,6 +174,10 @@ public class Symbol {
      * This sets the current material of the Symbol to whatever is referenced by the MaterialReference String.
      */
     public void setMaterialFromRef(HashMap<String, Material> materials) {
+        // The MaterialReference might not always be used;
+        // (Sometimes one might want to explicitly state materials for all their symbols).
+        if (getMaterialReference() == null)
+            return;
         setMaterial(materials.get(getMaterialReference()));
     }
 
