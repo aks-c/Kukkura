@@ -27,9 +27,7 @@ public class Parser {
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(filename));
 
-        DerivationSystem input = gson.fromJson(reader, DerivationSystem.class);
-
-        return input;
+        return gson.fromJson(reader, DerivationSystem.class);
     }
 
     /**
