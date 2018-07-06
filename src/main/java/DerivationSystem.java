@@ -99,14 +99,14 @@ public class DerivationSystem {
     /**
      * Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
      */
-    private void addSymbol(ArrayList<Symbol> nextSentence, Symbol previousSymbol, Symbol symbolToAdd) {
+    private void addSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol, Symbol symbolToAdd) {
         Gson gson = new Gson();
         Symbol copy = gson.fromJson(gson.toJson(symbolToAdd), Symbol.class);
-        copy.getSize().setFinalCoordinates(previousSymbol, symbolToAdd.getDeltaSize());
-        copy.getPosition().setFinalCoordinates(previousSymbol, symbolToAdd.getDeltaPosition());
+        copy.getSize().setFinalCoordinates(parentSymbol, symbolToAdd.getDeltaSize());
+        copy.getPosition().setFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
         copy.applyRandomResize();
-        copy.applyRotationX(previousSymbol, CoordinatesUtility.ROTATION.LEFT);
-        copy.setMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, previousSymbol);
+        copy.applyRotationX(parentSymbol, CoordinatesUtility.ROTATION.LEFT);
+        copy.setMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
         nextSentence.add(copy);
     }
 
@@ -115,11 +115,11 @@ public class DerivationSystem {
      * Every RHS symbol can be chosen or not, independently.
      * This does not follow a global probability distribution: each symbol is handled one by one.
      */
-    private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol previousSymbol, ArrayList<Symbol> derivation) {
+    private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol parentSymbol, ArrayList<Symbol> derivation) {
         for (Symbol symbolDerived: derivation) {
             // only process this symbol if its probability of appearing is high enough.
             if (symbolDerived.shouldBeAdded()) {
-                addSymbol(nextSentence, previousSymbol, symbolDerived);
+                addSymbol(nextSentence, parentSymbol, symbolDerived);
             }
         }
     }
@@ -136,7 +136,7 @@ public class DerivationSystem {
      * The generated rand then falls in the area of one of the symbols.
      * The Symbol we end up adding is the one that owns the area the rand fell into.
      */
-    private void deriveExclusiveRule(ArrayList<Symbol> nextSentence, Symbol previousSymbol, ArrayList<Symbol> derivation) {
+    private void deriveExclusiveRule(ArrayList<Symbol> nextSentence, Symbol parentSymbol, ArrayList<Symbol> derivation) {
         // The thresholds represent the upper limits of each Symbols' domains.
         // Then, we can represent the ownership of the entire range with a precomputed ArrayList of all the thresholds.
         int sum = 0;
@@ -150,24 +150,24 @@ public class DerivationSystem {
         while (thresholds.get(indexToDerive) < r) {
             indexToDerive++;
         }
-        addSymbol(nextSentence, previousSymbol, derivation.get(indexToDerive));
+        addSymbol(nextSentence, parentSymbol, derivation.get(indexToDerive));
     }
 
-    private void deriveSingleSymbol(ArrayList<Symbol> nextSentence, Symbol symbol) {
+    private void deriveSingleSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol) {
         // Symbol is Non-Terminal: Add its RHS Derivation.
         // Symbol is Terminal: Add the Symbol itself.
-        if (nonTerminals.contains(symbol.getSymbolID())) {
-            final ArrayList<Symbol> derivation = rules.get(symbol.getSymbolID());
+        if (nonTerminals.contains(parentSymbol.getSymbolID())) {
+            final ArrayList<Symbol> derivation = rules.get(parentSymbol.getSymbolID());
             // we make a deep copy of each symbol we got back from the rules map.
             // for each derived symbol, we figure out what the absolute values of the deltas are,
             // then we apply them to the actual Position/Size.
-            if (symbol.isExclusiveDerivation()) {
-                deriveExclusiveRule(nextSentence, symbol, derivation);
+            if (parentSymbol.isExclusiveDerivation()) {
+                deriveExclusiveRule(nextSentence, parentSymbol, derivation);
             } else {
-                deriveNonExclusiveRule(nextSentence, symbol, derivation);
+                deriveNonExclusiveRule(nextSentence, parentSymbol, derivation);
             }
         } else {
-            nextSentence.add(symbol);
+            nextSentence.add(parentSymbol);
         }
     }
 
