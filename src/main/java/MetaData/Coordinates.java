@@ -103,7 +103,7 @@ public class Coordinates {
 
     /**
      * Utility that swaps the values of two given axes.
-     * For example, it is heavily used by the Rotation functions.
+     * It is heavily used by the Rotation functions.
      */
     public void swap(CoordinatesUtility.AXIS firstAxis, CoordinatesUtility.AXIS secondAxis) {
         String temp = getField(firstAxis);
@@ -113,30 +113,31 @@ public class Coordinates {
 
     /**
      * This is only called once.
-     * It takes all the delta fields, actualises them all, and applies all of them to this Object,
-     * to get some finalised Coordinate values.
+     * It takes all the delta fields, actualises them all,
+     * and applies all of them to this Object to get some finalised Coordinate values.
      * Note that those values are finalised, and not really "final";
      * We still modify these fields with one last touch as we apply some *possible* rotations and resizing.
      * But for all intent and purposes, the result of this is pretty much final (or very close to it).
      */
-    public void setFinalCoordinates(Symbol symbol, CoordinatesDelta deltaCoordinates) {
+    public void setFinalCoordinates(Symbol parentSymbol, CoordinatesDelta deltaCoordinates) {
         if (deltaIsSet)
             return;
         deltaIsSet = true;
-        x = setFinalValue(x, deltaCoordinates.getDeltaX(), symbol);
-        y = setFinalValue(y, deltaCoordinates.getDeltaY(), symbol);
-        z = setFinalValue(z, deltaCoordinates.getDeltaZ(), symbol);
+        x = setFinalValue(parentSymbol, deltaCoordinates.getDeltaX(), x);
+        y = setFinalValue(parentSymbol, deltaCoordinates.getDeltaY(), y);
+        z = setFinalValue(parentSymbol, deltaCoordinates.getDeltaZ(), z);
     }
 
     /**
      * For a given field,
-     * get all the values the deltas represent (i.e. map the "x" and "sy" and all to actual values), multiply them by their associated factors,
-     * and apply them all to the field, one by one.
+     * get all the values the deltas represent (i.e. map the "x" and "sy" and all to actual values),
+     * multiply them by their associated factors,
+     * and apply them all to the given field, one by one.
      */
-    private String setFinalValue(String field, ArrayList<Delta> deltas, Symbol symbol) {
-        field = CoordinatesUtility.getDeltaValue(field, symbol);
+    private String setFinalValue(Symbol parentSymbol, ArrayList<Delta> deltas, String field) {
+        field = CoordinatesUtility.getDeltaValue(field, parentSymbol);
         for (Delta delta : deltas) {
-            delta.setDelta(CoordinatesUtility.getDeltaValueWithFactor(delta, symbol));
+            delta.setDelta(CoordinatesUtility.getDeltaValueWithFactor(delta, parentSymbol));
             field = CoordinatesUtility.addDelta(field, delta.getDelta());
         }
         return field;

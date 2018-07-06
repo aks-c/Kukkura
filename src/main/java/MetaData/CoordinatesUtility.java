@@ -87,47 +87,49 @@ public class CoordinatesUtility {
     /**
      * Gets the value represented by the delta ("sx", "y", etc..) and multiplies it by its associated factor.
      */
-    static public String getDeltaValueWithFactor(Delta delta, Symbol symbol) {
-        String withoutFactor = getDeltaValue(delta, symbol);
+    static public String getDeltaValueWithFactor(Delta delta, Symbol parentSymbol) {
+        String withoutFactor = getDeltaValue(delta, parentSymbol);
         return multiplyDelta(withoutFactor, delta.getFactor());
     }
 
     /**
      * Only gets the value represented by the given delta ("sx", "y", etc..).
      */
-    static public String getDeltaValue(Delta delta, Symbol symbol) {
-        return getDeltaValue(delta.getDelta(), symbol);
+    static public String getDeltaValue(Delta delta, Symbol parentSymbol) {
+        return getDeltaValue(delta.getDelta(), parentSymbol);
     }
 
     /**
+     * Returns whatever value the given delta string represents.
+     *
      * Deltas are applied relative to something: the value of a specific field inside the Coordinate of a symbol.
      * This function retrieves the value of the appropriate field, from the base symbol,
      * according to the String description in the delta field of this Coordinate.
      * e.g.: a value of "sx" for the current delta field means that
      * this field will add a value relative to the X size dimension of the base symbol.
      */
-    static public String getDeltaValue(String delta, Symbol symbol){
+    static public String getDeltaValue(String delta, Symbol parentSymbol){
         String result;
 
         switch (delta) {
             case "x":
-                result = symbol.getPosition().getX();
+                result = parentSymbol.getPosition().getX();
                 break;
             case "y":
-                result = symbol.getPosition().getY();
+                result = parentSymbol.getPosition().getY();
                 break;
             case "z":
-                result = symbol.getPosition().getZ();
+                result = parentSymbol.getPosition().getZ();
                 break;
 
             case "sx":
-                result = symbol.getSize().getX();
+                result = parentSymbol.getSize().getX();
                 break;
             case "sy":
-                result = symbol.getSize().getY();
+                result = parentSymbol.getSize().getY();
                 break;
             case "sz":
-                result = symbol.getSize().getZ();
+                result = parentSymbol.getSize().getZ();
                 break;
             case "":
                 result = "0";

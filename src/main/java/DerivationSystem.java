@@ -23,16 +23,16 @@ public class DerivationSystem {
     private int ITERATION_LIMIT = 20;
 
     /**
-     * The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from);
-     * By changing it, you change the output of the derivation system.
+     * The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from).
      */
     @SerializedName("axiom")
     private ArrayList<Symbol> axiom;
 
     /**
-     * This specifies the derivation rules of the system;
+     * This specifies the production/derivation rules of the system;
      * For a given symbol in the current sentence, its rule specifies what it should be replaced by.
-     * If a symbol doesn't have an associated rule, it means it's a terminal.
+     * eg: A -> B means that in the sentence, A's will be replaced by B's.
+     * If a symbol doesn't have an associated rule, we say it's a terminal.
      */
     @SerializedName("rules")
     private HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
@@ -46,14 +46,16 @@ public class DerivationSystem {
 
     /**
      * Non-Terminals are symbols that have an associated production rule.
+     * Note that the sets of Terminals and Non-Terminals are disjoint:
+     * i.e. a symbol cannot be both a T and a NT.
      */
     @SerializedName("non-terminals")
     private ArrayList<String> nonTerminals = new ArrayList<>();
 
     /**
-     * This holds the current sentence derived by our system.
-     * Note that from an external API point of view, there are only two states `result` eventually goes through:
-     * Being an empty list (after initialization), and holding an actual derivation (after calling deriveResult()).
+     * This holds the current sentence produced by our system.
+     * Note that from an external API point of view, there are only two states `result` seems to eventually go through:
+     * Being an empty list (after initialization), and holding an actual final sentence (after calling deriveResult()).
      */
     private ArrayList<Symbol> result = new ArrayList<>();
 
@@ -73,7 +75,7 @@ public class DerivationSystem {
 
     /**
      * When using the Symbol::materialReference field, one can reference to some predefined materials.
-     * One can also reference to whatever material the parent Symbol had.
+     * But one can also reference to whatever material the parent Symbol had.
      * For that, we need to define a String that specifies when that is indeed the case.
      */
     @SerializedName("ref_to_previous_material")
@@ -88,7 +90,7 @@ public class DerivationSystem {
 
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
-            if (nonTerminals.contains(symbol.getSymbol()))
+            if (nonTerminals.contains(symbol.getSymbolID()))
                 return true;
         }
         return false;
@@ -97,27 +99,27 @@ public class DerivationSystem {
     /**
      * Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
      */
-    private void addSymbol(ArrayList<Symbol> nextSentence, Symbol symbol, Symbol result) {
+    private void addSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol, Symbol symbolToAdd) {
         Gson gson = new Gson();
-        Symbol copy = gson.fromJson(gson.toJson(result), Symbol.class);
-        copy.getSize().setFinalCoordinates(symbol, result.getDeltaSize());
-        copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
+        Symbol copy = gson.fromJson(gson.toJson(symbolToAdd), Symbol.class);
+        copy.getSize().setFinalCoordinates(parentSymbol, symbolToAdd.getDeltaSize());
+        copy.getPosition().setFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
         copy.applyRandomResize();
-        copy.applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
-        copy.setMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, symbol);
+        copy.applyRotationX(parentSymbol, CoordinatesUtility.ROTATION.LEFT);
+        copy.setMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
         nextSentence.add(copy);
     }
 
     /**
      * A non-exclusive rule is one where:
      * Every RHS symbol can be chosen or not, independently.
-     * This does not follow any probability distribution: each symbol is handled, one by one.
+     * This does not follow a global probability distribution: each symbol is handled one by one.
      */
-    private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
-        for (Symbol result: derivation) {
-            // only process this result if its probability of appearing is high enough.
-            if (result.shouldBeAdded()) {
-                addSymbol(nextSentence, symbol, result);
+    private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol parentSymbol, ArrayList<Symbol> derivation) {
+        for (Symbol symbolDerived: derivation) {
+            // only process this symbol if its probability of appearing is high enough.
+            if (symbolDerived.shouldBeAdded()) {
+                addSymbol(nextSentence, parentSymbol, symbolDerived);
             }
         }
     }
@@ -127,16 +129,20 @@ public class DerivationSystem {
      * Out of all the RHS symbols of the rule, only one, and exactly one is chosen.
      * The symbol derived are chosen following a probability distribution.
      * Note that this PD is not normalised.
+     *
+     * Each Symbol has a certain weight (Higher Weight => Higher Probability of being chosen).
+     * All the weights are summed up, then a random number in that range is generated.
+     * The weights represent the size of the area "owned" by each Symbol.
+     * The generated rand then falls in the area of one of the symbols.
+     * The Symbol we end up adding is the one that owns the area the rand fell into.
      */
-    private void deriveExclusiveRule(ArrayList<Symbol> nextSentence, Symbol symbol, ArrayList<Symbol> derivation) {
-        // Each Symbol has a certain weight (Higher Weight => Higher Probability of being chosen).
-        // All the weights are summed up, then a random in that range is generated.
-        // The rand falls in the area of one of the symbols.
-        // That symbol is the one chosen for the derivation.
+    private void deriveExclusiveRule(ArrayList<Symbol> nextSentence, Symbol parentSymbol, ArrayList<Symbol> derivation) {
+        // The thresholds represent the upper limits of each Symbols' domains.
+        // Then, we can represent the ownership of the entire range with a precomputed ArrayList of all the thresholds.
         int sum = 0;
         ArrayList<Integer> thresholds = new ArrayList<>();
-        for (Symbol result: derivation) {
-            sum += result.getProbability();
+        for (Symbol symbolDerived: derivation) {
+            sum += symbolDerived.getProbability();
             thresholds.add(sum);
         }
         int indexToDerive = 0;
@@ -144,24 +150,24 @@ public class DerivationSystem {
         while (thresholds.get(indexToDerive) < r) {
             indexToDerive++;
         }
-        addSymbol(nextSentence, symbol, derivation.get(indexToDerive));
+        addSymbol(nextSentence, parentSymbol, derivation.get(indexToDerive));
     }
 
-    private void deriveSingleSymbol(ArrayList<Symbol> nextSentence, Symbol symbol) {
+    private void deriveSingleSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol) {
         // Symbol is Non-Terminal: Add its RHS Derivation.
         // Symbol is Terminal: Add the Symbol itself.
-        if (nonTerminals.contains(symbol.getSymbol())) {
-            final ArrayList<Symbol> derivation = rules.get(symbol.getSymbol());
+        if (nonTerminals.contains(parentSymbol.getSymbolID())) {
+            final ArrayList<Symbol> derivation = rules.get(parentSymbol.getSymbolID());
             // we make a deep copy of each symbol we got back from the rules map.
             // for each derived symbol, we figure out what the absolute values of the deltas are,
             // then we apply them to the actual Position/Size.
-            if (symbol.isExclusiveDerivation()) {
-                deriveExclusiveRule(nextSentence, symbol, derivation);
+            if (parentSymbol.isExclusiveDerivation()) {
+                deriveExclusiveRule(nextSentence, parentSymbol, derivation);
             } else {
-                deriveNonExclusiveRule(nextSentence, symbol, derivation);
+                deriveNonExclusiveRule(nextSentence, parentSymbol, derivation);
             }
         } else {
-            nextSentence.add(symbol);
+            nextSentence.add(parentSymbol);
         }
     }
 
