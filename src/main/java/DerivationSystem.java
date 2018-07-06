@@ -90,7 +90,7 @@ public class DerivationSystem {
         copy.getPosition().setFinalCoordinates(symbol, result.getDeltaPosition());
         copy.applyRandomResize();
         copy.applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
-        copy.setMaterialFromRef(materials);
+        copy.setMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, symbol);
         nextSentence.add(copy);
     }
 

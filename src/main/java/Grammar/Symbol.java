@@ -173,11 +173,14 @@ public class Symbol {
      * This String represents the name of a commonly used material.
      * This sets the current material of the Symbol to whatever is referenced by the MaterialReference String.
      */
-    public void setMaterialFromRef(HashMap<String, Material> materials) {
+    public void setMaterialFromRef(HashMap<String, Material> materials, String referenceToPreviousMaterial, Symbol previousSymbol) {
         // The MaterialReference might not always be used;
         // (Sometimes one might want to explicitly state materials for all their symbols).
         if (getMaterialReference() == null)
             return;
+        if (getMaterialReference() == referenceToPreviousMaterial)
+            setMaterial(previousSymbol.getMaterial());
+
         setMaterial(materials.get(getMaterialReference()));
     }
 
