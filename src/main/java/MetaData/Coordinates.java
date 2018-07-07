@@ -78,9 +78,9 @@ public class Coordinates {
      * We still modify these fields with one last touch as we apply some *possible* rotations and resizing.
      * But for all intent and purposes, the result of this is pretty much final (or very close to it).
      */
-    public Coordinates getFinalCoordinates(Symbol parentSymbol, CoordinatesDelta deltaCoordinates, Coordinates coordinates) {
+    public Coordinates getFinalCoordinates(Symbol parentSymbol, CoordinatesDelta deltaCoordinates) {
         if (deltaIsSet)
-            return coordinates;
+            return this;
         deltaIsSet = true;
         String newX = getFinalValue(parentSymbol, deltaCoordinates.getDeltaX(), this.x);
         String newY = getFinalValue(parentSymbol, deltaCoordinates.getDeltaY(), this.y);
