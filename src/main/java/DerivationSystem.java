@@ -117,10 +117,6 @@ public class DerivationSystem {
      */
     private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol parentSymbol, ArrayList<Symbol> derivation) {
         for (Symbol symbolDerived: derivation) {
-            System.out.println(symbolDerived.getSymbolID());
-            System.out.println(symbolDerived.getDeltaPosition().getDeltaX().get(0).getDelta());
-            System.out.println(symbolDerived);
-            System.out.println();
             // only process this symbol if its probability of appearing is high enough.
             if (symbolDerived.shouldBeAdded()) {
                 addSymbol(nextSentence, parentSymbol, symbolDerived);
