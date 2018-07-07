@@ -78,13 +78,14 @@ public class Coordinates {
      * We still modify these fields with one last touch as we apply some *possible* rotations and resizing.
      * But for all intent and purposes, the result of this is pretty much final (or very close to it).
      */
-    public void setFinalCoordinates(Symbol parentSymbol, CoordinatesDelta deltaCoordinates) {
+    public Coordinates getFinalCoordinates(Symbol parentSymbol, CoordinatesDelta deltaCoordinates, Coordinates coordinates) {
         if (deltaIsSet)
-            return;
+            return coordinates;
         deltaIsSet = true;
-        x = setFinalValue(parentSymbol, deltaCoordinates.getDeltaX(), x);
-        y = setFinalValue(parentSymbol, deltaCoordinates.getDeltaY(), y);
-        z = setFinalValue(parentSymbol, deltaCoordinates.getDeltaZ(), z);
+        String newX = getFinalValue(parentSymbol, deltaCoordinates.getDeltaX(), this.x);
+        String newY = getFinalValue(parentSymbol, deltaCoordinates.getDeltaY(), this.y);
+        String newZ = getFinalValue(parentSymbol, deltaCoordinates.getDeltaZ(), this.z);
+        return new Coordinates(newX, newY, newZ);
     }
 
     /**
@@ -93,7 +94,7 @@ public class Coordinates {
      * multiply them by their associated factors,
      * and apply them all to the given field, one by one.
      */
-    private String setFinalValue(Symbol parentSymbol, ArrayList<Delta> deltas, String field) {
+    private String getFinalValue(Symbol parentSymbol, ArrayList<Delta> deltas, String field) {
         field = CoordinatesUtility.getDeltaValue(field, parentSymbol);
         for (Delta delta : deltas) {
             String deltaValue = CoordinatesUtility.getDeltaValueWithFactor(delta, parentSymbol);
