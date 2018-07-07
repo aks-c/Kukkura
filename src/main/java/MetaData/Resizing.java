@@ -8,6 +8,7 @@ import java.util.Random;
 /**
  * Created by akselcakmak on 02/07/2018.
  *
+ * TODO: Re-write the logic of this class after the immutability rework.
  */
 public class Resizing {
     /**
