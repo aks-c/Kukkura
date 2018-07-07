@@ -16,9 +16,6 @@ public class Resizing {
     public static void applyRandomResize(Symbol symbol) {
         if (!symbol.canBeResized())
             return;
-        symbol.getSize().setX(applyRandomResizeToField(symbol, CoordinatesUtility.AXIS.X));
-        symbol.getSize().setY(applyRandomResizeToField(symbol, CoordinatesUtility.AXIS.Y));
-        symbol.getSize().setZ(applyRandomResizeToField(symbol, CoordinatesUtility.AXIS.Z));
     }
 
     /**
