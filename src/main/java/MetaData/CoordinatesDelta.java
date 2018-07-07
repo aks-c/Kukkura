@@ -15,10 +15,10 @@ public class CoordinatesDelta {
         this.deltaZ = deltaZ;
     }
 
-    public CoordinatesDelta(CoordinatesDelta deltaCoordinates){
-        this.deltaX = deltaCoordinates.getDeltaX();
-        this.deltaY = deltaCoordinates.getDeltaX();
-        this.deltaZ = deltaCoordinates.getDeltaX();
+    public CoordinatesDelta(CoordinatesDelta other){
+        this.deltaX = other.getDeltaX();
+        this.deltaY = other.getDeltaX();
+        this.deltaZ = other.getDeltaX();
     }
 
     /**

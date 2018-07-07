@@ -23,6 +23,12 @@ public class Coordinates {
         this.z = z;
     }
 
+    public Coordinates(Coordinates other) {
+        this.x = other.getX();
+        this.y = other.getY();
+        this.z = other.getZ();
+    }
+
     /**
      * These Coordinates are Strings that actually represent some int values.
      * What happens is that these values are modified according to the system's rules,
