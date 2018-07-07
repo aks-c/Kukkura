@@ -137,8 +137,8 @@ public class Coordinates {
     private String setFinalValue(Symbol parentSymbol, ArrayList<Delta> deltas, String field) {
         field = CoordinatesUtility.getDeltaValue(field, parentSymbol);
         for (Delta delta : deltas) {
-            delta.setDelta(CoordinatesUtility.getDeltaValueWithFactor(delta, parentSymbol));
-            field = CoordinatesUtility.addDelta(field, delta.getDelta());
+            String deltaValue = CoordinatesUtility.getDeltaValueWithFactor(delta, parentSymbol);
+            field = CoordinatesUtility.addDelta(field, deltaValue);
         }
         return field;
     }

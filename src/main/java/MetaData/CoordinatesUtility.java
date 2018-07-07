@@ -81,7 +81,7 @@ public class CoordinatesUtility {
      */
     static public String multiplyDelta(String delta, String factor) {
         float result = (Integer.parseInt(delta.trim()) * Float.parseFloat(factor.trim()));
-        return String.format("%.0f%n", result);
+        return String.format("%.0f", result);
     }
 
     /**
