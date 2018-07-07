@@ -104,8 +104,8 @@ public class DerivationSystem {
         Symbol copy = gson.fromJson(gson.toJson(symbolToAdd), Symbol.class);
         copy.getSize().setFinalCoordinates(parentSymbol, symbolToAdd.getDeltaSize());
         copy.getPosition().setFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
-        copy.applyRandomResize();
-        copy.applyRotationX(parentSymbol, CoordinatesUtility.ROTATION.LEFT);
+        //copy.applyRandomResize();
+        //copy.applyRotationX(parentSymbol, CoordinatesUtility.ROTATION.LEFT);
         copy.setMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
         nextSentence.add(copy);
     }
