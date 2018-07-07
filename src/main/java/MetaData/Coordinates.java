@@ -29,13 +29,13 @@ public class Coordinates {
      * and to some lists of deltas to apply.
      */
     @SerializedName("x")
-    private String x;
+    private final String x;
 
     @SerializedName("y")
-    private String y;
+    private final String y;
 
     @SerializedName("z")
-    private String z;
+    private final String z;
 
 
     // Boolean to avoid setting deltas more than once.
