@@ -24,9 +24,7 @@ public class Coordinates {
     }
 
     public Coordinates(Coordinates other) {
-        this.x = other.getX();
-        this.y = other.getY();
-        this.z = other.getZ();
+        this(other.getX(), other.getY(), other.getZ());
     }
 
     /**

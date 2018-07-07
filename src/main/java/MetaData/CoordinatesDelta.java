@@ -16,9 +16,7 @@ public class CoordinatesDelta {
     }
 
     public CoordinatesDelta(CoordinatesDelta other){
-        this.deltaX = other.getDeltaX();
-        this.deltaY = other.getDeltaX();
-        this.deltaZ = other.getDeltaX();
+        this(other.getDeltaX(), other.getDeltaY(), other.getDeltaZ());
     }
 
     /**
