@@ -1,6 +1,5 @@
 package MetaData;
 
-import Grammar.Symbol;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -10,6 +9,11 @@ import java.util.ArrayList;
  *
  */
 public class CoordinatesDelta {
+    public CoordinatesDelta(ArrayList<Delta> deltaX, ArrayList<Delta> deltaY, ArrayList<Delta> deltaZ) {
+        this.deltaX = deltaX;
+        this.deltaY = deltaY;
+        this.deltaZ = deltaZ;
+    }
 
     /**
      * Each one of these is a list of deltas to be eventually applied to their respective fields.
@@ -17,13 +21,13 @@ public class CoordinatesDelta {
      * so that these values can be passed down as appropriate to the current Symbol.
      */
     @SerializedName("d_x")
-    private ArrayList<Delta> deltaX;
+    private final ArrayList<Delta> deltaX;
 
     @SerializedName("d_y")
-    private ArrayList<Delta> deltaY;
+    private final ArrayList<Delta> deltaY;
 
     @SerializedName("d_z")
-    private ArrayList<Delta> deltaZ;
+    private final ArrayList<Delta> deltaZ;
 
 
     public ArrayList<Delta> getDeltaX() {

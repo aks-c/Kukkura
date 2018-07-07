@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * - A factor (can support Floating pt values). It is used to multiply the value represented by the delta field.
  */
 public class Delta {
-    
+
     public Delta(String delta, String factor) {
         this.delta = delta;
         this.factor = factor;
