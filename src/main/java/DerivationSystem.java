@@ -101,8 +101,8 @@ public class DerivationSystem {
      * Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
      */
     private void addSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol, Symbol symbolToAdd) {
-        // Coordinates size = symbolToAdd.getSize().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaSize(), symbolToAdd.getSize());
-        // Coordinates position = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition(), symbolToAdd.getPosition());
+        // Coordinates size = symbolToAdd.getSize().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaSize());
+        // Coordinates position = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
         // copy = newSymbol with new size/position
         Gson gson = new Gson();
         Symbol copy = gson.fromJson(gson.toJson(symbolToAdd), Symbol.class);

@@ -15,11 +15,25 @@ import java.util.Random;
  * Handles the symbols we use along with their related meta-data, properties, etc..
  */
 public class Symbol {
+    public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, boolean canBeRotated, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
+        this.symbolID = symbolID;
+        this.probability = probability;
+        this.exclusiveDerivation = exclusiveDerivation;
+        this.canBeResized = canBeResized;
+        this.resizeCoefficients = resizeCoefficients;
+        this.canBeRotated = canBeRotated;
+        this.size = size;
+        this.position = position;
+        this.deltaSize = deltaSize;
+        this.deltaPosition = deltaPosition;
+    }
+
+
     /**
      * The actual symbol associated with this object.
      */
     @SerializedName("symbol")
-    private String symbolID;
+    private final String symbolID;
 
     /**
      * Some rules might have this symbol in their RHS.
@@ -34,7 +48,7 @@ public class Symbol {
      * (3) Turns out that in the context of exclusive rules, an int field just makes a lot more sense.
      */
     @SerializedName("probability")
-    private int probability;
+    private final int probability;
 
 
     /**
@@ -44,13 +58,13 @@ public class Symbol {
      * A non-exclusive rule is one where: every RHS symbol can be chosen or not, independently. (This is the current default btw).
      */
     @SerializedName("exclusive_derivation")
-    private boolean exclusiveDerivation;
+    private final boolean exclusiveDerivation;
 
     /**
      * Whether this symbol is allowed to be randomly resized when created by some rule.
      */
     @SerializedName("can_be_resized")
-    private boolean canBeResized;
+    private final boolean canBeResized;
 
     /**
      * This holds a triplet of coefficients for the resizing.
@@ -63,13 +77,13 @@ public class Symbol {
      * i.e. x will be in the range [5, 15].
      */
     @SerializedName("resize_coefficients")
-    private Coordinates resizeCoefficients;
+    private final Coordinates resizeCoefficients;
 
     /**
      * Whether this symbol is allowed to be randomly rotated when created by some rule.
      */
     @SerializedName("can_be_rotated")
-    private boolean canBeRotated;
+    private final boolean canBeRotated;
 
     /**
      * The size and position of the symbol are not mandatory fields;
@@ -79,10 +93,10 @@ public class Symbol {
      * and a structure of height "0" is 1 block high, not 0.
      */
     @SerializedName("size")
-    private Coordinates size;
+    private final Coordinates size;
 
     @SerializedName("position")
-    private Coordinates position;
+    private final Coordinates position;
 
 
 
@@ -92,10 +106,10 @@ public class Symbol {
      * To get the final position and final size of the symbol, we first take into account its absolute size/pos values, then apply these deltas.
      */
     @SerializedName("delta_size")
-    private CoordinatesDelta deltaSize;
+    private final CoordinatesDelta deltaSize;
 
     @SerializedName("delta_position")
-    private CoordinatesDelta deltaPosition;
+    private final CoordinatesDelta deltaPosition;
 
     /**
      * Holds the information needed to ID a specific material.
