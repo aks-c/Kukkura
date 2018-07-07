@@ -71,47 +71,6 @@ public class Coordinates {
     }
 
     /**
-     * Some methods need to set a specific field dynamically;
-     * This sets x, y, z to some value, depending on what the AXIS passed describes.
-     */
-    public void setField(CoordinatesUtility.AXIS axis, String value) {
-        switch(axis) {
-            case X:
-                setX(value);
-                break;
-            case Y:
-                setY(value);
-                break;
-            case Z:
-                setZ(value);
-                break;
-        }
-    }
-
-    public void setX(String x) {
-        this.x = x;
-    }
-
-    public void setY(String y) {
-        this.y = y;
-    }
-
-    public void setZ(String z) {
-        this.z = z;
-    }
-
-
-    /**
-     * Utility that swaps the values of two given axes.
-     * It is heavily used by the Rotation functions.
-     */
-    public void swap(CoordinatesUtility.AXIS firstAxis, CoordinatesUtility.AXIS secondAxis) {
-        String temp = getField(firstAxis);
-        setField(firstAxis, getField(secondAxis));
-        setField(secondAxis, temp);
-    }
-
-    /**
      * This is only called once.
      * It takes all the delta fields, actualises them all,
      * and applies all of them to this Object to get some finalised Coordinate values.
