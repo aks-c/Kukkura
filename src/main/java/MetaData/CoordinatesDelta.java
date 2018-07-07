@@ -15,6 +15,12 @@ public class CoordinatesDelta {
         this.deltaZ = deltaZ;
     }
 
+    public CoordinatesDelta(CoordinatesDelta deltaCoordinates){
+        this.deltaX = deltaCoordinates.getDeltaX();
+        this.deltaY = deltaCoordinates.getDeltaX();
+        this.deltaZ = deltaCoordinates.getDeltaX();
+    }
+
     /**
      * Each one of these is a list of deltas to be eventually applied to their respective fields.
      * The deltas hold some value relative to the parent Symbol,
