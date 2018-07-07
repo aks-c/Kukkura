@@ -1,5 +1,6 @@
-package Grammar;
+package MetaData;
 
+import Grammar.Symbol;
 import MetaData.CoordinatesUtility;
 
 import java.util.Random;
