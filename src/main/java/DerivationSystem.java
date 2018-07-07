@@ -35,14 +35,14 @@ public class DerivationSystem {
      * If a symbol doesn't have an associated rule, we say it's a terminal.
      */
     @SerializedName("rules")
-    private HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
+    private final HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
 
     /**
      * We explicitly separate our alphabet into lists of terminals and non-terminals because it makes processing easier.
      * Terminals are symbols that don't have an associated production rule.
      */
     @SerializedName("terminals")
-    private ArrayList<String> terminals = new ArrayList<>();
+    private final ArrayList<String> terminals = new ArrayList<>();
 
     /**
      * Non-Terminals are symbols that have an associated production rule.
@@ -50,14 +50,14 @@ public class DerivationSystem {
      * i.e. a symbol cannot be both a T and a NT.
      */
     @SerializedName("non-terminals")
-    private ArrayList<String> nonTerminals = new ArrayList<>();
+    private final ArrayList<String> nonTerminals = new ArrayList<>();
 
     /**
      * This holds the current sentence produced by our system.
      * Note that from an external API point of view, there are only two states `result` seems to eventually go through:
      * Being an empty list (after initialization), and holding an actual final sentence (after calling deriveResult()).
      */
-    private ArrayList<Symbol> result = new ArrayList<>();
+    private final ArrayList<Symbol> result = new ArrayList<>();
 
     /**
      * A boolean used by deriveResult() so the function knows when it should stop trying to derive.
@@ -117,6 +117,10 @@ public class DerivationSystem {
      */
     private void deriveNonExclusiveRule(ArrayList<Symbol> nextSentence, Symbol parentSymbol, ArrayList<Symbol> derivation) {
         for (Symbol symbolDerived: derivation) {
+            System.out.println(symbolDerived.getSymbolID());
+            System.out.println(symbolDerived.getDeltaPosition().getDeltaX().get(0).getDelta());
+            System.out.println(symbolDerived);
+            System.out.println();
             // only process this symbol if its probability of appearing is high enough.
             if (symbolDerived.shouldBeAdded()) {
                 addSymbol(nextSentence, parentSymbol, symbolDerived);
