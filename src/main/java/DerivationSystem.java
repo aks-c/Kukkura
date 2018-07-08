@@ -104,6 +104,7 @@ public class DerivationSystem {
         Coordinates newSize = symbolToAdd.getSize().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaSize());
         Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
         Material newMaterial = symbolToAdd.getMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
+
         Symbol newSymbol = new Symbol(symbolToAdd, newSize, newPosition, newMaterial);
 
         Gson gson = new Gson();

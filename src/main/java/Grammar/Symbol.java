@@ -190,16 +190,19 @@ public class Symbol {
      * The MaterialReference field holds some String value.
      * This String represents the name of a commonly used material.
      * This sets the current material of the Symbol to whatever is referenced by the MaterialReference String.
+     *
+     * A materialReference can have values for one of three cases:
+     * - The material is already explicitly defined, so there is no reference to anything (materialRef = null)
+     * - The material is defined with respect to the material of the parent Symbol (materialRef = refToParentMat)
+     * - The material is defined with respect to one of the globally available materials (materialRef = ID of the desired global material)
      */
-    public void setMaterialFromRef(HashMap<String, Material> materials, String referenceToPreviousMaterial, Symbol previousSymbol) {
-        // The MaterialReference might not always be used;
-        // (Sometimes one might want to explicitly state materials for all their symbols).
+    public Material getMaterialFromRef(HashMap<String, Material> materials, String referenceToParentMaterial, Symbol previousSymbol) {
         if (getMaterialReference() == null)
-            return;
-        if (getMaterialReference().equals(referenceToPreviousMaterial))
-            setMaterial(previousSymbol.getMaterial());
+            return this.getMaterial();
+        else if (getMaterialReference().equals(referenceToParentMaterial))
+            return previousSymbol.getMaterial();
         else
-            setMaterial(materials.get(getMaterialReference()));
+            return materials.get(getMaterialReference());
     }
 
     /**
