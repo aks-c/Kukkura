@@ -1,8 +1,5 @@
 package MetaData;
 
-import Grammar.Symbol;
-import MetaData.CoordinatesUtility;
-
 import java.util.Random;
 
 import static MetaData.CoordinatesUtility.*;
