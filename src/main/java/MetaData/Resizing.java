@@ -1,5 +1,6 @@
-package Grammar;
+package MetaData;
 
+import Grammar.Symbol;
 import MetaData.CoordinatesUtility;
 
 import java.util.Random;
@@ -7,6 +8,7 @@ import java.util.Random;
 /**
  * Created by akselcakmak on 02/07/2018.
  *
+ * TODO: Re-write the logic of this class after the immutability rework.
  */
 public class Resizing {
     /**
@@ -16,9 +18,6 @@ public class Resizing {
     public static void applyRandomResize(Symbol symbol) {
         if (!symbol.canBeResized())
             return;
-        symbol.getSize().setX(applyRandomResizeToField(symbol, CoordinatesUtility.AXIS.X));
-        symbol.getSize().setY(applyRandomResizeToField(symbol, CoordinatesUtility.AXIS.Y));
-        symbol.getSize().setZ(applyRandomResizeToField(symbol, CoordinatesUtility.AXIS.Z));
     }
 
     /**

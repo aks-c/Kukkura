@@ -12,12 +12,17 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Delta {
 
+    public Delta(String delta, String factor) {
+        this.delta = delta;
+        this.factor = factor;
+    }
+
     /**
      * Represents a value relative to the Symbol that holds this Object.
      * e.g. "sx" represents the x size of the preceding symbol, "z" represents it z position, etc..
      */
     @SerializedName("d")
-    private String delta;
+    private final String delta;
 
     /**
      * Holds the value by which to multiply the delta value.
@@ -27,7 +32,7 @@ public class Delta {
      * When applied to the current symbol, the final delta value will then be "15".
      */
     @SerializedName("fac")
-    private String factor;
+    private final String factor;
 
     public String getDelta() {
         return delta;

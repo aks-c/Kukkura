@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
  * Created by akselcakmak on 06/07/2018.
  *
  * Holds the critical information needed to identify a given material, and functions to manipulate that.
+ * Illustrative examples:
+ * - The tuple (mainID="planks", subID="0") represents Oak Wood Planks.
+ * - The tuple (mainID="planks", subID="3") represents Jungle Wood Planks.
  */
 public class Material {
-    // Example representations:
-    // eg: the tuple (mainID="planks", subID="0") represents Oak Wood Planks.
-    // eg: the tuple (mainID="planks", subID="3") represents Jungle Wood Planks.
 
     /**
      * The mainID is the name of the material (i.e. "planks", "dirt", etc..).
@@ -40,19 +40,7 @@ public class Material {
         return subID;
     }
 
-    public void setMainID(String mainID) {
-        this.mainID = mainID;
-    }
-
-    public void setSubID(String subID) {
-        this.subID = subID;
-    }
-
     public String getState() {
         return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 }

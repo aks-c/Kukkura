@@ -1,11 +1,8 @@
 package Grammar;
 
-import MetaData.Coordinates;
-import MetaData.CoordinatesDelta;
-import MetaData.CoordinatesUtility;
+import MetaData.*;
 import MetaData.CoordinatesUtility.AXIS;
 import MetaData.CoordinatesUtility.ROTATION;
-import MetaData.Material;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
@@ -18,11 +15,36 @@ import java.util.Random;
  * Handles the symbols we use along with their related meta-data, properties, etc..
  */
 public class Symbol {
+    public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, boolean canBeRotated, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference) {
+        this.symbolID = symbolID;
+        this.probability = probability;
+        this.exclusiveDerivation = exclusiveDerivation;
+        this.canBeResized = canBeResized;
+        this.resizeCoefficients = resizeCoefficients;
+        this.canBeRotated = canBeRotated;
+        this.size = size;
+        this.position = position;
+        this.deltaSize = deltaSize;
+        this.deltaPosition = deltaPosition;
+        this.material = material;
+        this.materialReference = materialReference;
+    }
+
+    public Symbol(Symbol other) {
+        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference());
+    }
+
+    public Symbol(Symbol other, Coordinates size, Coordinates position, Material material) {
+        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), material, other.getMaterialReference());
+    }
+
+
+
     /**
      * The actual symbol associated with this object.
      */
     @SerializedName("symbol")
-    private String symbolID;
+    private final String symbolID;
 
     /**
      * Some rules might have this symbol in their RHS.
@@ -37,7 +59,7 @@ public class Symbol {
      * (3) Turns out that in the context of exclusive rules, an int field just makes a lot more sense.
      */
     @SerializedName("probability")
-    private int probability;
+    private final int probability;
 
 
     /**
@@ -47,13 +69,13 @@ public class Symbol {
      * A non-exclusive rule is one where: every RHS symbol can be chosen or not, independently. (This is the current default btw).
      */
     @SerializedName("exclusive_derivation")
-    private boolean exclusiveDerivation;
+    private final boolean exclusiveDerivation;
 
     /**
      * Whether this symbol is allowed to be randomly resized when created by some rule.
      */
     @SerializedName("can_be_resized")
-    private boolean canBeResized;
+    private final boolean canBeResized;
 
     /**
      * This holds a triplet of coefficients for the resizing.
@@ -66,13 +88,13 @@ public class Symbol {
      * i.e. x will be in the range [5, 15].
      */
     @SerializedName("resize_coefficients")
-    private Coordinates resizeCoefficients;
+    private final Coordinates resizeCoefficients;
 
     /**
      * Whether this symbol is allowed to be randomly rotated when created by some rule.
      */
     @SerializedName("can_be_rotated")
-    private boolean canBeRotated;
+    private final boolean canBeRotated;
 
     /**
      * The size and position of the symbol are not mandatory fields;
@@ -82,10 +104,10 @@ public class Symbol {
      * and a structure of height "0" is 1 block high, not 0.
      */
     @SerializedName("size")
-    private Coordinates size;
+    private final Coordinates size;
 
     @SerializedName("position")
-    private Coordinates position;
+    private final Coordinates position;
 
 
 
@@ -95,23 +117,23 @@ public class Symbol {
      * To get the final position and final size of the symbol, we first take into account its absolute size/pos values, then apply these deltas.
      */
     @SerializedName("delta_size")
-    private CoordinatesDelta deltaSize;
+    private final CoordinatesDelta deltaSize;
 
     @SerializedName("delta_position")
-    private CoordinatesDelta deltaPosition;
+    private final CoordinatesDelta deltaPosition;
 
     /**
      * Holds the information needed to ID a specific material.
      */
     @SerializedName("material")
-    private Material material;
+    private final Material material;
 
     /**
      * To avoid duplication and avoid redefining the same materials again and again,
      * one can reference the material of this symbol with this field.
      */
     @SerializedName("material_ref")
-    private String materialReference;
+    private final String materialReference;
 
 
 
@@ -163,25 +185,24 @@ public class Symbol {
         return materialReference;
     }
 
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
 
     /**
      * The MaterialReference field holds some String value.
      * This String represents the name of a commonly used material.
      * This sets the current material of the Symbol to whatever is referenced by the MaterialReference String.
+     *
+     * A materialReference can have values for one of three cases:
+     * - The material is already explicitly defined, so there is no reference to anything (materialRef = null)
+     * - The material is defined with respect to the material of the parent Symbol (materialRef = refToParentMat)
+     * - The material is defined with respect to one of the globally available materials (materialRef = ID of the desired global material)
      */
-    public void setMaterialFromRef(HashMap<String, Material> materials, String referenceToPreviousMaterial, Symbol previousSymbol) {
-        // The MaterialReference might not always be used;
-        // (Sometimes one might want to explicitly state materials for all their symbols).
+    public Material getMaterialFromRef(HashMap<String, Material> materials, String referenceToParentMaterial, Symbol previousSymbol) {
         if (getMaterialReference() == null)
-            return;
-        if (getMaterialReference().equals(referenceToPreviousMaterial))
-            setMaterial(previousSymbol.getMaterial());
+            return this.getMaterial();
+        else if (getMaterialReference().equals(referenceToParentMaterial))
+            return previousSymbol.getMaterial();
         else
-            setMaterial(materials.get(getMaterialReference()));
+            return materials.get(getMaterialReference());
     }
 
     /**
@@ -218,7 +239,7 @@ public class Symbol {
      * (in order to create the structure associated with our symbol in the game).
      */
     public String getAsMinecraftCommand() {
-        Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());
+        Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());;
         return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial().getMainID(), getMaterial().getSubID(), getMaterial().getState());
     }
 

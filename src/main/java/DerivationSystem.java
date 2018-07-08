@@ -1,4 +1,5 @@
 import Grammar.Symbol;
+import MetaData.Coordinates;
 import MetaData.CoordinatesUtility;
 import MetaData.Material;
 import com.google.gson.Gson;
@@ -100,13 +101,16 @@ public class DerivationSystem {
      * Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
      */
     private void addSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol, Symbol symbolToAdd) {
+        Coordinates newSize = symbolToAdd.getSize().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaSize());
+        Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
+        Material newMaterial = symbolToAdd.getMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
+
+        Symbol newSymbol = new Symbol(symbolToAdd, newSize, newPosition, newMaterial);
+
+        System.out.println(newSize.getX());
+
         Gson gson = new Gson();
-        Symbol copy = gson.fromJson(gson.toJson(symbolToAdd), Symbol.class);
-        copy.getSize().setFinalCoordinates(parentSymbol, symbolToAdd.getDeltaSize());
-        copy.getPosition().setFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
-        //copy.applyRandomResize();
-        //copy.applyRotationX(parentSymbol, CoordinatesUtility.ROTATION.LEFT);
-        copy.setMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
+        Symbol copy = gson.fromJson(gson.toJson(newSymbol), Symbol.class);
         nextSentence.add(copy);
     }
 

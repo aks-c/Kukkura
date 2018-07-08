@@ -1,11 +1,13 @@
-package Grammar;
+package MetaData;
 
+import Grammar.Symbol;
 import MetaData.CoordinatesUtility;
 import MetaData.CoordinatesUtility.AXIS;
 
 /**
  * Created by akselcakmak on 02/07/2018.
  *
+ * TODO: Re-write the logic of this class after the immutability rework.
  */
 public class Rotation {
     /**
@@ -14,7 +16,7 @@ public class Rotation {
     public static void applyRandomRotation(Symbol symbol) {
         if (!symbol.canBeRotated())
             return;
-        applyRotation(symbol, AXIS.randomAxis(), CoordinatesUtility.ROTATION.randomRotation());
+        // applyRotation(symbol, AXIS.randomAxis(), CoordinatesUtility.ROTATION.randomRotation());
     }
 
     /**
@@ -23,7 +25,7 @@ public class Rotation {
     public static void applyRandomRotation(Symbol symbol, CoordinatesUtility.ROTATION rotation) {
         if (!symbol.canBeRotated())
             return;
-        applyRotation(symbol, AXIS.randomAxis(), rotation);
+        // applyRotation(symbol, AXIS.randomAxis(), rotation);
     }
 
     /**
@@ -32,7 +34,7 @@ public class Rotation {
     public static void applyRandomRotation(Symbol symbol, AXIS axis) {
         if (!symbol.canBeRotated())
             return;
-        applyRotation(symbol, axis, CoordinatesUtility.ROTATION.randomRotation());
+        // applyRotation(symbol, axis, CoordinatesUtility.ROTATION.randomRotation());
     }
 
     /**
@@ -47,10 +49,10 @@ public class Rotation {
             return;
         switch (axis) {
             case X:
-                applyRotationX(symbol, rotation);
+                // applyRotationX(symbol, rotation);
                 break;
             default:
-                applyRotationX(symbol, rotation);
+                // applyRotationX(symbol, rotation);
                 break;
         }
     }
@@ -73,18 +75,18 @@ public class Rotation {
             return;
         switch (rotation) {
             case LEFT:  // swap sx and sz; sy unchanged;
-                symbol.getSize().swap(AXIS.X, AXIS.Z);
+                // symbol.getSize().swap(AXIS.X, AXIS.Z);
                 break;
             case UP:    // swap sx and sy; sz unchanged;
-                symbol.getSize().swap(AXIS.X, AXIS.Y);
+                // symbol.getSize().swap(AXIS.X, AXIS.Y);
                 break;
             case RIGHT: // same as LEFT; also decrease z
-                applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
-                CoordinatesUtility.addDelta(symbol.getPosition().getField(AXIS.Y), "-" + symbol.getSize().getField(AXIS.Y));
+                // applyRotationX(symbol, CoordinatesUtility.ROTATION.LEFT);
+                // CoordinatesUtility.addDelta(symbol.getPosition().getField(AXIS.Y), "-" + symbol.getSize().getField(AXIS.Y));
                 break;
             case DOWN:  // same as UP;   also decrease y
-                applyRotationX(symbol, CoordinatesUtility.ROTATION.UP);
-                CoordinatesUtility.addDelta(symbol.getPosition().getField(AXIS.Z), "-" + symbol.getSize().getField(AXIS.Z));
+                // applyRotationX(symbol, CoordinatesUtility.ROTATION.UP);
+                // CoordinatesUtility.addDelta(symbol.getPosition().getField(AXIS.Z), "-" + symbol.getSize().getField(AXIS.Z));
                 break;
             case NONE:
                 break;

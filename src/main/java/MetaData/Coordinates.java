@@ -16,11 +16,21 @@ import java.util.ArrayList;
  * This is why the fields are Strings, and not numbers, like say, ints.
  */
 public class Coordinates {
-
     public Coordinates(String x, String y, String z) {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public Coordinates(String x, String y, String z, boolean deltaIsSet) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.deltaIsSet = deltaIsSet;
+    }
+
+    public Coordinates(Coordinates other) {
+        this(other.getX(), other.getY(), other.getZ(), other.isDeltaSet());
     }
 
     /**
@@ -29,13 +39,13 @@ public class Coordinates {
      * and to some lists of deltas to apply.
      */
     @SerializedName("x")
-    private String x;
+    private final String x;
 
     @SerializedName("y")
-    private String y;
+    private final String y;
 
     @SerializedName("z")
-    private String z;
+    private final String z;
 
 
     // Boolean to avoid setting deltas more than once.
@@ -52,6 +62,10 @@ public class Coordinates {
 
     public String getZ() {
         return z;
+    }
+
+    public boolean isDeltaSet() {
+        return deltaIsSet;
     }
 
     /**
@@ -71,47 +85,6 @@ public class Coordinates {
     }
 
     /**
-     * Some methods need to set a specific field dynamically;
-     * This sets x, y, z to some value, depending on what the AXIS passed describes.
-     */
-    public void setField(CoordinatesUtility.AXIS axis, String value) {
-        switch(axis) {
-            case X:
-                setX(value);
-                break;
-            case Y:
-                setY(value);
-                break;
-            case Z:
-                setZ(value);
-                break;
-        }
-    }
-
-    public void setX(String x) {
-        this.x = x;
-    }
-
-    public void setY(String y) {
-        this.y = y;
-    }
-
-    public void setZ(String z) {
-        this.z = z;
-    }
-
-
-    /**
-     * Utility that swaps the values of two given axes.
-     * It is heavily used by the Rotation functions.
-     */
-    public void swap(CoordinatesUtility.AXIS firstAxis, CoordinatesUtility.AXIS secondAxis) {
-        String temp = getField(firstAxis);
-        setField(firstAxis, getField(secondAxis));
-        setField(secondAxis, temp);
-    }
-
-    /**
      * This is only called once.
      * It takes all the delta fields, actualises them all,
      * and applies all of them to this Object to get some finalised Coordinate values.
@@ -119,13 +92,14 @@ public class Coordinates {
      * We still modify these fields with one last touch as we apply some *possible* rotations and resizing.
      * But for all intent and purposes, the result of this is pretty much final (or very close to it).
      */
-    public void setFinalCoordinates(Symbol parentSymbol, CoordinatesDelta deltaCoordinates) {
+    public Coordinates getFinalCoordinates(Symbol parentSymbol, CoordinatesDelta deltaCoordinates) {
         if (deltaIsSet)
-            return;
-        deltaIsSet = true;
-        x = setFinalValue(parentSymbol, deltaCoordinates.getDeltaX(), x);
-        y = setFinalValue(parentSymbol, deltaCoordinates.getDeltaY(), y);
-        z = setFinalValue(parentSymbol, deltaCoordinates.getDeltaZ(), z);
+            return this;
+        boolean newDeltaIsSet = true;
+        String newX = getFinalValue(parentSymbol, deltaCoordinates.getDeltaX(), this.x);
+        String newY = getFinalValue(parentSymbol, deltaCoordinates.getDeltaY(), this.y);
+        String newZ = getFinalValue(parentSymbol, deltaCoordinates.getDeltaZ(), this.z);
+        return new Coordinates(newX, newY, newZ, newDeltaIsSet);
     }
 
     /**
@@ -134,7 +108,7 @@ public class Coordinates {
      * multiply them by their associated factors,
      * and apply them all to the given field, one by one.
      */
-    private String setFinalValue(Symbol parentSymbol, ArrayList<Delta> deltas, String field) {
+    private String getFinalValue(Symbol parentSymbol, ArrayList<Delta> deltas, String field) {
         field = CoordinatesUtility.getDeltaValue(field, parentSymbol);
         for (Delta delta : deltas) {
             String deltaValue = CoordinatesUtility.getDeltaValueWithFactor(delta, parentSymbol);
