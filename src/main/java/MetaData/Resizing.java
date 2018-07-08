@@ -14,10 +14,11 @@ import static MetaData.CoordinatesUtility.*;
  */
 public class Resizing {
     /**
-     * Apply a random Resize on a Symbol.
+     * Get a resize of a Symbol.
      * This resize is chosen randomly within some defined interval.
+     * Note that the resize doesn't modify the original size Coordinates; it returns a new updated Coordinates instance.
      */
-    public Coordinates getRandomSize(Symbol symbolToResize) {
+    public static Coordinates getRandomSize(Symbol symbolToResize) {
         if (!symbolToResize.canBeResized())
             return symbolToResize.getSize();
         String newX = getRandomResizeOfField(symbolToResize.getSize(), symbolToResize.getResizeCoefficients(), AXIS.X);
@@ -27,15 +28,13 @@ public class Resizing {
     }
 
     /**
-     * Apply a randomized Resize on a specific field.
+     * Get a randomized resize of a specific field, within some range.
      *
-     * We want to modify some field.
-     * We apply some random resizing to it, but this resizing needs to be within some defined range.
-     * Call that resizing `delta`.
+     * Call the resizing `delta`.
      * We define the range delta belongs to, using:
      * (1) The appropriate coefficient in the ResizeCoefficients triple
      * (2) The size of our symbol
-     * We want the delta to belong in the following range: [ - coeff * size * 1/2 ; + coeff * size * 1/2 ].
+     * We want the delta to belong to the following interval: [ - coeff * size * 1/2 ; + coeff * size * 1/2 ].
      * For example, say sx = 10, coeff = 1.
      * Then the delta will belong to the following range: [-5 ; 5].
      * Then, after we actually apply the resizing, x will be in the following range: [ 5 ; 15 ].
