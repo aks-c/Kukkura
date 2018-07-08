@@ -2,9 +2,9 @@
   "axiom": [
     {
       "symbol": "INITIAL",
-      "size": {"x": 20, "y": 10, "z": 20},
+      "size": {"x": 8, "y": 6, "z": 8},
       "position": {"x": 0, "y": 0, "z": 0},
-      "material_ref": "main_block",
+      "material_ref": "primary_block",
       "exclusive_derivation": false,
       "can_be_resized": false,
       "resize_coefficients": {"x": 0, "y": 0, "z": 0},
@@ -15,133 +15,571 @@
   "rules": {
     "INITIAL": [
       {
-        "symbol": "A",
-        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size": {
-          "d_x": [{"d": "sx", "fac": "0.5"}],
-          "d_y": [{"d": "sy", "fac": "1"}],
-          "d_z": [{"d": "sz", "fac": "1"}]},
-        "delta_position": {
-          "d_x": [{"d":"x", "fac":"1"}],
-          "d_y": [{"d": "y", "fac": "1"}],
-          "d_z": [{"d": "z", "fac": "1"}]},
-        "material_ref": "main_road",
-        "probability": 100,
-        "exclusive_derivation": false,
-        "can_be_resized": false,
-        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
-        "can_be_rotated": false
-      },
-      {
-        "symbol": "A",
-        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size": {
-          "d_x": [{"d": "sx", "fac": "0.5"}],
-          "d_y": [{"d": "sy", "fac": "1"}],
-          "d_z": [{"d": "sz", "fac": "1"}]},
-        "delta_position": {
-          "d_x": [{"d":"x", "fac":"1"}, {"d": "sx", "fac": "0.5"}],
-          "d_y": [{"d": "y", "fac": "1"}],
-          "d_z": [{"d": "z", "fac": "1"}]},
-        "material_ref": "secondary_road",
-        "probability": 100,
-        "exclusive_derivation": false,
-        "can_be_resized": false,
-        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
-        "can_be_rotated": false
-      }
-    ],
-    "A": [
-      {
-        "symbol": "B",
-        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size": {
-          "d_x": [{"d": "sx", "fac": "0.25"}],
-          "d_y": [{"d": "sy", "fac": "1"}],
-          "d_z": [{"d": "sz", "fac": "0.25"}]},
-        "delta_position": {
-          "d_x": [{"d":"x", "fac":"1"}],
-          "d_y": [{"d": "y", "fac": "1"}],
-          "d_z": [{"d": "z", "fac": "1"}]},
-        "material_ref": "main_block",
-        "probability": 100,
-        "exclusive_derivation": false,
-        "can_be_resized": false,
-        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
-        "can_be_rotated": false
-      },
-      {
-        "symbol": "B",
-        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size": {
-          "d_x": [{"d": "sx", "fac": "0.25"}],
-          "d_y": [{"d": "sy", "fac": "1"}],
-          "d_z": [{"d": "sz", "fac": "0.25"}]},
-        "delta_position": {
-          "d_x": [{"d":"x", "fac":"1"}, {"d": "sx", "fac": "0.25"}],
-          "d_y": [{"d": "y", "fac": "1"}],
-          "d_z": [{"d": "z", "fac": "1"}]},
-        "material_ref": "secondary_block",
-        "probability": 100,
-        "exclusive_derivation": false,
-        "can_be_resized": false,
-        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
-        "can_be_rotated": false
-      },
-      {
-        "symbol": "B",
-        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size": {
-          "d_x": [{"d": "sx", "fac": "0.25"}],
-          "d_y": [{"d": "sy", "fac": "1"}],
-          "d_z": [{"d": "sz", "fac": "0.25"}]},
-        "delta_position": {
-          "d_x": [{"d":"x", "fac":"1"}, {"d": "sx", "fac": "0.25"}],
-          "d_y": [{"d": "y", "fac": "1"}],
-          "d_z": [{"d": "z", "fac": "1"}, {"d": "sz", "fac": "0.25"}]},
-        "material_ref": "main_road",
-        "probability": 100,
-        "exclusive_derivation": false,
-        "can_be_resized": false,
-        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
-        "can_be_rotated": false
-      },
-      {
-        "symbol": "B",
-        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size": {
-          "d_x": [{"d": "sx", "fac": "0.25"}],
-          "d_y": [{"d": "sy", "fac": "1"}],
-          "d_z": [{"d": "sz", "fac": "0.25"}]},
-        "delta_position": {
-          "d_x": [{"d":"x", "fac":"1"}],
-          "d_y": [{"d": "y", "fac": "1"}],
-          "d_z": [{"d": "z", "fac": "1"}, {"d": "sz", "fac": "0.25"}]},
-        "material_ref": "secondary_road",
-        "probability": 100,
-        "exclusive_derivation": false,
-        "can_be_resized": false,
-        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
-        "can_be_rotated": false
-      }
-    ],
-    "B": [
-      {
-        "symbol": "C",
+        "symbol": "HOUSE",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {
           "d_x": [{"d": "sx", "fac": "1"}],
-          "d_y": [{"d": "0", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
           "d_z": [{"d": "sz", "fac": "1"}]},
         "delta_position": {
-          "d_x": [{"d":"x", "fac":"1"}],
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "primary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "HOUSE": [
+      {
+        "symbol": "SMALL_HOUSE",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "primary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": true,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "MEDIUM_HOUSE",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}, {"d": "sx", "fac": "0.4"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}, {"d": "sz", "fac": "0.5"}]},
+        "material_ref": "primary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": true,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "MEDIUM_HOUSE": [
+      {
+        "symbol": "SMALL_HOUSE",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": true,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "MIDDLE_FLOOR",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}, {"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": true,
+        "resize_coefficients": {"x": 1, "y": 1, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "SMALL_HOUSE": [
+      {
+        "symbol": "FLAT_SURFACE",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}, {"d": "1", "fac": "2"}],
+          "d_y": [{"d": "sy", "fac": "0"}],
+          "d_z": [{"d": "sz", "fac": "1"}, {"d": "1", "fac": "2"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}, {"d": "1", "fac": "-1"}],
+          "d_y": [{"d": "y", "fac": "1"}, {"d": "1", "fac": "-1"}],
+          "d_z": [{"d": "z", "fac": "1"}, {"d": "1", "fac": "-1"}]},
+        "material_ref": "primary_road",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "GROUND_FLOOR",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "GROUND_FLOOR": [
+      {
+        "symbol": "MIDDLE_FLOOR",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}, {"d": "1", "fac": "-1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "DOOR",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "MIDDLE_FLOOR": [
+      {
+        "symbol": "FINAL: skeleton",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "COLUMNS",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "tertiary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "ROOFGUARDS",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}, {"d": "sy", "fac": "1"}, {"d": "1", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "tertiary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "ROOFGUARDS",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}, {"d": "sy", "fac": "1"}, {"d": "2", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "fence",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "COLUMNS",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "0"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}, {"d": "sy", "fac": "1"}, {"d": "2", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "tertiary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "COLUMNS",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "0"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}, {"d": "sy", "fac": "1"}, {"d": "3", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "torch",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "DOOR": [
+      {
+        "symbol": "FINAL: trou de porte",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "0"}],
+          "d_y": [{"d": "sy", "fac": "0"}, {"d": "1", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "0"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}, {"d": "sx", "fac": "0.5"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "air",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "FINAL: deco dessus de porte",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "0"}],
+          "d_y": [{"d": "sy", "fac": "0"}],
+          "d_z": [{"d": "sz", "fac": "0"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}, {"d": "sx", "fac": "0.5"}],
+          "d_y": [{"d": "y", "fac": "1"}, {"d": "1", "fac": "2"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "tertiary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "FLAT_SURFACE": [
+      {
+        "symbol": "FINAL: surface planaire",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "0"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "COLUMNS": [
+      {
+        "symbol": "SINGLE_COLUMN",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "SINGLE_COLUMN",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}, {"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}, {"d": "sz", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "SINGLE_COLUMN",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}, {"d": "sz", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "SINGLE_COLUMN",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}, {"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "ROOFGUARDS": [
+      {
+        "symbol": "LINE",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "0"}],
+          "d_z": [{"d": "sz", "fac": "0"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "LINE",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "0"}],
+          "d_z": [{"d": "sz", "fac": "0"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}, {"d": "sz", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "LINE",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "0"}],
+          "d_y": [{"d": "sy", "fac": "0"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}, {"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "LINE",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "0"}],
+          "d_y": [{"d": "sy", "fac": "0"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "SINGLE_COLUMN": [
+      {
+        "symbol": "FINAL: column",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "0"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "0"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "LINE": [
+      {
+        "symbol": "FINAL: line",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "0"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "SAME",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "WALL": [
+      {
+        "symbol": "FINAL: wall",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
           "d_y": [{"d": "y", "fac": "1"}],
           "d_z": [{"d": "z", "fac": "1"}]},
         "material_ref": "SAME",
@@ -154,16 +592,18 @@
     ]
   },
 
-  "non-terminals" : ["INITIAL", "A", "B"],
-  "terminals" : ["FINAL1", "FINAL2"],
+  "non-terminals" : ["INITIAL", "HOUSE", "SMALL_HOUSE", "MEDIUM_HOUSE", "MIDDLE_FLOOR", "GROUND_FLOOR", "FLAT_SURFACE", "COLUMNS", "SINGLE_COLUMN", "DOOR", "WINDOW", "ROOFGUARDS", "LINE", "WALL"],
+  "terminals" : ["FINAL"],
 
   "ref_to_previous_material": "SAME",
   "materials": {
-    "main_block": {"mainID": "sandstone", "subID": "0", "state": "hollow"},
+    "primary_block": {"mainID": "sandstone", "subID": "0", "state": "hollow"},
     "secondary_block": {"mainID": "sandstone", "subID": "1", "state": "hollow"},
-    "main_road": {"mainID": "hardened_clay", "subID": "0", "state": "hollow"},
+    "tertiary_block": {"mainID": "sandstone", "subID": "2", "state": "hollow"},
+    "primary_road": {"mainID": "hardened_clay", "subID": "0", "state": "hollow"},
     "secondary_road": {"mainID": "stained_hardened_clay", "subID": "7", "state": "hollow"},
     "torch": {"mainID": "torch", "subID": "0", "state": "hollow"},
-    "fence": {"mainID": "fence", "subID": "0", "state": "hollow"}
+    "fence": {"mainID": "fence", "subID": "0", "state": "hollow"},
+    "air": {"mainID": "air", "subID": "0", "state": "hollow"}
   }
 }
