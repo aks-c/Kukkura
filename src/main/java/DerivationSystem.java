@@ -107,8 +107,6 @@ public class DerivationSystem {
 
         Symbol newSymbol = new Symbol(symbolToAdd, newSize, newPosition, newMaterial);
 
-        System.out.println(newSize.getX());
-
         Gson gson = new Gson();
         Symbol copy = gson.fromJson(gson.toJson(newSymbol), Symbol.class);
         nextSentence.add(copy);
