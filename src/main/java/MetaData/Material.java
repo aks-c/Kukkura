@@ -11,6 +11,14 @@ import com.google.gson.annotations.SerializedName;
  * - The tuple (mainID="planks", subID="3") represents Jungle Wood Planks.
  */
 public class Material {
+    public Material(String mainID, String subID) {
+        this.mainID = mainID;
+        this.subID = subID;
+    }
+
+    public Material(Material other) {
+        this(other.getMainID(), other.getSubID());
+    }
 
     /**
      * The mainID is the name of the material (i.e. "planks", "dirt", etc..).
