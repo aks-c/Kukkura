@@ -2,6 +2,7 @@ import Grammar.Symbol;
 import MetaData.Coordinates;
 import MetaData.CoordinatesUtility;
 import MetaData.Material;
+import MetaData.Resizing;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -102,6 +103,7 @@ public class DerivationSystem {
      */
     private void addSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol, Symbol symbolToAdd) {
         Coordinates newSize = symbolToAdd.getSize().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaSize());
+        newSize = Resizing.getRandomSize(newSize, symbolToAdd.getResizeCoefficients(), symbolToAdd.canBeResized());
         Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
         Material newMaterial = symbolToAdd.getMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
 

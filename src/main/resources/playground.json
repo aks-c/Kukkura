@@ -2,8 +2,8 @@
   "axiom": [
     {
       "symbol": "INITIAL",
-      "size": {"x": 10, "y": 10, "z": 10},
-      "position": {"x": 5, "y": 5, "z": 5},
+      "size": {"x": 20, "y": 10, "z": 20},
+      "position": {"x": 0, "y": 0, "z": 0},
       "material_ref": "main_block",
       "exclusive_derivation": false,
       "can_be_resized": false,
@@ -19,11 +19,14 @@
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "delta_size": {
-          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_x": [{"d": "sx", "fac": "0.5"}],
           "d_y": [{"d": "sy", "fac": "1"}],
           "d_z": [{"d": "sz", "fac": "1"}]},
-        "delta_position": {"d_x": [{"d":"x", "fac":"1"}], "d_y": [{"d": "y", "fac": "1"}], "d_z": [{"d": "z", "fac": "1"}]},
-        "material_ref": "main_block",
+        "delta_position": {
+          "d_x": [{"d":"x", "fac":"1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "main_road",
         "probability": 100,
         "exclusive_derivation": false,
         "can_be_resized": false,
@@ -34,12 +37,15 @@
         "symbol": "A",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size": {"d_x": [{"d": "sx", "fac": "1"}], "d_y": [{"d": "sy", "fac": "1"}], "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "0.5"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
         "delta_position": {
-          "d_x": [{"d":"x", "fac":"2"}],
+          "d_x": [{"d":"x", "fac":"1"}, {"d": "sx", "fac": "0.5"}],
           "d_y": [{"d": "y", "fac": "1"}],
           "d_z": [{"d": "z", "fac": "1"}]},
-        "material_ref": "secondary_block",
+        "material_ref": "secondary_road",
         "probability": 100,
         "exclusive_derivation": false,
         "can_be_resized": false,
@@ -49,12 +55,75 @@
     ],
     "A": [
       {
-        "symbol": "FINAL",
+        "symbol": "B",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size": {"d_x": [{"d": "sx", "fac": "1"}], "d_y": [{"d": "sy", "fac": "1"}], "d_z": [{"d": "sz", "fac": "1"}]},
-        "delta_position": {"d_x": [{"d":"x", "fac":"1"}], "d_y": [{"d": "y", "fac": "1"}], "d_z": [{"d": "z", "fac": "1"}]},
-        "material_ref": "SAME",
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "0.25"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "0.25"}]},
+        "delta_position": {
+          "d_x": [{"d":"x", "fac":"1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "main_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "B",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "0.25"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "0.25"}]},
+        "delta_position": {
+          "d_x": [{"d":"x", "fac":"1"}, {"d": "sx", "fac": "0.25"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "secondary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "B",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "0.25"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "0.25"}]},
+        "delta_position": {
+          "d_x": [{"d":"x", "fac":"1"}, {"d": "sx", "fac": "0.25"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}, {"d": "sz", "fac": "0.25"}]},
+        "material_ref": "main_road",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "B",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "0.25"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "0.25"}]},
+        "delta_position": {
+          "d_x": [{"d":"x", "fac":"1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}, {"d": "sz", "fac": "0.25"}]},
+        "material_ref": "secondary_road",
         "probability": 100,
         "exclusive_derivation": false,
         "can_be_resized": false,
@@ -64,11 +133,17 @@
     ],
     "B": [
       {
-        "symbol": "FINAL",
+        "symbol": "C",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size": {"d_x": [{"d": "sx", "fac": "1"}], "d_y": [{"d": "sy", "fac": "1"}], "d_z": [{"d": "sz", "fac": "1"}]},
-        "delta_position": {"d_x": [{"d":"x", "fac":"1"}], "d_y": [{"d": "y", "fac": "1"}], "d_z": [{"d": "z", "fac": "1"}]},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "0", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d":"x", "fac":"1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
         "material_ref": "SAME",
         "probability": 100,
         "exclusive_derivation": false,
