@@ -17,6 +17,10 @@ public class Delta {
         this.factor = factor;
     }
 
+    public Delta(Delta other) {
+        this(other.getDelta(), other.getFactor());
+    }
+
     /**
      * Represents a value relative to the Symbol that holds this Object.
      * e.g. "sx" represents the x size of the preceding symbol, "z" represents it z position, etc..
