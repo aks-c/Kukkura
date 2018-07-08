@@ -15,7 +15,7 @@ import java.util.Random;
  * Handles the symbols we use along with their related meta-data, properties, etc..
  */
 public class Symbol {
-    public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, boolean canBeRotated, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
+    public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, boolean canBeRotated, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference) {
         this.symbolID = symbolID;
         this.probability = probability;
         this.exclusiveDerivation = exclusiveDerivation;
@@ -26,15 +26,18 @@ public class Symbol {
         this.position = position;
         this.deltaSize = deltaSize;
         this.deltaPosition = deltaPosition;
+        this.material = material;
+        this.materialReference = materialReference;
     }
 
     public Symbol(Symbol other) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()));
+        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference());
     }
 
-    public Symbol(Symbol other, Coordinates size, Coordinates position) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()));
+    public Symbol(Symbol other, Coordinates size, Coordinates position, Material material) {
+        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), material, other.getMaterialReference());
     }
+
 
 
     /**
@@ -123,14 +126,14 @@ public class Symbol {
      * Holds the information needed to ID a specific material.
      */
     @SerializedName("material")
-    private Material material;
+    private final Material material;
 
     /**
      * To avoid duplication and avoid redefining the same materials again and again,
      * one can reference the material of this symbol with this field.
      */
     @SerializedName("material_ref")
-    private String materialReference;
+    private final String materialReference;
 
 
 
@@ -237,7 +240,7 @@ public class Symbol {
      * (in order to create the structure associated with our symbol in the game).
      */
     public String getAsMinecraftCommand() {
-        Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());
+        Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());;
         return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial().getMainID(), getMaterial().getSubID(), getMaterial().getState());
     }
 
