@@ -16,15 +16,21 @@ import java.util.ArrayList;
  * This is why the fields are Strings, and not numbers, like say, ints.
  */
 public class Coordinates {
-
     public Coordinates(String x, String y, String z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
+    public Coordinates(String x, String y, String z, boolean deltaIsSet) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.deltaIsSet = deltaIsSet;
+    }
+
     public Coordinates(Coordinates other) {
-        this(other.getX(), other.getY(), other.getZ());
+        this(other.getX(), other.getY(), other.getZ(), other.deltaIsSet);
     }
 
     /**
@@ -85,11 +91,11 @@ public class Coordinates {
     public Coordinates getFinalCoordinates(Symbol parentSymbol, CoordinatesDelta deltaCoordinates) {
         if (deltaIsSet)
             return this;
-        deltaIsSet = true;
+        boolean newDeltaIsSet = true;
         String newX = getFinalValue(parentSymbol, deltaCoordinates.getDeltaX(), this.x);
         String newY = getFinalValue(parentSymbol, deltaCoordinates.getDeltaY(), this.y);
         String newZ = getFinalValue(parentSymbol, deltaCoordinates.getDeltaZ(), this.z);
-        return new Coordinates(newX, newY, newZ);
+        return new Coordinates(newX, newY, newZ, newDeltaIsSet);
     }
 
     /**
