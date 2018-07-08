@@ -206,34 +206,6 @@ public class Symbol {
     }
 
     /**
-     * Apply a random Rotation, with respect to a random Axis.
-     * Entirely random.
-     */
-    public void applyRandomRotation() {
-        Rotation.applyRandomRotation(this);
-    }
-
-    /**
-     * Applies a given Rotation with respect to some given Axis.
-     * Entirely deterministic (i.e. no randomization).
-     */
-    public void applyRotation(AXIS axis, CoordinatesUtility.ROTATION rotation) {
-        Rotation.applyRotation(this, axis, rotation);
-    }
-
-    public void applyRotationX(Symbol symbol, ROTATION rotation) {
-        Rotation.applyRotationX(symbol, rotation);
-    }
-
-    /**
-     * Apply a random Resize on a Symbol.
-     * This resize is chosen randomly within some defined interval.
-     */
-    public void applyRandomResize() {
-        Resizing.applyRandomResize(this);
-    }
-
-    /**
      * Serializes the Symbol Object into a String.
      * That String can be executed as a syntactically valid command by the Minecraft interpreter.
      * (in order to create the structure associated with our symbol in the game).
