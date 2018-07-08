@@ -18,12 +18,12 @@ public class Resizing {
      * This resize is chosen randomly within some defined interval.
      * Note that the resize doesn't modify the original size Coordinates; it returns a new updated Coordinates instance.
      */
-    public static Coordinates getRandomSize(Symbol symbolToResize) {
-        if (!symbolToResize.canBeResized())
-            return symbolToResize.getSize();
-        String newX = getRandomResizeOfField(symbolToResize.getSize(), symbolToResize.getResizeCoefficients(), AXIS.X);
-        String newY = getRandomResizeOfField(symbolToResize.getSize(), symbolToResize.getResizeCoefficients(), AXIS.Y);
-        String newZ = getRandomResizeOfField(symbolToResize.getSize(), symbolToResize.getResizeCoefficients(), AXIS.Z);
+    public static Coordinates getRandomSize(Coordinates sizeToChange, Coordinates resizeToApply, boolean symbolCanBeResized) {
+        if (!symbolCanBeResized)
+            return sizeToChange;
+        String newX = getRandomResizeOfField(sizeToChange, resizeToApply, AXIS.X);
+        String newY = getRandomResizeOfField(sizeToChange, resizeToApply, AXIS.Y);
+        String newZ = getRandomResizeOfField(sizeToChange, resizeToApply, AXIS.Z);
         return new Coordinates(newX, newY, newZ);
     }
 
