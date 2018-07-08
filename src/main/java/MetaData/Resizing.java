@@ -5,6 +5,8 @@ import MetaData.CoordinatesUtility;
 
 import java.util.Random;
 
+import static MetaData.CoordinatesUtility.*;
+
 /**
  * Created by akselcakmak on 02/07/2018.
  *
@@ -15,9 +17,13 @@ public class Resizing {
      * Apply a random Resize on a Symbol.
      * This resize is chosen randomly within some defined interval.
      */
-    public static void applyRandomResize(Symbol symbol) {
-        if (!symbol.canBeResized())
-            return;
+    public Coordinates getRandomSize(Symbol symbolToResize) {
+        if (!symbolToResize.canBeResized())
+            return symbolToResize.getSize();
+        String newX = getRandomResizeOfField(symbolToResize.getSize(), symbolToResize.getResizeCoefficients(), AXIS.X);
+        String newY = getRandomResizeOfField(symbolToResize.getSize(), symbolToResize.getResizeCoefficients(), AXIS.Y);
+        String newZ = getRandomResizeOfField(symbolToResize.getSize(), symbolToResize.getResizeCoefficients(), AXIS.Z);
+        return new Coordinates(newX, newY, newZ);
     }
 
     /**
@@ -30,28 +36,29 @@ public class Resizing {
      * (1) The appropriate coefficient in the ResizeCoefficients triple
      * (2) The size of our symbol
      * We want the delta to belong in the following range: [ - coeff * size * 1/2 ; + coeff * size * 1/2 ].
-     * For example, say sx= 10, coeff = 1.
+     * For example, say sx = 10, coeff = 1.
      * Then the delta will belong to the following range: [-5 ; 5].
      * Then, after we actually apply the resizing, x will be in the following range: [ 5 ; 15 ].
      */
-    private static String applyRandomResizeToField(Symbol symbol, CoordinatesUtility.AXIS axis) {
-        int coefficient = Integer.parseInt(symbol.getResizeCoefficients().getField(axis));
-        // By convention, if the coefficient is 0, it signifies that there should be no resize.
+    private static String getRandomResizeOfField(Coordinates sizeToChange, Coordinates resizeToApply, AXIS axis) {
+        int coefficient = Integer.parseInt(resizeToApply.getField(axis));
+        // By convention, a coefficient of 0 signifies that there should be no resize.
+        // (bcs then the delta interval would be [- stuff * 0 ; stuff * 0] = [0 ; 0] => no resizing.
         if (coefficient == 0)
-            return symbol.getSize().getField(axis);
+            return sizeToChange.getField(axis);
 
-        int sizeField = Integer.parseInt(symbol.getSize().getField(axis));
+        int sizeField = Integer.parseInt(sizeToChange.getField(axis));
         int intervalBound = coefficient * sizeField;
         int delta = new Random().nextInt(intervalBound);
         delta -= sizeField >> 1;
-        return applyResizeToField(symbol.getSize().getField(axis), delta);
+        return getResizeToField(sizeToChange.getField(axis), delta);
     }
 
     /**
-     * Apply deterministic Resize to a specific field.
+     * Get deterministic resize of a given field.
      */
-    private static String applyResizeToField(String field, int delta) {
-        return CoordinatesUtility.addDelta(field, delta);
+    private static String getResizeToField(String field, int delta) {
+        return addDelta(field, delta);
     }
 
 }
