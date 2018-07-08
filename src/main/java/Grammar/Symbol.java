@@ -185,10 +185,6 @@ public class Symbol {
         return materialReference;
     }
 
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
 
     /**
      * The MaterialReference field holds some String value.
