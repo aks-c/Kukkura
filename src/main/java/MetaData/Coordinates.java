@@ -30,7 +30,7 @@ public class Coordinates {
     }
 
     public Coordinates(Coordinates other) {
-        this(other.getX(), other.getY(), other.getZ(), other.deltaIsSet);
+        this(other.getX(), other.getY(), other.getZ(), other.isDeltaSet());
     }
 
     /**
@@ -62,6 +62,10 @@ public class Coordinates {
 
     public String getZ() {
         return z;
+    }
+
+    public boolean isDeltaSet() {
+        return deltaIsSet;
     }
 
     /**
