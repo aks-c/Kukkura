@@ -43,14 +43,27 @@ MVP 4
 
 MVP 5
 - add support for random rotations
-- add support for random repositioning
 - add support for random resizing/transformations, within some range of acceptable values
 
 MVP 6
+- huge refactor
+- immutable objects
+- support for material referentials
+- better delta expressions
+
+MVP
+- add support for several separate input files
+- add support for referentials of more fields than just materials (d_coord, etc..)
+
+MVP
+- add support for individual iteration limit (Y/N ?)
+- add support for orientation
+- add support for n-repeaters
+
+MVP
 - add interface/GUI to easily modify the JSON input File to this system
 
-MVP 7
+MVP
 - input and output from some external sources (ie not resource folder)
 - accept command line arguments to do so
-
 */
