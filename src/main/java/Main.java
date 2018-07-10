@@ -11,7 +11,7 @@ public class Main {
     public static void main (String args[]) {
         System.out.println("print");
         try {
-            DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/playground.json");
+            DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/input/playground.json");
             ds.deriveResult();
 
             //Parser.writeResults(ds.getResult(), "src/main/resources/output.json", Parser.FORMAT.JSON);
