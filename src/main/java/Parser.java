@@ -16,6 +16,31 @@ import java.util.ArrayList;
 public class Parser {
     private static final String ENCODING = "UTF-8";
 
+
+    public static String getFileExtension(final File file) {
+        String extension = "";
+        int index = file.getName().lastIndexOf('.');
+        if (index > 0)
+            extension = file.getName().substring(index+1);
+        return extension;
+    }
+
+    public static boolean isJSON(final File file) {
+        String extension = getFileExtension(file);
+        return extension.equals("json");
+    }
+
+    public static void listFilesForFolder(final File folder) {
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolder(fileEntry);
+            } else {
+                System.out.println(fileEntry.getName());
+            }
+        }
+    }
+
+
     public enum FORMAT {
         JSON,
         MINECRAFT
