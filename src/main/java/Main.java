@@ -15,7 +15,7 @@ public class Main {
             DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/input/playground.json");
             ds.deriveResult();
 
-            //Parser.writeResults(ds.getResult(), "src/main/resources/output.json", Parser.FORMAT.JSON);
+            Parser.writeResults(ds.getResult(), "src/main/resources/output.json", Parser.FORMAT.JSON);
             Parser.writeResults(ds.getResult(), "src/main/resources/commands.mcfunction", Parser.FORMAT.MINECRAFT);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
