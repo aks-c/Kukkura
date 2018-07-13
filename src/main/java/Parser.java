@@ -37,7 +37,7 @@ public class Parser {
         }
     }
 
-    public static void getAllDerivationSystemsInFolder(String folderName) throws FileNotFoundException {
+    public static DerivationSystem getAllDerivationsInFolder(String folderName) throws FileNotFoundException {
         final File folder = new File(folderName);
 
         HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
@@ -50,6 +50,7 @@ public class Parser {
                 nonTerminals.addAll(ds.getNonTerminals());
             }
         }
+        return new DerivationSystem(rules, nonTerminals);
     }
 
     public static String getFileExtension(final File file) {
