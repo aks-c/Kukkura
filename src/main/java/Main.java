@@ -52,11 +52,14 @@ MVP 6
 - support for material referentials
 - better delta expressions
 
-MVP
+MVP 7
 - add support for several separate input files
 - add support for referentials of more fields than just materials (d_coord, etc..)
 
-MVP
+MVP 8
+- add error handling
+
+MVP 9
 - add support for individual iteration limit (Y/N ?)
 - add support for orientation
 - add support for n-repeaters
