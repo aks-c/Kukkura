@@ -37,9 +37,8 @@ public class Parser {
         }
     }
 
-    public static void getAllDerivationSystems(String folderName) throws FileNotFoundException {
+    public static void getAllSubDerivationSystems(String folderName) throws FileNotFoundException {
         final File folder = new File(folderName);
-        DerivationSystem mainSystem = Parser.getDerivationSystem("src/main/resources/input/playground.json");
 
         HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
         ArrayList<String> nonTerminals = new ArrayList<>();

@@ -21,14 +21,28 @@ import java.util.Random;
  * to some final result usable to generate content.
  */
 public class DerivationSystem {
+    public DerivationSystem(ArrayList<Symbol> axiom, HashMap<String, ArrayList<Symbol>> rules, ArrayList<String> terminals, ArrayList<String> nonTerminals, ArrayList<Symbol> result, boolean resultContainsNT, HashMap<String, Material> materials, String REF_TO_PREVIOUS_MATERIAL) {
+        this.axiom = axiom;
+        this.rules = rules;
+        this.terminals = terminals;
+        this.nonTerminals = nonTerminals;
+        this.result = result;
+        this.resultContainsNT = resultContainsNT;
+        this.materials = materials;
+        this.REF_TO_PREVIOUS_MATERIAL = REF_TO_PREVIOUS_MATERIAL;
+    }
 
-    private int ITERATION_LIMIT = 20;
+    public DerivationSystem(DerivationSystem other, HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals, HashMap<String, Material> newMaterials) {
+        this(other.getAxiom(), newRules, other.getTerminals(), newNonTerminals, other.getResult(), other.getResultContainsNT(), newMaterials, other.REF_TO_PREVIOUS_MATERIAL);
+    }
+
+    private final int ITERATION_LIMIT = 20;
 
     /**
      * The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from).
      */
     @SerializedName("axiom")
-    private ArrayList<Symbol> axiom;
+    private final ArrayList<Symbol> axiom;
 
     /**
      * This specifies the production/derivation rules of the system;
@@ -37,14 +51,14 @@ public class DerivationSystem {
      * If a symbol doesn't have an associated rule, we say it's a terminal.
      */
     @SerializedName("rules")
-    private final HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
+    private final HashMap<String, ArrayList<Symbol>> rules;
 
     /**
      * We explicitly separate our alphabet into lists of terminals and non-terminals because it makes processing easier.
      * Terminals are symbols that don't have an associated production rule.
      */
     @SerializedName("terminals")
-    private final ArrayList<String> terminals = new ArrayList<>();
+    private final ArrayList<String> terminals;
 
     /**
      * Non-Terminals are symbols that have an associated production rule.
@@ -52,14 +66,14 @@ public class DerivationSystem {
      * i.e. a symbol cannot be both a T and a NT.
      */
     @SerializedName("non-terminals")
-    private final ArrayList<String> nonTerminals = new ArrayList<>();
+    private final ArrayList<String> nonTerminals;
 
     /**
      * This holds the current sentence produced by our system.
      * Note that from an external API point of view, there are only two states `result` seems to eventually go through:
      * Being an empty list (after initialization), and holding an actual final sentence (after calling deriveResult()).
      */
-    private final ArrayList<Symbol> result = new ArrayList<>();
+    private final ArrayList<Symbol> result;
 
     /**
      * A boolean used by deriveResult() so the function knows when it should stop trying to derive.
@@ -67,13 +81,12 @@ public class DerivationSystem {
      */
     private boolean resultContainsNT = true;
 
-
     /**
      * A list of the most used material of this system.
      * Helps in making the rules much smaller and much easier to read/follow.
      */
     @SerializedName("materials")
-    private HashMap<String, Material> materials;
+    private final HashMap<String, Material> materials;
 
     /**
      * When using the Symbol::materialReference field, one can reference to some predefined materials.
@@ -81,7 +94,7 @@ public class DerivationSystem {
      * For that, we need to define a String that specifies when that is indeed the case.
      */
     @SerializedName("ref_to_previous_material")
-    private String REF_TO_PREVIOUS_MATERIAL;
+    private final String REF_TO_PREVIOUS_MATERIAL;
 
 
 
@@ -103,7 +116,9 @@ public class DerivationSystem {
     public HashMap<String, Material> getMaterials() {
         return materials;
     }
-
+    public boolean getResultContainsNT() {
+        return resultContainsNT;
+    }
 
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
