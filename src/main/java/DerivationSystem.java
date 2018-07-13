@@ -30,6 +30,18 @@ public class DerivationSystem {
         this.rules = newRules;
         this.nonTerminals = newNonTerminals;
     }
+    // Only used when building the final DerivationSystem that will actually be used.
+    public DerivationSystem(DerivationSystem finalDS, HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals) {
+        this.rules = newRules;
+        this.nonTerminals = newNonTerminals;
+
+        this.axiom = finalDS.getAxiom();
+        this.terminals = finalDS.getTerminals();
+        this.result = finalDS.getResult();
+        this.resultContainsNT = finalDS.getResultContainsNT();
+        this.materials = finalDS.getMaterials();
+        this.REF_TO_PREVIOUS_MATERIAL = finalDS.REF_TO_PREVIOUS_MATERIAL;
+    }
 
     private final int ITERATION_LIMIT = 20;
 
@@ -90,7 +102,6 @@ public class DerivationSystem {
      */
     @SerializedName("ref_to_previous_material")
     private String REF_TO_PREVIOUS_MATERIAL = new String();
-
 
 
     ArrayList<Symbol> getResult() {

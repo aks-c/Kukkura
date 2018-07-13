@@ -12,7 +12,7 @@ public class Main {
     public static void main (String args[]) {
         System.out.println("print");
         try {
-            DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/input/playground.json");
+            DerivationSystem ds = Parser.getFinalDerivationSystem("src/main/resources/input/playground.json");
             ds.deriveResult();
 
             Parser.writeResults(ds.getResult(), "src/main/resources/output.json", Parser.FORMAT.JSON);

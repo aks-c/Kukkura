@@ -37,6 +37,21 @@ public class Parser {
         }
     }
 
+
+    public static DerivationSystem getFinalDerivationSystem(String filename) throws FileNotFoundException {
+        DerivationSystem finalDS = getDerivationSystem(filename);
+        DerivationSystem auxiliaryDS = getAllDerivationsInFolder("src/main/resources/input/sub");
+
+        HashMap<String, ArrayList<Symbol>> newRules = new HashMap<>();
+        newRules.putAll(finalDS.getRules());
+        newRules.putAll(auxiliaryDS.getRules());
+        ArrayList<String> newNonTerminals = new ArrayList<>();
+        newNonTerminals.addAll(finalDS.getNonTerminals());
+        newNonTerminals.addAll(auxiliaryDS.getNonTerminals());
+
+        return new DerivationSystem(finalDS, newRules, newNonTerminals);
+    }
+
     public static DerivationSystem getAllDerivationsInFolder(String folderName) throws FileNotFoundException {
         final File folder = new File(folderName);
 
@@ -67,7 +82,7 @@ public class Parser {
     }
 
     /**
-     * De-serializes a specifically formatted JSON File into a DerivationSystem Object usable by us.
+     * De-serializes a structured JSON File into a usable DerivationSystem Object.
      */
     public static DerivationSystem getDerivationSystem(String filename) throws FileNotFoundException {
         Gson gson = new Gson();
@@ -90,7 +105,7 @@ public class Parser {
     }
 
     /**
-     * Serializes the result in a .mcfunction file, as a list of Minecraft-compatible commands.
+     * Serializes the result in an .mcfunction file, i.e. a list of Minecraft-compatible commands.
      */
     private static void writeToMinecraft(ArrayList<Symbol> result, String filename) throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter(filename, ENCODING);
@@ -103,7 +118,7 @@ public class Parser {
 
     /**
      * The API of the Parser class only exposes writeResults(), and an Enum to choose the target format.
-     * Then results are only written wrt said FORMAT enum.
+     * Then results are written wrt said FORMAT enum.
      */
     public static void writeResults(ArrayList<Symbol> result, String filename, Parser.FORMAT format) throws IOException {
         switch (format) {
