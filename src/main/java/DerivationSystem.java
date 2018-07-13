@@ -16,19 +16,40 @@ import java.util.Random;
  *
  * This Class handles the Main Logic of this program.
  * A DerivationSystem is composed of all the information needed to procedurally generate our intended stuff;
- * It is composed of an axiom (ie the initial list of symbols), an alphabet of terminals and non-terminals,
+ * It has an axiom (ie the initial list of symbols), an alphabet of terminals and non-terminals,
  * and a set of rules to be followed to derive the sentence we have from the axiom
  * to some final result usable to generate content.
  */
 public class DerivationSystem {
+    // Only for GSON.
+    public DerivationSystem() {
 
-    private int ITERATION_LIMIT = 20;
+    }
+    // Only used for getting the rules and the non-terminals out of the separate sub files.
+    public DerivationSystem(HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals) {
+        this.rules = newRules;
+        this.nonTerminals = newNonTerminals;
+    }
+    // Only used when building the final DerivationSystem that will actually be used.
+    public DerivationSystem(DerivationSystem finalDS, HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals) {
+        this.rules = newRules;
+        this.nonTerminals = newNonTerminals;
+
+        this.axiom = finalDS.getAxiom();
+        this.terminals = finalDS.getTerminals();
+        this.result = finalDS.getResult();
+        this.resultContainsNT = finalDS.getResultContainsNT();
+        this.materials = finalDS.getMaterials();
+        this.REF_TO_PREVIOUS_MATERIAL = finalDS.REF_TO_PREVIOUS_MATERIAL;
+    }
+
+    private final int ITERATION_LIMIT = 20;
 
     /**
      * The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from).
      */
     @SerializedName("axiom")
-    private ArrayList<Symbol> axiom;
+    private ArrayList<Symbol> axiom = new ArrayList<>();
 
     /**
      * This specifies the production/derivation rules of the system;
@@ -37,14 +58,14 @@ public class DerivationSystem {
      * If a symbol doesn't have an associated rule, we say it's a terminal.
      */
     @SerializedName("rules")
-    private final HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
+    private HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
 
     /**
      * We explicitly separate our alphabet into lists of terminals and non-terminals because it makes processing easier.
      * Terminals are symbols that don't have an associated production rule.
      */
     @SerializedName("terminals")
-    private final ArrayList<String> terminals = new ArrayList<>();
+    private ArrayList<String> terminals = new ArrayList<>();
 
     /**
      * Non-Terminals are symbols that have an associated production rule.
@@ -52,14 +73,14 @@ public class DerivationSystem {
      * i.e. a symbol cannot be both a T and a NT.
      */
     @SerializedName("non-terminals")
-    private final ArrayList<String> nonTerminals = new ArrayList<>();
+    private ArrayList<String> nonTerminals = new ArrayList<>();
 
     /**
      * This holds the current sentence produced by our system.
      * Note that from an external API point of view, there are only two states `result` seems to eventually go through:
      * Being an empty list (after initialization), and holding an actual final sentence (after calling deriveResult()).
      */
-    private final ArrayList<Symbol> result = new ArrayList<>();
+    private ArrayList<Symbol> result = new ArrayList<>();
 
     /**
      * A boolean used by deriveResult() so the function knows when it should stop trying to derive.
@@ -67,13 +88,12 @@ public class DerivationSystem {
      */
     private boolean resultContainsNT = true;
 
-
     /**
      * A list of the most used material of this system.
      * Helps in making the rules much smaller and much easier to read/follow.
      */
     @SerializedName("materials")
-    private HashMap<String, Material> materials;
+    private HashMap<String, Material> materials = new HashMap<>();
 
     /**
      * When using the Symbol::materialReference field, one can reference to some predefined materials.
@@ -81,14 +101,30 @@ public class DerivationSystem {
      * For that, we need to define a String that specifies when that is indeed the case.
      */
     @SerializedName("ref_to_previous_material")
-    private String REF_TO_PREVIOUS_MATERIAL;
-
+    private String REF_TO_PREVIOUS_MATERIAL = new String();
 
 
     ArrayList<Symbol> getResult() {
         return result;
     }
-
+    public ArrayList<String> getNonTerminals() {
+        return nonTerminals;
+    }
+    public HashMap<String, ArrayList<Symbol>> getRules() {
+        return rules;
+    }
+    public ArrayList<String> getTerminals() {
+        return terminals;
+    }
+    public ArrayList<Symbol> getAxiom() {
+        return axiom;
+    }
+    public HashMap<String, Material> getMaterials() {
+        return materials;
+    }
+    public boolean getResultContainsNT() {
+        return resultContainsNT;
+    }
 
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
