@@ -17,10 +17,24 @@ import java.util.HashMap;
 public class Parser {
     private static final String ENCODING = "UTF-8";
     private static final String JSON_EXTENSION = "json";
+    private static final String MC_EXTENSION = "mcfunction";
 
     public enum FORMAT {
         JSON,
-        MINECRAFT
+        MINECRAFT;
+
+        public String getExtension(FORMAT format) {
+            String extension = "";
+            switch (format) {
+                case JSON:
+                    extension = JSON_EXTENSION;
+                    break;
+                case MINECRAFT:
+                    extension = MC_EXTENSION;
+                    break;
+            }
+            return extension;
+        }
     }
 
     public static void getAllDerivationSystems(String folderName) throws FileNotFoundException {

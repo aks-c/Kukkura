@@ -104,7 +104,7 @@ public class DerivationSystem {
         return materials;
     }
 
-    
+
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
             if (nonTerminals.contains(symbol.getSymbolID()))
