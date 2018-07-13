@@ -88,15 +88,23 @@ public class DerivationSystem {
     ArrayList<Symbol> getResult() {
         return result;
     }
-
     public ArrayList<String> getNonTerminals() {
         return nonTerminals;
     }
-
     public HashMap<String, ArrayList<Symbol>> getRules() {
         return rules;
     }
+    public ArrayList<String> getTerminals() {
+        return terminals;
+    }
+    public ArrayList<Symbol> getAxiom() {
+        return axiom;
+    }
+    public HashMap<String, Material> getMaterials() {
+        return materials;
+    }
 
+    
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
             if (nonTerminals.contains(symbol.getSymbolID()))
