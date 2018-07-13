@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class Parser {
     private static final String ENCODING = "UTF-8";
+    private static final String JSON_EXTENSION = "json";
 
 
     public static String getFileExtension(final File file) {
@@ -27,7 +28,7 @@ public class Parser {
 
     public static boolean isJSON(final File file) {
         String extension = getFileExtension(file);
-        return extension.equals("json");
+        return extension.equals(JSON_EXTENSION);
     }
 
     public static void listFilesForFolder(final File folder) {
