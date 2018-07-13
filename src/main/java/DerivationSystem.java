@@ -89,6 +89,13 @@ public class DerivationSystem {
         return result;
     }
 
+    public ArrayList<String> getNonTerminals() {
+        return nonTerminals;
+    }
+
+    public HashMap<String, ArrayList<Symbol>> getRules() {
+        return rules;
+    }
 
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {

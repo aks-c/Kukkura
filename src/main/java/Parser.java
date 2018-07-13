@@ -5,6 +5,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by akselcakmak on 15/06/2018.
@@ -17,6 +18,28 @@ public class Parser {
     private static final String ENCODING = "UTF-8";
     private static final String JSON_EXTENSION = "json";
 
+    public enum FORMAT {
+        JSON,
+        MINECRAFT
+    }
+
+    public static void getAllDerivationSystems(String folderName) throws FileNotFoundException {
+        final File folder = new File(folderName);
+        DerivationSystem mainSystem = Parser.getDerivationSystem("src/main/resources/input/playground.json");
+
+        HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
+        ArrayList<String> nonTerminals = new ArrayList<>();
+
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isFile() && isJSON(fileEntry)) {
+                DerivationSystem ds = Parser.getDerivationSystem(fileEntry);
+                rules.putAll(ds.getRules());
+                nonTerminals.addAll(ds.getNonTerminals());
+            }
+        }
+
+
+    }
 
     public static String getFileExtension(final File file) {
         String extension = "";
@@ -31,21 +54,6 @@ public class Parser {
         return extension.equals(JSON_EXTENSION);
     }
 
-    public static void listFilesForFolder(final File folder) {
-        for (final File fileEntry : folder.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry);
-            } else {
-                System.out.println(fileEntry.getName());
-            }
-        }
-    }
-
-
-    public enum FORMAT {
-        JSON,
-        MINECRAFT
-    }
     /**
      * De-serializes a specifically formatted JSON File into a DerivationSystem Object usable by us.
      */
@@ -54,6 +62,9 @@ public class Parser {
         JsonReader reader = new JsonReader(new FileReader(filename));
 
         return gson.fromJson(reader, DerivationSystem.class);
+    }
+    public static DerivationSystem getDerivationSystem(File file) throws FileNotFoundException {
+        return getDerivationSystem(file.getPath());
     }
 
     /**
