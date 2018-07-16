@@ -15,7 +15,7 @@ import java.util.Random;
  * Handles the symbols we use along with their related meta-data, properties, etc..
  */
 public class Symbol {
-    public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, boolean canBeRotated, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference) {
+    public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, boolean canBeRotated, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference, String deltaSizeReference) {
         this.symbolID = symbolID;
         this.probability = probability;
         this.exclusiveDerivation = exclusiveDerivation;
@@ -28,14 +28,15 @@ public class Symbol {
         this.deltaPosition = deltaPosition;
         this.material = material;
         this.materialReference = materialReference;
+        this.deltaSizeReference = deltaSizeReference;
     }
 
     public Symbol(Symbol other) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference());
+        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference(), other.getDeltaSizeReference());
     }
 
     public Symbol(Symbol other, Coordinates size, Coordinates position, Material material) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), material, other.getMaterialReference());
+        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), material, other.getMaterialReference(), other.getDeltaSizeReference());
     }
 
 
@@ -130,10 +131,20 @@ public class Symbol {
 
     /**
      * To avoid duplication and avoid redefining the same materials again and again,
-     * one can reference the material of this symbol with this field.
+     * we define some key materials in the input file. Each has an ID String.
+     * Then to use a pre-defined material, set this string to whatever the ID of said material is.
      */
     @SerializedName("material_ref")
     private final String materialReference;
+
+
+    /**
+     * To avoid duplication and avoid redefining the same delta positions again and again,
+     * we define some key delta positions in the input file. Each has an ID String.
+     * Then to use a pre-defined delta size, set this string to whatever the ID of said d_size is.
+     */
+    @SerializedName("delta_size_ref")
+    private final String deltaSizeReference;
 
 
 
@@ -185,6 +196,14 @@ public class Symbol {
         return materialReference;
     }
 
+    public String getDeltaSizeReference() {
+        return deltaSizeReference;
+    }
+
+
+//    public CoordinatesDelta getDeltaSizeFromRef(HashMap<String, CoordinatesDelta> materials, String refToParentDelta, Symbol previousSymbol) {
+//
+//    }
 
     /**
      * The MaterialReference field holds some String value.
