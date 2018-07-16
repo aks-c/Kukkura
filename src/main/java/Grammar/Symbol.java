@@ -201,9 +201,12 @@ public class Symbol {
     }
 
 
-//    public CoordinatesDelta getDeltaSizeFromRef(HashMap<String, CoordinatesDelta> materials, String refToParentDelta, Symbol previousSymbol) {
-//
-//    }
+    public CoordinatesDelta getDeltaSizeFromRef(HashMap<String, CoordinatesDelta> deltaSizes, String refToParentDelta, Symbol previousSymbol) {
+        if (getDeltaSizeReference() == null)
+            return this.getDeltaSize();
+        else
+            return deltaSizes.get(getDeltaSizeReference());
+    }
 
     /**
      * The MaterialReference field holds some String value.
