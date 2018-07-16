@@ -72,11 +72,11 @@
     "air": {"mainID": "air", "subID": "0", "state": "hollow"}
   },
 
-  "delta_size": {
+  "delta_sizes": {
     "normal": { "d_x": [{"d": "sx", "fac": "1"}], "d_y": [{"d": "sy", "fac": "1"}], "d_z": [{"d": "sz", "fac": "1"}]}
   },
 
-  "delta_position": {
+  "delta_positions": {
     "normal": { "d_x": [{"d": "x", "fac": "1"}], "d_y": [{"d": "y", "fac": "1"}], "d_z": [{"d": "z", "fac": "1"}]}
   }
 }

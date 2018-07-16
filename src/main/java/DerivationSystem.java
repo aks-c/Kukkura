@@ -1,8 +1,5 @@
 import Grammar.Symbol;
-import MetaData.Coordinates;
-import MetaData.CoordinatesUtility;
-import MetaData.Material;
-import MetaData.Resizing;
+import MetaData.*;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -96,6 +93,14 @@ public class DerivationSystem {
     private HashMap<String, Material> materials = new HashMap<>();
 
     /**
+     * A list of the most used delta sizes of this system.
+     * Helps in making the rules much smaller and much easier to read/follow.
+     * Also helps with avoiding duplication, which is always nice to have.
+     */
+    @SerializedName("delta_sizes")
+    private HashMap<String, Material> deltaSizes = new HashMap<>();
+    
+    /**
      * When using the Symbol::materialReference field, one can reference to some predefined materials.
      * But one can also reference to whatever material the parent Symbol had.
      * For that, we need to define a String that specifies when that is indeed the case.
@@ -142,6 +147,7 @@ public class DerivationSystem {
         newSize = Resizing.getRandomSize(newSize, symbolToAdd.getResizeCoefficients(), symbolToAdd.canBeResized());
         Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
         Material newMaterial = symbolToAdd.getMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
+        //CoordinatesDelta newDeltaSize = symbolToAdd.getDeltaSizeFromRef()
 
         Symbol newSymbol = new Symbol(symbolToAdd, newSize, newPosition, newMaterial);
 
