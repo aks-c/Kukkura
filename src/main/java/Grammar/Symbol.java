@@ -35,8 +35,8 @@ public class Symbol {
         this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference(), other.getDeltaSizeReference());
     }
 
-    public Symbol(Symbol other, Coordinates size, Coordinates position, Material material) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), material, other.getMaterialReference(), other.getDeltaSizeReference());
+    public Symbol(Symbol other, Coordinates size, Coordinates position, Material material, CoordinatesDelta deltaSize) {
+        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(other.getDeltaPosition()), material, other.getMaterialReference(), other.getDeltaSizeReference());
     }
 
 
