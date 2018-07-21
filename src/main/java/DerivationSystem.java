@@ -39,6 +39,7 @@ public class DerivationSystem {
         this.materials = finalDS.getMaterials();
         this.REF_TO_PREVIOUS_MATERIAL = finalDS.REF_TO_PREVIOUS_MATERIAL;
         this.deltaSizes = finalDS.getDeltaSizes();
+        this.deltaPositions = finalDS.getDeltaPositions();
     }
 
     private final int ITERATION_LIMIT = 20;
@@ -141,6 +142,9 @@ public class DerivationSystem {
     }
     public HashMap<String, CoordinatesDelta> getDeltaSizes() {
         return deltaSizes;
+    }
+    public HashMap<String, CoordinatesDelta> getDeltaPositions() {
+        return deltaPositions;
     }
 
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
