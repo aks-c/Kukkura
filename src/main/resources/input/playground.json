@@ -18,11 +18,8 @@
         "symbol": "A",
         "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
         "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
-        "delta_size_ref": "normal",
-        "delta_position": {
-          "d_x": [{"d": "x", "fac": "1"}],
-          "d_y": [{"d": "y", "fac": "1"}],
-          "d_z": [{"d": "z", "fac": "1"}]},
+        "delta_size_ref": "standard",
+        "delta_position_ref": "standard",
         "material_ref": "primary_block",
         "probability": 100,
         "exclusive_derivation": false,
@@ -89,13 +86,13 @@
   },
 
   "delta_sizes": {
-    "normal": {
+    "standard": {
       "d_x": [{"d": "sx", "fac": "1"}],
       "d_y": [{"d": "sy", "fac": "1"}],
       "d_z": [{"d": "sz", "fac": "1"}]}
   },
 
   "delta_positions": {
-    "normal": { "d_x": [{"d": "x", "fac": "1"}], "d_y": [{"d": "y", "fac": "1"}], "d_z": [{"d": "z", "fac": "1"}]}
+    "standard": { "d_x": [{"d": "x", "fac": "1"}], "d_y": [{"d": "y", "fac": "1"}], "d_z": [{"d": "z", "fac": "1"}]}
   }
 }
