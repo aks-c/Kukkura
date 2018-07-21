@@ -106,8 +106,16 @@ public class DerivationSystem {
      * Helps in making the rules much smaller and much easier to read/follow.
      * Also helps with avoiding duplication, which is always nice to have.
      */
-    @SerializedName("delta_size")
+    @SerializedName("delta_sizes")
     private HashMap<String, CoordinatesDelta> deltaSizes = new HashMap<>();
+
+    /**
+     * A list of the most used delta sizes of this system.
+     * Helps in making the rules much smaller and much easier to read/follow.
+     * Also helps with avoiding duplication, which is always nice to have.
+     */
+    @SerializedName("delta_positions")
+    private HashMap<String, CoordinatesDelta> deltaPositions = new HashMap<>();
 
 
     ArrayList<Symbol> getResult() {

@@ -88,7 +88,7 @@
     "air": {"mainID": "air", "subID": "0", "state": "hollow"}
   },
 
-  "delta_size": {
+  "delta_sizes": {
     "normal": {
       "d_x": [{"d": "sx", "fac": "1"}],
       "d_y": [{"d": "sy", "fac": "1"}],
