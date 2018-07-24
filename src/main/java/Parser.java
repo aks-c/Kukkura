@@ -37,6 +37,10 @@ public class Parser {
         }
     }
 
+    // TODO: error handling and additional logic.
+//    public static String getInputFolderPath(String args[]) {
+//        return args[0];
+//    }
 
     public static DerivationSystem getFinalDerivationSystem(String filename) throws FileNotFoundException {
         DerivationSystem finalDS = getDerivationSystem(filename);

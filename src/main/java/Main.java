@@ -57,17 +57,18 @@ MVP 7
 - add support for referentials of more fields than just materials (d_coord, etc..)
 
 MVP 8
-- add error handling
+- support for executable jar
+- input and output from some external sources (ie not resource folder)
+- accept command line arguments to do so
 
 MVP 9
+- add error handling
+
+MVP
 - add support for individual iteration limit (Y/N ?)
 - add support for orientation
 - add support for n-repeaters
 
 MVP
 - add interface/GUI to easily modify the JSON input File to this system
-
-MVP
-- input and output from some external sources (ie not resource folder)
-- accept command line arguments to do so
 */
