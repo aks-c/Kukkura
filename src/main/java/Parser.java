@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,6 +19,11 @@ public class Parser {
     private static final String ENCODING = "UTF-8";
     private static final String JSON_EXTENSION = "json";
     private static final String MC_EXTENSION = "mcfunction";
+
+    private static final String DEFAULT_INPUT_FOLDER = "/input";
+    private static final String DEFAULT_INPUT_SUBFOLDER = "/sub";
+    private static final String DEFAULT_INPUT_MAINFILE = "/playground.json";
+    private static final String DEFAULT_OUTPUT_FOLDER = "/output";
 
     public enum FORMAT {
         JSON,
@@ -38,13 +44,15 @@ public class Parser {
     }
 
     // TODO: error handling and additional logic.
-    public static String getInputFolderPath(String args[]) {
+    public static String getInputFolderName(String args[]) {
+        if (args.length == 0)
+            return DEFAULT_INPUT_FOLDER;
         return args[0];
     }
 
-    public static DerivationSystem getFinalDerivationSystem(String filename) throws FileNotFoundException {
-        DerivationSystem finalDS = getDerivationSystem(filename);
-        DerivationSystem auxiliaryDS = getAllDerivationsInFolder("src/main/resources/input/sub");
+    public static DerivationSystem getFinalDerivationSystem(String folderName, String subFolderName, String fileName) throws FileNotFoundException {
+        DerivationSystem finalDS = getDerivationSystem(folderName + fileName);
+        DerivationSystem auxiliaryDS = getAllDerivationsInFolder(folderName + subFolderName);
 
         HashMap<String, ArrayList<Symbol>> newRules = new HashMap<>();
         newRules.putAll(finalDS.getRules());

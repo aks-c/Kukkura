@@ -12,11 +12,13 @@ public class Main {
     public static void main (String args[]) {
         System.out.println("print");
         try {
-            DerivationSystem ds = Parser.getFinalDerivationSystem("src/main/resources/input/playground.json");
+            String foldername = Parser.getInputFolderName(args);
+            System.out.println(foldername);
+            DerivationSystem ds = Parser.getFinalDerivationSystem(foldername, "/sub", "/playground.json");
             ds.deriveResult();
 
-            Parser.writeResults(ds.getResult(), "src/main/resources/output.json", Parser.FORMAT.JSON);
-            Parser.writeResults(ds.getResult(), "src/main/resources/commands.mcfunction", Parser.FORMAT.MINECRAFT);
+            Parser.writeResults(ds.getResult(), "output/output.json", Parser.FORMAT.JSON);
+            Parser.writeResults(ds.getResult(), "output/commands.mcfunction", Parser.FORMAT.MINECRAFT);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
