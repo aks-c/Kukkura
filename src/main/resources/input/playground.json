@@ -1,0 +1,98 @@
+{
+  "axiom": [
+    {
+      "symbol": "INITIAL",
+      "size": {"x": 100, "y": 6, "z": 100},
+      "position": {"x": 0, "y": 0, "z": 0},
+      "material_ref": "primary_block",
+      "exclusive_derivation": false,
+      "can_be_resized": false,
+      "resize_coefficients": {"x": 0, "y": 0, "z": 0},
+      "can_be_rotated": false
+    }
+  ],
+
+  "rules": {
+    "INITIAL": [
+      {
+        "symbol": "A",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size_ref": "standard",
+        "delta_position_ref": "standard",
+        "material_ref": "primary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      },
+      {
+        "symbol": "A",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}, {"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "primary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ],
+    "A": [
+      {
+        "symbol": "B",
+        "size": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "position": {"x": "0", "y": "0", "z": "0", "deltaIsSet": false},
+        "delta_size": {
+          "d_x": [{"d": "sx", "fac": "1"}],
+          "d_y": [{"d": "sy", "fac": "1"}],
+          "d_z": [{"d": "sz", "fac": "1"}]},
+        "delta_position": {
+          "d_x": [{"d": "x", "fac": "1"}],
+          "d_y": [{"d": "y", "fac": "1"}],
+          "d_z": [{"d": "z", "fac": "1"}]},
+        "material_ref": "primary_block",
+        "probability": 100,
+        "exclusive_derivation": false,
+        "can_be_resized": false,
+        "resize_coefficients": {"x": 1, "y": 0, "z": 1},
+        "can_be_rotated": false
+      }
+    ]
+  },
+
+  "non-terminals" : ["INITIAL", "A"],
+  "terminals" : ["FINAL"],
+
+  "ref_to_previous_material": "SAME",
+  "materials": {
+    "primary_block": {"mainID": "sandstone", "subID": "0", "state": "hollow"},
+    "secondary_block": {"mainID": "sandstone", "subID": "1", "state": "hollow"},
+    "tertiary_block": {"mainID": "sandstone", "subID": "2", "state": "hollow"},
+    "primary_road": {"mainID": "hardened_clay", "subID": "0", "state": "hollow"},
+    "secondary_road": {"mainID": "stained_hardened_clay", "subID": "7", "state": "hollow"},
+    "torch": {"mainID": "torch", "subID": "0", "state": "hollow"},
+    "fence": {"mainID": "fence", "subID": "0", "state": "hollow"},
+    "air": {"mainID": "air", "subID": "0", "state": "hollow"}
+  },
+
+  "delta_sizes": {
+    "standard": {
+      "d_x": [{"d": "sx", "fac": "1"}],
+      "d_y": [{"d": "sy", "fac": "1"}],
+      "d_z": [{"d": "sz", "fac": "1"}]}
+  },
+
+  "delta_positions": {
+    "standard": { "d_x": [{"d": "x", "fac": "1"}], "d_y": [{"d": "y", "fac": "1"}], "d_z": [{"d": "z", "fac": "1"}]}
+  }
+}

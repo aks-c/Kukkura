@@ -1,5 +1,6 @@
 import MetaData.CoordinatesUtility;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -11,10 +12,10 @@ public class Main {
     public static void main (String args[]) {
         System.out.println("print");
         try {
-            DerivationSystem ds = Parser.getDerivationSystem("src/main/resources/playground.json");
+            DerivationSystem ds = Parser.getFinalDerivationSystem("src/main/resources/input/playground.json");
             ds.deriveResult();
 
-            //Parser.writeResults(ds.getResult(), "src/main/resources/output.json", Parser.FORMAT.JSON);
+            Parser.writeResults(ds.getResult(), "src/main/resources/output.json", Parser.FORMAT.JSON);
             Parser.writeResults(ds.getResult(), "src/main/resources/commands.mcfunction", Parser.FORMAT.MINECRAFT);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -51,11 +52,14 @@ MVP 6
 - support for material referentials
 - better delta expressions
 
-MVP
+MVP 7
 - add support for several separate input files
 - add support for referentials of more fields than just materials (d_coord, etc..)
 
-MVP
+MVP 8
+- add error handling
+
+MVP 9
 - add support for individual iteration limit (Y/N ?)
 - add support for orientation
 - add support for n-repeaters
