@@ -39,6 +39,7 @@ public class DerivationSystem {
         this.materials = finalDS.getMaterials();
         this.REF_TO_PREVIOUS_MATERIAL = finalDS.REF_TO_PREVIOUS_MATERIAL;
         this.deltaSizes = finalDS.getDeltaSizes();
+        this.deltaPositions = finalDS.getDeltaPositions();
     }
 
     private final int ITERATION_LIMIT = 20;
@@ -101,13 +102,11 @@ public class DerivationSystem {
     @SerializedName("materials")
     private HashMap<String, Material> materials = new HashMap<>();
 
-    /**
-     * A list of the most used delta sizes of this system.
-     * Helps in making the rules much smaller and much easier to read/follow.
-     * Also helps with avoiding duplication, which is always nice to have.
-     */
-    @SerializedName("delta_size")
+    @SerializedName("delta_sizes")
     private HashMap<String, CoordinatesDelta> deltaSizes = new HashMap<>();
+
+    @SerializedName("delta_positions")
+    private HashMap<String, CoordinatesDelta> deltaPositions = new HashMap<>();
 
 
     ArrayList<Symbol> getResult() {
@@ -134,6 +133,9 @@ public class DerivationSystem {
     public HashMap<String, CoordinatesDelta> getDeltaSizes() {
         return deltaSizes;
     }
+    public HashMap<String, CoordinatesDelta> getDeltaPositions() {
+        return deltaPositions;
+    }
 
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
@@ -148,12 +150,13 @@ public class DerivationSystem {
      */
     private void addSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol, Symbol symbolToAdd) {
         CoordinatesDelta newDeltaSize = symbolToAdd.getDeltaSizeFromRef(deltaSizes);
+        CoordinatesDelta newDeltaPosition = symbolToAdd.getDeltaPositionFromRef(deltaPositions);
         Coordinates newSize = symbolToAdd.getSize().getFinalCoordinates(parentSymbol, newDeltaSize);
         newSize = Resizing.getRandomSize(newSize, symbolToAdd.getResizeCoefficients(), symbolToAdd.canBeResized());
-        Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
+        Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, newDeltaPosition);
         Material newMaterial = symbolToAdd.getMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
 
-        Symbol newSymbol = new Symbol(symbolToAdd, newSize, newPosition, newMaterial, newDeltaSize);
+        Symbol newSymbol = new Symbol(symbolToAdd, newSize, newPosition, newMaterial, newDeltaSize, newDeltaPosition);
 
         Gson gson = new Gson();
         Symbol copy = gson.fromJson(gson.toJson(newSymbol), Symbol.class);
