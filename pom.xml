@@ -18,6 +18,7 @@
     </dependencies>
 
     <build>
+        <finalName>VokselPG</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
