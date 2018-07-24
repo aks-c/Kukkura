@@ -1,8 +1,6 @@
 package Grammar;
 
 import MetaData.*;
-import MetaData.CoordinatesUtility.AXIS;
-import MetaData.CoordinatesUtility.ROTATION;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
