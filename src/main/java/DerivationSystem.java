@@ -1,8 +1,5 @@
 import Grammar.Symbol;
-import MetaData.Coordinates;
-import MetaData.CoordinatesUtility;
-import MetaData.Material;
-import MetaData.Resizing;
+import MetaData.*;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -41,6 +38,8 @@ public class DerivationSystem {
         this.resultContainsNT = finalDS.getResultContainsNT();
         this.materials = finalDS.getMaterials();
         this.REF_TO_PREVIOUS_MATERIAL = finalDS.REF_TO_PREVIOUS_MATERIAL;
+        this.deltaSizes = finalDS.getDeltaSizes();
+        this.deltaPositions = finalDS.getDeltaPositions();
     }
 
     private final int ITERATION_LIMIT = 20;
@@ -61,19 +60,19 @@ public class DerivationSystem {
     private HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
 
     /**
-     * We explicitly separate our alphabet into lists of terminals and non-terminals because it makes processing easier.
-     * Terminals are symbols that don't have an associated production rule.
-     */
-    @SerializedName("terminals")
-    private ArrayList<String> terminals = new ArrayList<>();
-
-    /**
      * Non-Terminals are symbols that have an associated production rule.
      * Note that the sets of Terminals and Non-Terminals are disjoint:
      * i.e. a symbol cannot be both a T and a NT.
      */
     @SerializedName("non-terminals")
     private ArrayList<String> nonTerminals = new ArrayList<>();
+
+    /**
+     * We explicitly separate our alphabet into lists of terminals and non-terminals because it makes processing easier.
+     * Terminals are symbols that don't have an associated production rule.
+     */
+    @SerializedName("terminals")
+    private ArrayList<String> terminals = new ArrayList<>();
 
     /**
      * This holds the current sentence produced by our system.
@@ -89,19 +88,25 @@ public class DerivationSystem {
     private boolean resultContainsNT = true;
 
     /**
-     * A list of the most used material of this system.
-     * Helps in making the rules much smaller and much easier to read/follow.
-     */
-    @SerializedName("materials")
-    private HashMap<String, Material> materials = new HashMap<>();
-
-    /**
      * When using the Symbol::materialReference field, one can reference to some predefined materials.
      * But one can also reference to whatever material the parent Symbol had.
      * For that, we need to define a String that specifies when that is indeed the case.
      */
     @SerializedName("ref_to_previous_material")
     private String REF_TO_PREVIOUS_MATERIAL = new String();
+
+    /**
+     * A list of the most used material of this system.
+     * Helps in making the rules much smaller and much easier to read/follow.
+     */
+    @SerializedName("materials")
+    private HashMap<String, Material> materials = new HashMap<>();
+
+    @SerializedName("delta_sizes")
+    private HashMap<String, CoordinatesDelta> deltaSizes = new HashMap<>();
+
+    @SerializedName("delta_positions")
+    private HashMap<String, CoordinatesDelta> deltaPositions = new HashMap<>();
 
 
     ArrayList<Symbol> getResult() {
@@ -125,6 +130,12 @@ public class DerivationSystem {
     public boolean getResultContainsNT() {
         return resultContainsNT;
     }
+    public HashMap<String, CoordinatesDelta> getDeltaSizes() {
+        return deltaSizes;
+    }
+    public HashMap<String, CoordinatesDelta> getDeltaPositions() {
+        return deltaPositions;
+    }
 
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
@@ -138,12 +149,14 @@ public class DerivationSystem {
      * Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
      */
     private void addSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol, Symbol symbolToAdd) {
-        Coordinates newSize = symbolToAdd.getSize().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaSize());
+        CoordinatesDelta newDeltaSize = symbolToAdd.getDeltaSizeFromRef(deltaSizes);
+        CoordinatesDelta newDeltaPosition = symbolToAdd.getDeltaPositionFromRef(deltaPositions);
+        Coordinates newSize = symbolToAdd.getSize().getFinalCoordinates(parentSymbol, newDeltaSize);
         newSize = Resizing.getRandomSize(newSize, symbolToAdd.getResizeCoefficients(), symbolToAdd.canBeResized());
-        Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, symbolToAdd.getDeltaPosition());
+        Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, newDeltaPosition);
         Material newMaterial = symbolToAdd.getMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
 
-        Symbol newSymbol = new Symbol(symbolToAdd, newSize, newPosition, newMaterial);
+        Symbol newSymbol = new Symbol(symbolToAdd, newSize, newPosition, newMaterial, newDeltaSize, newDeltaPosition);
 
         Gson gson = new Gson();
         Symbol copy = gson.fromJson(gson.toJson(newSymbol), Symbol.class);
