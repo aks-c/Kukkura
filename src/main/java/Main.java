@@ -12,13 +12,16 @@ public class Main {
     public static void main (String args[]) {
         System.out.println("print");
         try {
-            String foldername = Parser.getInputFolderName(args);
-            System.out.println(foldername);
-            DerivationSystem ds = Parser.getFinalDerivationSystem(foldername, "/sub", "/playground.json");
+            String inputFolder = Parser.getFileName(args, Parser.FILE_TYPE.INPUT_FOLDER);
+            String subFolder = Parser.getFileName(args, Parser.FILE_TYPE.INPUT_SUBFOLDER);
+            String mainInputFile = Parser.getFileName(args, Parser.FILE_TYPE.MAIN_FILE);
+            String outputFolder = Parser.getFileName(args, Parser.FILE_TYPE.OUTPUT_FOLDER);
+
+            DerivationSystem ds = Parser.getFinalDerivationSystem(inputFolder, subFolder, mainInputFile);
             ds.deriveResult();
 
-            Parser.writeResults(ds.getResult(), "output/output.json", Parser.FORMAT.JSON);
-            Parser.writeResults(ds.getResult(), "output/commands.mcfunction", Parser.FORMAT.MINECRAFT);
+            Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.JSON);
+            Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.MINECRAFT);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

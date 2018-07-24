@@ -17,19 +17,22 @@ import java.util.HashMap;
  */
 public class Parser {
     private static final String ENCODING = "UTF-8";
-    private static final String JSON_EXTENSION = "json";
-    private static final String MC_EXTENSION = "mcfunction";
+    private static final String JSON_EXTENSION = ".json";
+    private static final String MC_EXTENSION = ".mcfunction";
 
-    private static final String DEFAULT_INPUT_FOLDER = "/input";
-    private static final String DEFAULT_INPUT_SUBFOLDER = "/sub";
+    // TODO: better handling of file names;
+    // (try some combinations out: it's very error-prone to supply your own names) (good enough for now though)
+    private static final String DEFAULT_INPUT_FOLDER = "./input";
+    private static final String DEFAULT_INPUT_SUBFOLDER = "/sub/";
     private static final String DEFAULT_INPUT_MAINFILE = "/playground.json";
-    private static final String DEFAULT_OUTPUT_FOLDER = "/output";
+    private static final String DEFAULT_OUTPUT_FOLDER = "./output/";
+    private static final String DEFAULT_OUTPUT_FILE = "output";
 
     public enum FORMAT {
         JSON,
         MINECRAFT;
 
-        public String getExtension(FORMAT format) {
+        public static String getExtension(FORMAT format) {
             String extension = "";
             switch (format) {
                 case JSON:
@@ -43,11 +46,29 @@ public class Parser {
         }
     }
 
-    // TODO: error handling and additional logic.
-    public static String getInputFolderName(String args[]) {
-        if (args.length == 0)
-            return DEFAULT_INPUT_FOLDER;
-        return args[0];
+    public enum FILE_TYPE {
+        INPUT_FOLDER(DEFAULT_INPUT_FOLDER, 0),
+        INPUT_SUBFOLDER(DEFAULT_INPUT_SUBFOLDER, 1),
+        MAIN_FILE(DEFAULT_INPUT_MAINFILE, 2),
+        OUTPUT_FOLDER(DEFAULT_OUTPUT_FOLDER, 3);
+
+        private final String defaultName;
+        private final int index;
+
+        FILE_TYPE(String defaultName, int index) {
+            this.defaultName = defaultName;
+            this.index = index;
+        }
+
+        public String getDefaultName() { return defaultName; }
+        public int getIndex() { return index; }
+    }
+
+    public static String getFileName(String args[], FILE_TYPE type) {
+        int indexInArgs = type.getIndex();
+        if (args.length <= indexInArgs)
+            return type.getDefaultName();
+        return args[indexInArgs];
     }
 
     public static DerivationSystem getFinalDerivationSystem(String folderName, String subFolderName, String fileName) throws FileNotFoundException {
@@ -132,13 +153,14 @@ public class Parser {
      * The API of the Parser class only exposes writeResults(), and an Enum to choose the target format.
      * Then results are written wrt said FORMAT enum.
      */
-    public static void writeResults(ArrayList<Symbol> result, String filename, Parser.FORMAT format) throws IOException {
+    public static void writeResults(ArrayList<Symbol> result, String folderName, Parser.FORMAT format) throws IOException {
+        String outputFile = DEFAULT_OUTPUT_FILE + FORMAT.getExtension(format);
         switch (format) {
             case JSON:
-                writeToJSON(result, filename);
+                writeToJSON(result, folderName + outputFile);
                 break;
             case MINECRAFT:
-                writeToMinecraft(result, filename);
+                writeToMinecraft(result, folderName + outputFile);
                 break;
         }
     }
