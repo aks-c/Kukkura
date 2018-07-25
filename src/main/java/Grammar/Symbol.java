@@ -162,15 +162,15 @@ public class Symbol {
         return position;
     }
 
-    public CoordinatesDelta getDeltaSize() {
+    private CoordinatesDelta getDeltaSize() {
         return deltaSize;
     }
 
-    public CoordinatesDelta getDeltaPosition() {
+    private CoordinatesDelta getDeltaPosition() {
         return deltaPosition;
     }
 
-    public Material getMaterial() {
+    private Material getMaterial() {
         return material;
     }
 
@@ -194,19 +194,25 @@ public class Symbol {
         return canBeRotated;
     }
 
-    public String getMaterialReference() {
+    private String getMaterialReference() {
         return materialReference;
     }
 
-    public String getDeltaSizeReference() {
+    private String getDeltaSizeReference() {
         return deltaSizeReference;
     }
 
-    public String getDeltaPositionReference() {
+    private String getDeltaPositionReference() {
         return deltaPositionReference;
     }
 
 
+    /**
+     * The deltaPosition field cannot be accessed from outside through its regular getter:
+     * It might not exist as a properly defined object, but as a String reference to some deltaPosition pre-defined in the input file.
+     * This function handles the logic of either returning the deltaPosition of this symbol (if there is one)
+     * or returning (a reference to) said pre-defined deltaPosition.
+     */
     public CoordinatesDelta getDeltaPositionFromRef(HashMap<String, CoordinatesDelta> deltaSizes) {
         if (getDeltaPositionReference() == null)
             return this.getDeltaPosition();
@@ -251,7 +257,7 @@ public class Symbol {
     }
 
     /**
-     * A structure can be ringed by two 3D Coordinates.
+     * In ℝ^3, a structure can be "fenced" using two Coordinates.
      * The first Coordinate to define those boundaries is just the Position field.
      * The second position depends on: the first position and the Size of the Symbol/Structure.
      * This function calculates said second position, bcs it's needed by MC's /fill command.

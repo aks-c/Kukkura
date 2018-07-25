@@ -43,6 +43,12 @@ public class Parser {
         }
     }
 
+    // TODO: named CLI arguments instead of relying on a specific order of the correct arguments in args[].
+    /**
+     * The folders/files used by the system can be specified by the user on the command line, or some default can be used.
+     * In the former case, we use the index to know where in args[] the folder/file is specified.
+     * In the later case, we use the constants predefined in the Parser class as the defaults.
+     */
     public enum FILE_TYPE {
         INPUT_FOLDER(DEFAULT_INPUT_FOLDER, 0),
         INPUT_SUBFOLDER(DEFAULT_INPUT_SUBFOLDER, 1),
@@ -61,6 +67,13 @@ public class Parser {
         public int getIndex() { return index; }
     }
 
+    /**
+     * We want to get the name/location of a file associated to a certain type.
+     * eg: We want to get the name of the main input file.
+     * That name may or may not be specified in args[].
+     * If it exists in args[], we return it.
+     * Else we return a default.
+     */
     public static String getFileName(String args[], FILE_TYPE type) {
         int indexInArgs = type.getIndex();
         if (args.length <= indexInArgs)
@@ -82,7 +95,7 @@ public class Parser {
         return new DerivationSystem(finalDS, newRules, newNonTerminals);
     }
 
-    public static DerivationSystem getAllDerivationsInFolder(String folderName) throws FileNotFoundException {
+    private static DerivationSystem getAllDerivationsInFolder(String folderName) throws FileNotFoundException {
         final File folder = new File(folderName);
 
         HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
@@ -98,7 +111,7 @@ public class Parser {
         return new DerivationSystem(rules, nonTerminals);
     }
 
-    public static String getFileExtension(final File file) {
+    private static String getFileExtension(final File file) {
         String extension = "";
         int index = file.getName().lastIndexOf('.');
         if (index > 0)
@@ -106,7 +119,7 @@ public class Parser {
         return extension;
     }
 
-    public static boolean isJSON(final File file) {
+    private static boolean isJSON(final File file) {
         String extension = getFileExtension(file);
         return extension.equals(JSON_EXTENSION);
     }
@@ -114,13 +127,13 @@ public class Parser {
     /**
      * De-serializes a structured JSON File into a usable DerivationSystem Object.
      */
-    public static DerivationSystem getDerivationSystem(String filename) throws FileNotFoundException {
+    private static DerivationSystem getDerivationSystem(String filename) throws FileNotFoundException {
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(filename));
 
         return gson.fromJson(reader, DerivationSystem.class);
     }
-    public static DerivationSystem getDerivationSystem(File file) throws FileNotFoundException {
+    private static DerivationSystem getDerivationSystem(File file) throws FileNotFoundException {
         return getDerivationSystem(file.getPath());
     }
 
