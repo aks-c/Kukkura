@@ -64,9 +64,9 @@ public class Symbol {
 
     /**
      * This boolean is useful to differentiate between two possible systems of randomisation one might want to use.
-     * It specifies whether the rule coming from this symbol is exclusive or not.
      * An exclusive rule is one where: out of all the RHS symbols of the rule, only one, and exactly one is chosen.
-     * A non-exclusive rule is one where: every RHS symbol can be chosen or not, independently. (This is the current default btw).
+     * A non-exclusive rule is one where: every RHS symbol is handled in a case by case fashion.
+     * i.e.: it might be that all the symbols are chosen, or none of them, or only one, etc...
      */
     @SerializedName("exclusive_derivation")
     private final boolean exclusiveDerivation;
@@ -258,9 +258,8 @@ public class Symbol {
 
     /**
      * In ℝ^3, a structure can be "fenced" using two Coordinates.
-     * The first Coordinate to define those boundaries is just the Position field.
-     * The second position depends on: the first position and the Size of the Symbol/Structure.
-     * This function calculates said second position, bcs it's needed by MC's /fill command.
+     * The first Coordinate to define those boundaries is our Position field.
+     * The second position is calculated wrt said first Position, and the Size of the Symbol/Structure.
      */
     public Coordinates getSecondPosition(Coordinates position, Coordinates size) {
         String x = getSecondPosition(position.getX(), size.getX());
