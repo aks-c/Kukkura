@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public class Main {
     public static void main (String args[]) {
-        System.out.println("print");
+        System.out.println("---- Procedural Generator ----");
         try {
             String inputFolder = Parser.getFileName(args, Parser.FILE_TYPE.INPUT_FOLDER);
             String subFolder = Parser.getFileName(args, Parser.FILE_TYPE.INPUT_SUBFOLDER);
@@ -19,8 +19,6 @@ public class Main {
 
             Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.JSON);
             Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.MINECRAFT);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -19,8 +19,6 @@ public class Parser {
     private static final String JSON_EXTENSION = ".json";
     private static final String MC_EXTENSION = ".mcfunction";
 
-    // TODO: better handling of file names;
-    // (try some combinations out: it's very error-prone to supply your own names) (good enough for now though)
     private static final String DEFAULT_INPUT_FOLDER = "./input";
     private static final String DEFAULT_INPUT_SUBFOLDER = "/sub/";
     private static final String DEFAULT_INPUT_MAINFILE = "/playground.json";
