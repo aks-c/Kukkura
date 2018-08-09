@@ -9,11 +9,11 @@ You can then interpret this data yourself to get the procedurally generated cont
 The program already supports Minecraft-compatible output (i.e. Minecraft users don't need to interpret the data, it's handled for them in one of the output files).
 No support for other platforms/programs/games/etc (yet!), but the output is comprehensible enough that it is not too hard for someone to interpret it for their own use. 
 
-To get a taste of what you can do using Context-Free Grammars, see this https://www.contextfreeart.org/index.html (not mine) for example.
-
 ## Examples
 
 Coming Soon...
+
+Though, to get a taste of what you can do using Context-Free Grammars, you can see [this project](https://www.contextfreeart.org/index.html "another project that uses CFGs to produce content") (not mine) for example.
 
 ## Getting Started
 
