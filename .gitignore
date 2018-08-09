@@ -13,6 +13,9 @@ target/*
 .idea/**/dictionaries
 .idea/**/shelf
 
+# Because IntelliJ is weird sometimes...
+Voxel_PG.iml
+
 # Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids
