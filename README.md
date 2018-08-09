@@ -2,14 +2,15 @@
 
 This is a Procedural Generator based on [Context-Free](https://en.wikipedia.org/wiki/Context-free_grammar "CFG wiki page") rule systems.
 
-The gist of it: you specify rules as input (in `JSON` format).
-Those rules describe how you want to manipulate some initial set of symbols.
-The key here is that every symbol has some meta-data associated with it (e.g.: a `size` field, a `position` field, whether this symbol supports randomization, etc…).
-Then, according to your rules and the meta-data of each symbol, the system outputs some other set of symbols.
+The gist of it: 
+- You specify some rules as input (in a bunch of `JSON` files).
+- Those rules describe how you want to manipulate some initial set of symbols.
+- The key here is that every symbol has some meta-data associated with it (e.g.: a `size` field, a `position` field, whether this symbol supports randomization, etc…).
+- Then, according to your rules and the meta-data of each symbol, the system outputs some other set of symbols.
 
 You can then interpret this output yourself to get the procedurally generated content for your purposes (i.e. you decide yourself what a "size of 10" means, etc..).
 The program already supports Minecraft-compatible output (i.e. Minecraft users don't need to interpret the data, it's handled for them in one of the output files).
-No support for other platforms/programs/games/etc (yet!), but the output is comprehensible enough that it is not too hard for someone to interpret it for their own use. 
+No support for other platforms/programs/games/etc (yet!), but the output is comprehensible enough that it is not too hard for someone to do so.
 
 ## Examples
 
