@@ -20,29 +20,23 @@ Coming Soon...
 ### Prerequisites
 
 The following are needed:
-- `Maven` (to build the executable `jar`) (how to install [here](https://maven.apache.org/install.html "how to install maven") )
-- `Java SE Runtime Environment >1.8` (to run) (how to install [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html "how to install the jre") )
+- `Maven` (to build the executable `jar`) (how to install [here](https://maven.apache.org/install.html "how to install maven"))
+- `Java SE Runtime Environment >1.8` (to run) (how to install [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html "how to install the jre"))
 
 ### Installing
 
-Run the following in your terminal:
+- `git clone` the repository.
+- `cd` into the repo.
+- `maven clean install` to create the executable `jar`.
 
-```bash
-git clone https://github.com/aks-c/Voxel_PG-v2
-cd path/to/repository
-maven clean install
-```
+The executable is inside the `/target` folder.
 
-The `jar` inside the `/target` folder is the executable.
+### Usage
 
-You execute it as follows:
-
+Execute as follows:
 ```bash
 java -jar nameOfExecutable.jar
 ```
-
-
-### Usage
 
 - Devise your context-free rules in one (or several) JSON files. 
 - Run the program through the terminal.
