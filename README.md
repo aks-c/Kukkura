@@ -1,6 +1,6 @@
 # Voxel_PG &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aks-c/Voxel_PG-v2/blob/oss_ready/LICENSE)
 
-This is a Procedural Generator based on [Context-Free](https://en.wikipedia.org/wiki/Context-free_grammar "CFG wiki page") rule systems.
+This is a [Procedural Generator](https://en.wikipedia.org/wiki/Procedural_generation "PG wiki page") based on [Context-Free](https://en.wikipedia.org/wiki/Context-free_grammar "CFG wiki page") rule systems.
 
 The gist of it: 
 - You specify some rules as input (in a bunch of `JSON` files).
@@ -8,9 +8,12 @@ The gist of it:
 - The key here is that every symbol has some meta-data associated with it (e.g.: a `size` field, a `position` field, whether this symbol supports randomization, etc…).
 - Then, according to your rules and the meta-data of each symbol, the system outputs some other set of symbols.
 
-You can then interpret this output yourself to get the procedurally generated content for your purposes (i.e. you decide yourself what a "size of 10" means, etc..).
-The program already supports Minecraft-compatible output (i.e. Minecraft users don't need to interpret the data, it's handled for them in one of the output files).
-No support for other platforms/programs/games/etc (yet!), but the output is comprehensible enough that it is not too hard for someone to do so.
+You can then interpret this output yourself to get the procedurally generated content for your purposes 
+(i.e. you decide yourself what a "size of 10" means, etc..).
+The program already supports Minecraft-compatible output 
+(i.e. Minecraft users don't need to interpret the data, it's handled for them in one of the output files).
+No support for other platforms/programs/games/etc (yet!), 
+but the output is comprehensible enough that it is not too hard for someone to do so.
 
 ## Examples
 
@@ -23,12 +26,12 @@ Though, to get a taste of what one can do using Context-Free Grammars, you can s
 ### Prerequisites
 
 The following are needed:
-- `Maven` (to build the executable `jar`) (how to install [here](https://maven.apache.org/install.html "How to install Vaven."))
-- `Java SE Runtime Environment >1.8` (to run) (how to install [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html "How to install the JRE."))
+- `Maven` to build the executable `jar` (how to install Maven [here](https://maven.apache.org/install.html "How to install Maven.")).
+- `Java SE Runtime Environment >1.8` to run (how to install the JRE [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html "How to install the JRE.")).
 
 ### Installing
 
-- `git clone` the repository.
+- `git clone` the repo.
 - `cd` into the repo.
 - `maven clean install` to create an executable `jar`.
 
@@ -41,16 +44,19 @@ Execute as follows:
 java -jar nameOfExecutable.jar
 ```
 
-- Devise your context-free rules in one (or several) JSON files. 
+- Devise context-free rules in one (or several) JSON files however you like. 
 By default, the program will try to get its input from a folder `/input` in the same directory.
-This can be changed by passing an argument through the command line.
+This can be changed by passing the appropriate argument through the command line.
 - Run the program through the terminal.
 By default, the output will be written in a folder `/output` in the same directory.
+This can also be changed by passing an argument. 
 - If you're a Minecraft user, you can load the `output.mcfunction` file directly into the game.
 See how [here](https://www.digminecraft.com/game_commands/function_command.php "A tutorial showing how to use mcfunction files in Minecraft.").
 - If you used this program to create content for another platform, you can use the `output.json` file.
 The file contains all the information needed to interpret the content for your usage. 
 It describes all the symbols outputted by the system, along with all their relevant meta-data. 
+
+For more detailed explanations, examples, and tutorials, visit the project [Wiki](wiki).
 
 ## License
 
