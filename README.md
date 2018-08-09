@@ -56,7 +56,7 @@ See how [here](https://www.digminecraft.com/game_commands/function_command.php "
 The file contains all the information needed to interpret the content for your usage. 
 It describes all the symbols outputted by the system, along with all their relevant meta-data. 
 
-For more detailed explanations, examples, and tutorials, visit the project [Wiki](wiki).
+For more detailed explanations, examples, and tutorials, visit the project [Wiki](https://github.com/aks-c/Kukkura/wiki).
 
 ## License
 
