@@ -1,4 +1,4 @@
-# Kukkura &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aks-c/Kukkura/blob/master/LICENSE)
+# Kukkura &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aks-c/Kukkura/blob/master/LICENSE) [![CircleCI](https://circleci.com/gh/aks-c/Kukkura.svg?style=shield&circle-token=81b7f70aaab28074269d37e9ea109ca9746df77a)](https://circleci.com/gh/aks-c/Kukkura)
 
 This is a [Procedural Generator](https://en.wikipedia.org/wiki/Procedural_generation "PG wiki page") based on [Context-Free](https://en.wikipedia.org/wiki/Context-free_grammar "CFG wiki page") rule systems.
 
