@@ -249,7 +249,6 @@ public class DerivationSystem {
      * Computes the whole result, from the initial Axiom to one final list of Symbols.
      */
     void deriveResult() {
-        System.out.println(ITERATION_LIMIT);
         int iterations = 0;
         result.addAll(axiom);
 

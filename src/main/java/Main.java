@@ -14,34 +14,17 @@ public class Main {
 
             DerivationSystem ds = Parser.getFinalDerivationSystem(inputFolder, subFolder, mainInputFile);
 
-            printPreambule(ds);
+            CommandLineOutput.printPreambule(ds);
 
             // main logic.
             ds.deriveResult();
 
-            printFinal(ds);
+            CommandLineOutput.printFinal(ds);
 
             Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.JSON);
             Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.MINECRAFT);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private static void printPreambule(DerivationSystem ds) {
-        System.out.println("*------------------------------------*");
-        System.out.println("*        Procedural Generator        *");
-        System.out.println("*------------------------------------*");
-        System.out.println("* Rules in the Derivation System: " + ds.getRules().size());
-        System.out.println("* Size of input:                  " + ds.getAxiom().size());
-        System.out.println("* Deriving...                         ");
-        System.out.println("* ... ");
-        System.out.println("* ... ");
-    }
-
-    private static void printFinal(DerivationSystem ds) {
-        System.out.println("* Successful Derivation.              ");
-        System.out.println("* Size of output:                 " + ds.getResult().size());
-        System.out.println("*------------------------------------*");
     }
 }
