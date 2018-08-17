@@ -2,6 +2,8 @@
 
 This is a [Procedural Generator](https://en.wikipedia.org/wiki/Procedural_generation "PG wiki page") based on [Context-Free](https://en.wikipedia.org/wiki/Context-free_grammar "CFG wiki page") rule systems.
 
+For more information on the project, and stuff like how to use it and tutorials, visit the project [Wiki](https://github.com/aks-c/Kukkura/wiki).
+
 The gist of it: 
 - You specify some rules as input (in a bunch of `JSON` files).
 - Those rules describe how you want to manipulate some initial set of symbols.
@@ -33,7 +35,7 @@ The following are needed:
 
 - `git clone` the repo.
 - `cd` into the repo.
-- `maven clean install` to create an executable `jar`.
+- `mvn clean install` to create an executable `jar`.
 
 The executable is generated inside the `/target` folder.
 
