@@ -38,11 +38,13 @@ public class DerivationSystem {
         this.resultContainsNT = finalDS.getResultContainsNT();
         this.materials = finalDS.getMaterials();
         this.REF_TO_PREVIOUS_MATERIAL = finalDS.REF_TO_PREVIOUS_MATERIAL;
+        this.ITERATION_LIMIT = finalDS.ITERATION_LIMIT;
         this.deltaSizes = finalDS.getDeltaSizes();
         this.deltaPositions = finalDS.getDeltaPositions();
     }
 
-    private final int ITERATION_LIMIT = 20;
+    @SerializedName("iteration_limit")
+    private int ITERATION_LIMIT = 20;
 
     /**
      * The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from).
