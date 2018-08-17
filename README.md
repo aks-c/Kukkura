@@ -53,7 +53,7 @@ You execute the program as follows:
 java -jar Kukkura.jar
 ```
 
-What you do:
+Roughly, what you do is the following:
 - Devise context-free rules in one (or several) JSON files. 
 By default, the program will try to get its input from a folder `/input` in the same directory.
 (This can be changed by passing the appropriate argument through the command line).
@@ -62,7 +62,7 @@ By default, the output will be written in a folder `/output` in the same directo
 (This can also be changed by passing an argument). 
 - If you're a Minecraft user, you can load the generated `output.mcfunction` file directly into your game and enjoy your creation without any need for serialization (the reason is that I did this initially with Minecraft in mind, then changed mid-way when I realized it could be used for pretty much any platform, provided one would do the necessary serialization).
 See how [here](https://www.digminecraft.com/game_commands/function_command.php "A tutorial showing how to use mcfunction files in Minecraft.").
-- If you use this program to create content for another platform, you can serialize the `output.json` file. 
+- If you use this program to create content for another platform, you have to serialize the `output.json` file. 
 
 ## Contributing
 
