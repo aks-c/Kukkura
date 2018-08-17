@@ -53,22 +53,21 @@ You execute the program as follows:
 java -jar Kukkura.jar
 ```
 
-- Devise context-free rules in one (or several) JSON files however you like. 
+What you do:
+- Devise context-free rules in one (or several) JSON files. 
 By default, the program will try to get its input from a folder `/input` in the same directory.
-This can be changed by passing the appropriate argument through the command line.
+(This can be changed by passing the appropriate argument through the command line).
 - Run the program through the terminal.
 By default, the output will be written in a folder `/output` in the same directory.
-This can also be changed by passing an argument. 
-- If you're a Minecraft user, you can load the `output.mcfunction` file directly into your game and enjoy your creation.
+(This can also be changed by passing an argument). 
+- If you're a Minecraft user, you can load the generated `output.mcfunction` file directly into your game and enjoy your creation without any need for serialization (the reason is that I did this initially with Minecraft in mind, then changed mid-way when I realized it could be used for pretty much any platform, provided one would do the necessary serialization).
 See how [here](https://www.digminecraft.com/game_commands/function_command.php "A tutorial showing how to use mcfunction files in Minecraft.").
-- If you used this program to create content for another platform, you can use the `output.json` file.
-The file contains all the information needed to interpret the content for your usage. 
-It describes all the symbols outputted by the system, along with all their relevant meta-data. 
+- If you use this program to create content for another platform, you can serialize the `output.json` file. 
 
 ## Contributing
 
 Any contribution or help is welcome !
-Please don't hesitate to generate issues/PRs if you think a feature should be added, some code could be cleaned up, some typos caught your eye, or anything else really !
+Please don't hesitate to generate issues/PRs if you think a feature should be added, some code could be cleaned up, some typos caught your eye, you want to add examples/tutorials, or anything else really !
 
 A `CONTRIBUTING.MD` guide is coming soon, to help with that process.
 
