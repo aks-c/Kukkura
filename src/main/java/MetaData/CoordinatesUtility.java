@@ -49,16 +49,7 @@ public class CoordinatesUtility {
         RIGHT,
         UP,
         DOWN,
-        NONE;
-        // Hold the values() of this enum in a final immutable list that can then be used to return a random field from the enum.
-        private static final List<ROTATION> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
-        private static final int SIZE = VALUES.size();
-        private static final Random RANDOM = new Random();
-        // Sometimes when applying a random Rotation, we want to apply wrt a random axis too.
-        // That's when this function is used.
-        public static ROTATION randomRotation() {
-            return VALUES.get(RANDOM.nextInt(SIZE));
-        }
+        NONE
     }
 
 
