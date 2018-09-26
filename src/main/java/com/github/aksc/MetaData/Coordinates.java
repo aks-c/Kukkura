@@ -1,6 +1,6 @@
-package MetaData;
+package com.github.aksc.MetaData;
 
-import Grammar.Symbol;
+import com.github.aksc.Grammar.Symbol;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;

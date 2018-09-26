@@ -1,6 +1,6 @@
-package Grammar;
+package com.github.aksc.Grammar;
 
-import MetaData.*;
+import com.github.aksc.MetaData.*;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;

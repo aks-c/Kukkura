@@ -1,5 +1,7 @@
-import Grammar.Symbol;
-import MetaData.*;
+package com.github.aksc;
+
+import com.github.aksc.Grammar.Symbol;
+import com.github.aksc.MetaData.*;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,23 +13,20 @@ import java.util.Random;
  * Created by akselcakmak on 16/06/2018.
  *
  *
- * This Class handles the Main Logic of this program.
- * A DerivationSystem is composed of all the information needed to procedurally generate our intended stuff;
+ * This Class handles the com.github.aksc.Main Logic of this program.
+ * A com.github.aksc.DerivationSystem is composed of all the information needed to procedurally generate our intended stuff;
  * It has an axiom (ie the initial list of symbols), an alphabet of terminals and non-terminals,
  * and a set of rules to be followed to derive the sentence we have from the axiom
  * to some final result usable to generate content.
  */
 public class DerivationSystem {
-    // Only for GSON.
-    public DerivationSystem() {
-
-    }
     // Only used for getting the rules and the non-terminals out of the separate sub files.
     public DerivationSystem(HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals) {
         this.rules = newRules;
         this.nonTerminals = newNonTerminals;
     }
-    // Only used when building the final DerivationSystem that will actually be used.
+
+    // Only used when building the final com.github.aksc.DerivationSystem that will actually be used.
     public DerivationSystem(DerivationSystem finalDS, HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals) {
         this.rules = newRules;
         this.nonTerminals = newNonTerminals;
@@ -114,27 +113,35 @@ public class DerivationSystem {
     ArrayList<Symbol> getResult() {
         return result;
     }
+
     public ArrayList<String> getNonTerminals() {
         return nonTerminals;
     }
+
     public HashMap<String, ArrayList<Symbol>> getRules() {
         return rules;
     }
+
     public ArrayList<String> getTerminals() {
         return terminals;
     }
+
     public ArrayList<Symbol> getAxiom() {
         return axiom;
     }
+
     public HashMap<String, Material> getMaterials() {
         return materials;
     }
+
     public boolean getResultContainsNT() {
         return resultContainsNT;
     }
+
     public HashMap<String, CoordinatesDelta> getDeltaSizes() {
         return deltaSizes;
     }
+
     public HashMap<String, CoordinatesDelta> getDeltaPositions() {
         return deltaPositions;
     }

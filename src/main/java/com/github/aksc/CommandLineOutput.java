@@ -1,3 +1,5 @@
+package com.github.aksc;
+
 /**
  * Created by akselcakmak on 17/08/2018.
  *
