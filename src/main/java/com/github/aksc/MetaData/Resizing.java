@@ -1,8 +1,8 @@
-package MetaData;
+package com.github.aksc.MetaData;
 
 import java.util.Random;
 
-import static MetaData.CoordinatesUtility.*;
+import static com.github.aksc.MetaData.CoordinatesUtility.*;
 
 /**
  * Created by akselcakmak on 02/07/2018.

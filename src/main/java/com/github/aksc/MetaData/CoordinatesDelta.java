@@ -1,4 +1,4 @@
-package MetaData;
+package com.github.aksc.MetaData;
 
 import com.google.gson.annotations.SerializedName;
 

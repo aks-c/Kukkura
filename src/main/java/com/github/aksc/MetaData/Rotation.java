@@ -1,7 +1,7 @@
-package MetaData;
+package com.github.aksc.MetaData;
 
-import Grammar.Symbol;
-import MetaData.CoordinatesUtility.AXIS;
+import com.github.aksc.Grammar.Symbol;
+import com.github.aksc.MetaData.CoordinatesUtility.AXIS;
 
 /**
  * Created by akselcakmak on 02/07/2018.

@@ -1,4 +1,6 @@
-import Grammar.Symbol;
+package com.github.aksc;
+
+import com.github.aksc.Grammar.Symbol;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -11,7 +13,7 @@ import java.util.HashMap;
  * Created by akselcakmak on 15/06/2018.
  *
  *
- * For now, mainly a wrapper around serializing/de-serializing between JSON Files, DerivationSystem objects, and our output
+ * For now, mainly a wrapper around serializing/de-serializing between JSON Files, com.github.aksc.DerivationSystem objects, and our output
  * Later on though, this will probably be a bit more developed.
  */
 public class Parser {
@@ -26,28 +28,39 @@ public class Parser {
     private static final String DEFAULT_OUTPUT_FILE = "output";
 
     public enum FORMAT {
-        JSON,
-        MINECRAFT;
+        JSON {
+          @Override
+          public void writeToOutput(ArrayList<Symbol> result, String outputFolder) throws IOException {
+            String filename = outputFolder + DEFAULT_OUTPUT_FILE + JSON_EXTENSION;
+            Writer writer = new FileWriter(filename);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(result, writer);
+            writer.close();
+          }
+        },
 
-        public static String getExtension(FORMAT format) {
-            String extension = "";
-            switch (format) {
-                case JSON:
-                    extension = JSON_EXTENSION;
-                    break;
-                case MINECRAFT:
-                    extension = MC_EXTENSION;
-                    break;
+        MINECRAFT {
+          @Override
+          public void writeToOutput(ArrayList<Symbol> result, String outputFolder) throws IOException {
+            String filename = outputFolder + DEFAULT_OUTPUT_FILE + MC_EXTENSION;
+
+            PrintWriter writer = new PrintWriter(filename, ENCODING);
+            for (Symbol symbol: result) {
+                writer.println(symbol.getAsMinecraftCommand());
             }
-            return extension;
-        }
+            writer.flush();
+            writer.close();
+          }
+        };
+
+        public abstract void writeToOutput(ArrayList<Symbol> result, String outputFolder) throws IOException;
     }
 
     // TODO: named CLI arguments instead of relying on a specific order of the correct arguments in args[].
     /**
      * The folders/files used by the system can be specified by the user on the command line, or some default can be used.
      * In the former case, we use the index to know where in args[] the folder/file is specified.
-     * In the later case, we use the constants predefined in the Parser class as the defaults.
+     * In the later case, we use the constants predefined in the com.github.aksc.Parser class as the defaults.
      */
     public enum FILE_TYPE {
         INPUT_FOLDER(DEFAULT_INPUT_FOLDER, 0),
@@ -125,7 +138,7 @@ public class Parser {
     }
 
     /**
-     * De-serializes a structured JSON File into a usable DerivationSystem Object.
+     * De-serializes a structured JSON File into a usable com.github.aksc.DerivationSystem Object.
      */
     private static DerivationSystem getDerivationSystem(String filename) throws FileNotFoundException {
         Gson gson = new Gson();
@@ -135,43 +148,5 @@ public class Parser {
     }
     private static DerivationSystem getDerivationSystem(File file) throws FileNotFoundException {
         return getDerivationSystem(file.getPath());
-    }
-
-    /**
-     * Serializes the result we got from the DerivationSystem into a JSON File.
-     */
-    private static void writeToJSON(ArrayList<Symbol> result, String filename) throws IOException {
-        Writer writer = new FileWriter(filename);
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        gson.toJson(result, writer);
-        writer.close();
-    }
-
-    /**
-     * Serializes the result in an .mcfunction file, i.e. a list of Minecraft-compatible commands.
-     */
-    private static void writeToMinecraft(ArrayList<Symbol> result, String filename) throws FileNotFoundException, UnsupportedEncodingException {
-        PrintWriter writer = new PrintWriter(filename, ENCODING);
-        for (Symbol symbol: result) {
-            writer.println(symbol.getAsMinecraftCommand());
-        }
-        writer.flush();
-        writer.close();
-    }
-
-    /**
-     * The API of the Parser class only exposes writeResults(), and an Enum to choose the target format.
-     * Then results are written wrt said FORMAT enum.
-     */
-    public static void writeResults(ArrayList<Symbol> result, String folderName, Parser.FORMAT format) throws IOException {
-        String outputFile = DEFAULT_OUTPUT_FILE + FORMAT.getExtension(format);
-        switch (format) {
-            case JSON:
-                writeToJSON(result, folderName + outputFile);
-                break;
-            case MINECRAFT:
-                writeToMinecraft(result, folderName + outputFile);
-                break;
-        }
     }
 }
