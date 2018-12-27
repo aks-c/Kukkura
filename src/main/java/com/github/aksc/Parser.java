@@ -86,7 +86,7 @@ public class Parser {
         String extension = "";
         int index = file.getName().lastIndexOf('.');
         if (index > 0)
-            extension = file.getName().substring(index+1);
+            extension = file.getName().substring(index);
         return extension;
     }
 

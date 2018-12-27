@@ -36,7 +36,7 @@ public class CommandLineOutput {
             printLine("Size of output: " + +ds.getResult().size());
             printFullHorizontalSeparation();
         } else {
-            System.out.println("Created " + ds.getResult().size() + " symbols.");
+            System.out.println("Created " + ds.getResult().size() + " symbol(s).");
         }
     }
 
