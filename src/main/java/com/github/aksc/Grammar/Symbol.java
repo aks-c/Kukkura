@@ -13,13 +13,12 @@ import java.util.Random;
  * Handles the symbols we use along with their related meta-data, properties, etc..
  */
 public class Symbol {
-    public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, boolean canBeRotated, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference, String deltaSizeReference, String deltaPositionReference) {
+    public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference, String deltaSizeReference, String deltaPositionReference) {
         this.symbolID = symbolID;
         this.probability = probability;
         this.exclusiveDerivation = exclusiveDerivation;
         this.canBeResized = canBeResized;
         this.resizeCoefficients = resizeCoefficients;
-        this.canBeRotated = canBeRotated;
         this.size = size;
         this.position = position;
         this.deltaSize = deltaSize;
@@ -31,11 +30,11 @@ public class Symbol {
     }
 
     public Symbol(Symbol other) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
     }
 
     public Symbol(Symbol other, Coordinates size, Coordinates position, Material material, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), other.canBeRotated(), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition), material, other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition), material, other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
     }
 
 
@@ -90,11 +89,6 @@ public class Symbol {
     @SerializedName("resize_coefficients")
     private final Coordinates resizeCoefficients;
 
-    /**
-     * Whether this symbol is allowed to be randomly rotated when created by some rule.
-     */
-    @SerializedName("can_be_rotated")
-    private final boolean canBeRotated;
 
     /**
      * The size and position of the symbol are not mandatory fields;
@@ -188,10 +182,6 @@ public class Symbol {
 
     public boolean canBeResized() {
         return canBeResized;
-    }
-
-    public boolean canBeRotated() {
-        return canBeRotated;
     }
 
     private String getMaterialReference() {
