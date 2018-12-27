@@ -12,9 +12,9 @@ public class CommandLineInput {
     private String mainInputFile;
     private String outputFolder;
 
-    private static final String DEFAULT_INPUT_FOLDER = "./input";
-    private static final String DEFAULT_INPUT_SUBFOLDER = "/sub/";
-    private static final String DEFAULT_INPUT_MAINFILE = "/playground.json";
+    private static final String DEFAULT_INPUT_FOLDER = "./input/";
+    private static final String DEFAULT_INPUT_SUBFOLDER = "sub/";
+    private static final String DEFAULT_INPUT_MAINFILE = "playground.json";
     private static final String DEFAULT_OUTPUT_FOLDER = "./output/";
 
     private Options options = new Options();
@@ -51,14 +51,14 @@ public class CommandLineInput {
                 .argName( "sub" )
                 .longOpt("subFolder")
                 .hasArg()
-                .desc("The sub input folder. Located inside the input folder. Defaults to /sub/")
+                .desc("The sub input folder. Located inside the input folder. Defaults to sub/")
                 .required(false)
                 .build();
         Option mainFile = Option.builder("mainFile")
                 .argName( "main" )
                 .longOpt("mainFile")
                 .hasArg()
-                .desc("The main input file. Located inside the input folder. Defaults to /playground.json")
+                .desc("The main input file. Located inside the input folder. Defaults to playground.json")
                 .required(false)
                 .build();
         Option outputFolder = Option.builder("outputFolder")
