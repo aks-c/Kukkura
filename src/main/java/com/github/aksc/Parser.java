@@ -13,8 +13,6 @@ import java.util.HashMap;
  * Created by akselcakmak on 15/06/2018.
  *
  *
- * For now, mainly a wrapper around serializing/de-serializing between JSON Files, com.github.aksc.DerivationSystem objects, and our output
- * Later on though, this will probably be a bit more developed.
  */
 public class Parser {
     private static final String ENCODING = "UTF-8";
