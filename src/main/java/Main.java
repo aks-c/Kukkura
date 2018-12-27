@@ -19,7 +19,6 @@ public class Main {
 
     public static void runApp(CommandLineInput cli) {
         try {
-
             String inputFolder = cli.getInputFolder();
             String subFolder = cli.getSubFolder();
             String mainInputFile = cli.getMainInputFile();
@@ -27,12 +26,12 @@ public class Main {
 
             DerivationSystem ds = Parser.getFinalDerivationSystem(inputFolder, subFolder, mainInputFile);
 
-            CommandLineOutput.printPreambule(ds);
+            CommandLineOutput.printPreambule(ds, cli.hasOption("terse"));
 
             // main logic.
             ds.deriveResult();
 
-            CommandLineOutput.printFinal(ds);
+            CommandLineOutput.printFinal(ds, cli.hasOption("terse"));
 
             Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.JSON);
             Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.MINECRAFT);

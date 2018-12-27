@@ -39,7 +39,7 @@ public class CommandLineInput {
 
     private void addAllOptions() {
         Option help = new Option("help", "Print this message.");
-        Option verbose = new Option("verbose", "Verbose output.");
+        Option verbose = new Option("terse", "Terse output.");
         Option inputFolder   = Option.builder("inputFolder")
                 .argName( "in" )
                 .longOpt("inputFolder")

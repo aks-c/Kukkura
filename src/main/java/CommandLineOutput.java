@@ -3,6 +3,7 @@
  *
  * Mostly for aesthetic purposes.
  * Just a pretty print of what the app is doing, for the user.
+ * TBH, you could get a similar result using .format() stuff, but this was rly for fun :p
  */
 public class CommandLineOutput {
     private static final int LINE_LENGTH = 40;
@@ -12,21 +13,29 @@ public class CommandLineOutput {
     private static final int PADDING_LENGTH = 1;
 
 
-    public static void printPreambule(DerivationSystem ds) {
-        printFullHorizontalSeparation();
-        printLine("Procedural Generator");
-        printFullHorizontalSeparation();
-        printLine("Rules in the Derivation System: " + ds.getRules().size());
-        printLine("Size of input: " + ds.getAxiom().size());
-        printLine("Deriving...");
-        printLine("...");
-        printLine("...");
+    public static void printPreambule(DerivationSystem ds, boolean isTerse) {
+        if (!isTerse) {
+            printFullHorizontalSeparation();
+            printLine("Procedural Generator");
+            printFullHorizontalSeparation();
+            printLine("Rules in the Derivation System: " + ds.getRules().size());
+            printLine("Size of input: " + ds.getAxiom().size());
+            printLine("Deriving...");
+            printLine("...");
+            printLine("...");
+        } else {
+            System.out.println(ds.getRules().size() + " rules.");
+        }
     }
 
-    public static void printFinal(DerivationSystem ds) {
-        printLine("Successful Derivation!");
-        printLine("Size of output: " + + ds.getResult().size());
-        printFullHorizontalSeparation();
+    public static void printFinal(DerivationSystem ds, boolean isTerse) {
+        if (!isTerse) {
+            printLine("Successful Derivation!");
+            printLine("Size of output: " + +ds.getResult().size());
+            printFullHorizontalSeparation();
+        } else {
+            System.out.println("Created " + ds.getResult().size() + " symbols");
+        }
     }
 
     private static void printMultipleCharacters(String charToPrint, int numberOfChars) {
