@@ -1,43 +1,63 @@
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
+import org.apache.commons.cli.*;
 
 /**
  * Created by akselcakmak on 27/12/2018.
  *
  */
 public class CommandLineInput {
+    private String args[];
+    private String inputFolder;
+    private String subFolder;
+    private String mainInputFile;
+    private String outputFolder;
+
+    private static final String DEFAULT_INPUT_FOLDER = "./input";
+    private static final String DEFAULT_INPUT_SUBFOLDER = "/sub/";
+    private static final String DEFAULT_INPUT_MAINFILE = "/playground.json";
+    private static final String DEFAULT_OUTPUT_FOLDER = "./output/";
 
     private Options options = new Options();
 
-    public CommandLineInput() {
+    public CommandLineInput(String args[]) {
+        this.args = args;
         addAllOptions();
+    }
+
+    public void parseInput() throws ParseException {
+        CommandLineParser parser = new DefaultParser();
+
+        CommandLine line = parser.parse(options, args);
+        inputFolder = line.getOptionValue("inputFolder", DEFAULT_INPUT_FOLDER);
+        subFolder = line.getOptionValue("subFolder", DEFAULT_INPUT_SUBFOLDER);
+        mainInputFile = line.getOptionValue("mainFile", DEFAULT_INPUT_MAINFILE);
+        outputFolder = line.getOptionValue("outputFolder", DEFAULT_OUTPUT_FOLDER);
     }
 
     private void addAllOptions() {
         Option help = new Option("help", "Print this message.");
         Option verbose = new Option("verbose", "Verbose output.");
-        Option inputFolder   = Option.builder("input folder")
+        Option inputFolder   = Option.builder("inputFolder")
                 .argName( "in" )
                 .longOpt("inputFolder")
                 .hasArg()
                 .desc("The main input folder. Defaults to ./input/")
                 .required(false)
                 .build();
-        Option subFolder = Option.builder("sub input folder")
+        Option subFolder = Option.builder("subFolder")
                 .argName( "sub" )
                 .longOpt("subFolder")
                 .hasArg()
                 .desc("The sub input folder. Located inside the input folder. Defaults to /sub/")
                 .required(false)
                 .build();
-        Option mainFile = Option.builder("main file")
+        Option mainFile = Option.builder("mainFile")
                 .argName( "main" )
                 .longOpt("mainFile")
                 .hasArg()
                 .desc("The main input file. Located inside the input folder. Defaults to /playground.json")
                 .required(false)
                 .build();
-        Option outputFolder = Option.builder("output folder")
+        Option outputFolder = Option.builder("outputFolder")
                 .argName( "out" )
                 .longOpt("outputFolder")
                 .hasArg()
