@@ -1,3 +1,5 @@
+package com.github.aksc;
+
 import org.apache.commons.cli.*;
 
 /**

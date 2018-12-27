@@ -1,6 +1,6 @@
-package MetaData;
+package com.github.aksc.MetaData;
 
-import Grammar.Symbol;
+import com.github.aksc.Grammar.Symbol;
 
 import java.util.Arrays;
 import java.util.Collections;

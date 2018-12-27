@@ -1,6 +1,13 @@
+package com.github.aksc;
+
+import com.github.aksc.CommandLineInput;
 import org.apache.commons.cli.ParseException;
 
+
+import com.github.aksc.Grammar.Symbol;
+import com.github.aksc.Parser.FORMAT;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by akselcakmak on 15/06/2018.
@@ -33,8 +40,9 @@ public class Main {
 
             CommandLineOutput.printFinal(ds, cli.hasOption("terse"));
 
-            Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.JSON);
-            Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.MINECRAFT);
+            ArrayList<Symbol> results = ds.getResult();
+
+            for (FORMAT format : FORMAT.values()) format.writeToOutput(results, outputFolder);
         } catch (IOException e) {
             e.printStackTrace();
         }
