@@ -9,13 +9,13 @@ import java.io.IOException;
 public class Main {
     public static void main (String args[]) {
         try {
-            String inputFolder = Parser.getFileName(args, Parser.FILE_TYPE.INPUT_FOLDER);
-            String subFolder = Parser.getFileName(args, Parser.FILE_TYPE.INPUT_SUBFOLDER);
-            String mainInputFile = Parser.getFileName(args, Parser.FILE_TYPE.MAIN_FILE);
-            String outputFolder = Parser.getFileName(args, Parser.FILE_TYPE.OUTPUT_FOLDER);
+            CommandLineInput cli = new CommandLineInput(args);
+            cli.parseInput();
 
-            CommandLineInput input = new CommandLineInput(args);
-            input.parseInput();
+            String inputFolder = cli.getInputFolder();
+            String subFolder = cli.getSubFolder();
+            String mainInputFile = cli.getMainInputFile();
+            String outputFolder = cli.getOutputFolder();
 
             DerivationSystem ds = Parser.getFinalDerivationSystem(inputFolder, subFolder, mainInputFile);
 

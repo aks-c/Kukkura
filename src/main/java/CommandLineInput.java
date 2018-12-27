@@ -6,6 +6,7 @@ import org.apache.commons.cli.*;
  */
 public class CommandLineInput {
     private String args[];
+
     private String inputFolder;
     private String subFolder;
     private String mainInputFile;
@@ -40,7 +41,7 @@ public class CommandLineInput {
                 .argName( "in" )
                 .longOpt("inputFolder")
                 .hasArg()
-                .desc("The main input folder. Defaults to ./input/")
+                .desc("The main input folder. Defaults to ./input")
                 .required(false)
                 .build();
         Option subFolder = Option.builder("subFolder")
@@ -72,6 +73,11 @@ public class CommandLineInput {
         options.addOption(mainFile);
         options.addOption(outputFolder);
     }
+
+    public String getInputFolder() { return inputFolder; }
+    public String getSubFolder() { return subFolder; }
+    public String getMainInputFile() { return mainInputFile; }
+    public String getOutputFolder() { return outputFolder; }
 }
 
 
