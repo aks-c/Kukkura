@@ -1,11 +1,9 @@
 package com.github.aksc;
 
-import com.github.aksc.CommandLineInput;
-import org.apache.commons.cli.ParseException;
-
-
 import com.github.aksc.Grammar.Symbol;
 import com.github.aksc.Parser.FORMAT;
+import org.apache.commons.cli.ParseException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
