@@ -19,10 +19,6 @@ public class Parser {
     private static final String JSON_EXTENSION = ".json";
     private static final String MC_EXTENSION = ".mcfunction";
 
-    private static final String DEFAULT_INPUT_FOLDER = "./input";
-    private static final String DEFAULT_INPUT_SUBFOLDER = "/sub/";
-    private static final String DEFAULT_INPUT_MAINFILE = "/playground.json";
-    private static final String DEFAULT_OUTPUT_FOLDER = "./output/";
     private static final String DEFAULT_OUTPUT_FILE = "output";
 
     public enum FORMAT {
@@ -43,43 +39,6 @@ public class Parser {
         }
     }
 
-    // TODO: named CLI arguments instead of relying on a specific order of the correct arguments in args[].
-    /**
-     * The folders/files used by the system can be specified by the user on the command line, or some default can be used.
-     * In the former case, we use the index to know where in args[] the folder/file is specified.
-     * In the later case, we use the constants predefined in the Parser class as the defaults.
-     */
-    public enum FILE_TYPE {
-        INPUT_FOLDER(DEFAULT_INPUT_FOLDER, 0),
-        INPUT_SUBFOLDER(DEFAULT_INPUT_SUBFOLDER, 1),
-        MAIN_FILE(DEFAULT_INPUT_MAINFILE, 2),
-        OUTPUT_FOLDER(DEFAULT_OUTPUT_FOLDER, 3);
-
-        private final String defaultName;
-        private final int index;
-
-        FILE_TYPE(String defaultName, int index) {
-            this.defaultName = defaultName;
-            this.index = index;
-        }
-
-        public String getDefaultName() { return defaultName; }
-        public int getIndex() { return index; }
-    }
-
-    /**
-     * We want to get the name/location of a file associated to a certain type.
-     * eg: We want to get the name of the main input file.
-     * That name may or may not be specified in args[].
-     * If it exists in args[], we return it.
-     * Else we return a default.
-     */
-    public static String getFileName(String args[], FILE_TYPE type) {
-        int indexInArgs = type.getIndex();
-        if (args.length <= indexInArgs)
-            return type.getDefaultName();
-        return args[indexInArgs];
-    }
 
     public static DerivationSystem getFinalDerivationSystem(String folderName, String subFolderName, String fileName) throws FileNotFoundException {
         DerivationSystem finalDS = getDerivationSystem(folderName + fileName);
