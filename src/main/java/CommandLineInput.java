@@ -39,7 +39,7 @@ public class CommandLineInput {
 
     private void addAllOptions() {
         Option help = new Option("help", "Print this message.");
-        Option verbose = new Option("terse", "Terse output.");
+        Option terse = new Option("terse", "Terse output.");
         Option inputFolder   = Option.builder("inputFolder")
                 .argName( "in" )
                 .longOpt("inputFolder")
@@ -70,7 +70,7 @@ public class CommandLineInput {
                 .build();
 
         options.addOption(help);
-        options.addOption(verbose);
+        options.addOption(terse);
         options.addOption(inputFolder);
         options.addOption(subFolder);
         options.addOption(mainFile);
