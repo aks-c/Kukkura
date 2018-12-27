@@ -24,7 +24,7 @@ public class CommandLineOutput {
             printLine("...");
             printLine("...");
         } else {
-            System.out.println(ds.getRules().size() + " rules.");
+            System.out.println(ds.getRules().size() + " rule(s).");
         }
     }
 
@@ -34,7 +34,7 @@ public class CommandLineOutput {
             printLine("Size of output: " + +ds.getResult().size());
             printFullHorizontalSeparation();
         } else {
-            System.out.println("Created " + ds.getResult().size() + " symbols");
+            System.out.println("Created " + ds.getResult().size() + " symbols.");
         }
     }
 
