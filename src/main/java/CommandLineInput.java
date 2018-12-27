@@ -19,6 +19,9 @@ public class CommandLineInput {
 
     private Options options = new Options();
 
+    private HelpFormatter formatter = new HelpFormatter();
+    private CommandLine line;
+
     public CommandLineInput(String args[]) {
         this.args = args;
         addAllOptions();
@@ -27,7 +30,7 @@ public class CommandLineInput {
     public void parseInput() throws ParseException {
         CommandLineParser parser = new DefaultParser();
 
-        CommandLine line = parser.parse(options, args);
+        line = parser.parse(options, args);
         inputFolder = line.getOptionValue("inputFolder", DEFAULT_INPUT_FOLDER);
         subFolder = line.getOptionValue("subFolder", DEFAULT_INPUT_SUBFOLDER);
         mainInputFile = line.getOptionValue("mainFile", DEFAULT_INPUT_MAINFILE);
@@ -73,6 +76,10 @@ public class CommandLineInput {
         options.addOption(mainFile);
         options.addOption(outputFolder);
     }
+
+    public void printHelp() { formatter.printHelp( "Kukkura", options ); }
+
+    public boolean hasOption(String option) { return line.hasOption(option); }
 
     public String getInputFolder() { return inputFolder; }
     public String getSubFolder() { return subFolder; }

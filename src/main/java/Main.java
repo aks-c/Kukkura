@@ -7,10 +7,18 @@ import java.io.IOException;
  *
  */
 public class Main {
-    public static void main (String args[]) {
+    public static void main (String args[]) throws ParseException {
+        CommandLineInput cli = new CommandLineInput(args);
+        cli.parseInput();
+
+        if (cli.hasOption("help"))
+            cli.printHelp();
+        else
+            runApp(cli);
+    }
+
+    public static void runApp(CommandLineInput cli) {
         try {
-            CommandLineInput cli = new CommandLineInput(args);
-            cli.parseInput();
 
             String inputFolder = cli.getInputFolder();
             String subFolder = cli.getSubFolder();
@@ -28,7 +36,7 @@ public class Main {
 
             Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.JSON);
             Parser.writeResults(ds.getResult(), outputFolder, Parser.FORMAT.MINECRAFT);
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
