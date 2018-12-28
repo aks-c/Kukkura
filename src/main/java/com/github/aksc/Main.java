@@ -1,6 +1,7 @@
 package com.github.aksc;
 
 import com.github.aksc.Exceptions.BadInputException;
+import com.github.aksc.Exceptions.BadLanguageException;
 import com.github.aksc.Grammar.Symbol;
 import com.github.aksc.InputOutput.CommandLineInput;
 import com.github.aksc.InputOutput.CommandLineOutput;
@@ -33,6 +34,8 @@ public class Main {
 
             DerivationSystem ds = Parser.getFinalDerivationSystem(inputFolder, subFolder, mainInputFile);
 
+            ds.validate();
+
             CommandLineOutput.printPreambule(ds, cli.hasOption("terse"));
 
             // main logic.
@@ -43,7 +46,7 @@ public class Main {
             ArrayList<Symbol> results = ds.getResult();
 
             for (FORMAT format : FORMAT.values()) format.writeToOutput(results, outputFolder);
-        } catch (BadInputException e) {
+        } catch (BadInputException | BadLanguageException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
