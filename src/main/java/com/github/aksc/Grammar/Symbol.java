@@ -4,6 +4,7 @@ import com.github.aksc.DerivationSystem;
 import com.github.aksc.Exceptions.BadLanguageException;
 import com.github.aksc.MetaData.*;
 import com.google.gson.annotations.SerializedName;
+import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -275,6 +276,10 @@ public class Symbol {
         return (r <= probability);
     }
 
+    // TODO: Maybe move this validation code elsewhere ? It's starting to get really big.
+    // There's a lot that can go wrong in the user input;
+    // After all, this is pretty much a mini compiler's semantic analyser for the L-system/CFG/language supplied by the user.
+    // That's why the validation has to be big, but it feels too big to be here.
     /**
      *  This checks that the Symbol's state is valid, and throws a BadLanguageException otherwise.
      *  It is called for every **initial** Symbol, exactly once.
