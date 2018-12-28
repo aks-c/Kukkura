@@ -70,6 +70,9 @@ public class Parser {
     private static DerivationSystem getAllDerivationsInFolder(String folderName) throws BadInputException {
         final File folder = new File(folderName);
 
+        if (!folder.exists())
+            throw new BadInputException("The folder " + folder.getName() + " doesn't exist.");
+
         HashMap<String, ArrayList<Symbol>> rules = new HashMap<>();
         ArrayList<String> nonTerminals = new ArrayList<>();
 
