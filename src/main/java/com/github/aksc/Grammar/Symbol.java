@@ -373,13 +373,13 @@ public class Symbol {
 
         // initial size is not defined
         if (sizeIsNull) {
-            errorMsg.append("The initial size is not defined. Define a size field.");
+            errorMsg.append("The initial size is not defined. Define a size field.\n");
             isValid = false;
         }
 
         // initial position is not defined
         if (positionIsNull) {
-            errorMsg.append("The initial position is not defined. Define a size field.");
+            errorMsg.append("The initial position is not defined. Define a size field.\n");
             isValid = false;
         }
 
@@ -418,13 +418,13 @@ public class Symbol {
 
         // initial size is not defined
         if (sizeIsNull) {
-            errorMsg.append("The initial size is not defined. Define a size field.");
+            errorMsg.append("The initial size is not defined. Define a size field.\n");
             isValid = false;
         }
 
         // initial position is not defined
         if (positionIsNull) {
-            errorMsg.append("The initial position is not defined. Define a size field.");
+            errorMsg.append("The initial position is not defined. Define a size field.\n");
             isValid = false;
         }
 
