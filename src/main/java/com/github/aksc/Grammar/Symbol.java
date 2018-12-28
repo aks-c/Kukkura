@@ -304,6 +304,9 @@ public class Symbol {
 
         boolean probabilityIsValid = (getProbability() >= 0);
 
+        boolean sizeIsNull = (getSize() == null);
+        boolean positionIsNull = (getPosition() == null);
+
         // the material_ref is invalid
         if (!materialRefIsNull && !materialExists && !materialRefIsPrevious) {
             errorMsg.append("The material_ref " + getMaterialReference() + " doesn't exist in the language's derivation system.\n");
@@ -361,6 +364,18 @@ public class Symbol {
         // the deltaSize is not defined
         if (deltaSizeRefIsNull && deltaSizeIsNull) {
             errorMsg.append("The delta_size is not defined. Please define one, or reference one of those in the delta_sizes map.\n");
+            isValid = false;
+        }
+
+        // initial size is not defined
+        if (sizeIsNull) {
+            errorMsg.append("The initial size is not defined. Define a size field.");
+            isValid = false;
+        }
+
+        // initial position is not defined
+        if (positionIsNull) {
+            errorMsg.append("The initial position is not defined. Define a size field.");
             isValid = false;
         }
 
