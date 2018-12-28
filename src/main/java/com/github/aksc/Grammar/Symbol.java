@@ -1,5 +1,6 @@
 package com.github.aksc.Grammar;
 
+import com.github.aksc.DerivationSystem;
 import com.github.aksc.Exceptions.BadLanguageException;
 import com.github.aksc.MetaData.*;
 import com.google.gson.annotations.SerializedName;
@@ -274,36 +275,100 @@ public class Symbol {
         return (r <= probability);
     }
 
-
-    public void validate(String parentSymbol) throws BadLanguageException {
+    /**
+     *  This checks that the Symbol's state is valid, and throws a BadLanguageException otherwise.
+     *  It is called for every **initial** Symbol, exactly once.
+     *  It can be shown that if the validation holds for every initial symbol and every symbol in every rule,
+     *  then it also holds for every symbol derived afterwards.
+     *  We can take advantage of this: not every symbol needs to be validated. Only the initial ones need to.
+     */
+    public void validate(String parentSymbol, DerivationSystem ds) throws BadLanguageException {
         StringBuilder errorMsg = new StringBuilder();
-        errorMsg.append("Symbol ");
-        errorMsg.append(symbolID);
-        errorMsg.append(" in rule ");
-        errorMsg.append(parentSymbol);
-        errorMsg.append(": \n");
+        errorMsg.append("\n" + "Symbol " + symbolID + " in rule " + parentSymbol + ": \n");
 
         boolean isValid = true;
 
-        if (materialReference != null && material != null) {
-            errorMsg.append("Symbol has both the material and the material_ref defined. Please only choose one.\n");
+        boolean materialRefIsNull = (getMaterialReference() == null);
+        boolean materialIsNull = (getMaterial() == null);
+
+        boolean materialRefIsPrevious = ds.getRefToPreviousMaterial().equals(getMaterialReference());
+        boolean materialExists = (ds.getMaterials().containsKey(getMaterialReference()));
+
+        boolean deltaPosIsNull = (getDeltaPosition() == null);
+        boolean deltaPosRefIsNull = (getDeltaPositionReference() == null);
+        boolean deltaPosRefExists = (ds.getDeltaPositions().containsKey(getDeltaPositionReference()));
+
+        boolean deltaSizeIsNull = (getDeltaSize() == null);
+        boolean deltaSizeRefIsNull = (getDeltaSizeReference() == null);
+        boolean deltaSizeRefExists = (ds.getDeltaSizes().containsKey(getDeltaSizeReference()));
+
+        boolean probabilityIsValid = (getProbability() >= 0);
+
+        // the material_ref is invalid
+        if (!materialRefIsNull && !materialExists && !materialRefIsPrevious) {
+            errorMsg.append("The material_ref " + getMaterialReference() + " doesn't exist in the language's derivation system.\n");
+            errorMsg.append("Please check its spelling or create a reference in the materials map.\n");
             isValid = false;
         }
 
-        if (getDeltaPosition() != null && getDeltaPositionReference() != null) {
-            errorMsg.append("Symbol has both the delta_position and the delta_position_ref defined. Please only choose one.\n");
+        // the delta_pos_ref is invalid
+        if (!deltaPosRefIsNull && !deltaPosRefExists) {
+            errorMsg.append("The delta_pos_ref " + getDeltaPositionReference() + " doesn't exist in the language's derivation system.\n");
+            errorMsg.append("Please check its spelling or create a reference in the delta_positions map.\n");
             isValid = false;
         }
 
-        if (getDeltaSize() != null && getDeltaSizeReference() != null) {
-            errorMsg.append("Symbol has both the delta_size and the delta_size_ref defined. Please only choose one.\n");
+        // the delta_size_ref is invalid
+        if (!deltaSizeRefIsNull && !deltaSizeRefExists) {
+            errorMsg.append("The delta_size_ref " + getDeltaSizeReference() + " doesn't exist in the language's derivation system.\n");
+            errorMsg.append("Please check its spelling or create a reference in the delta_sizes map.\n");
             isValid = false;
         }
 
-        if (getProbability() < 0) {
+        // the material is defined twice
+        if (!materialRefIsNull && !materialIsNull) {
+            errorMsg.append("Symbol has both the material and the material_ref defined (ie: its material is defined twice).\n");
+            errorMsg.append("Please only choose one.\n");
+            isValid = false;
+        }
+
+        // the material is not defined
+        if (materialRefIsNull && materialIsNull) {
+            errorMsg.append("The material is not defined. Please define one, or reference one of those in the materials map.\n");
+            isValid = false;
+        }
+
+        // the deltaPos is defined twice
+        if (!deltaPosIsNull && !deltaPosRefIsNull) {
+            errorMsg.append("Symbol has both the delta_position and the delta_position_ref defined. (ie: its delta_position is defined twice).\n");
+            errorMsg.append("Please only choose one.\n");
+            isValid = false;
+        }
+
+        // the deltaPos is not defined
+        if (deltaPosRefIsNull && deltaPosIsNull) {
+            errorMsg.append("The delta_position is not defined. Please define one, or reference one of those in the delta_positions map.\n");
+            isValid = false;
+        }
+
+        // the deltaSize is defined twice
+        if (!deltaSizeIsNull && !deltaSizeRefIsNull) {
+            errorMsg.append("Symbol has both the delta_size and the delta_size_ref defined. (ie: its delta_size is defined twice).\n");
+            errorMsg.append("Please only choose one.\n");
+            isValid = false;
+        }
+
+        // the deltaSize is not defined
+        if (deltaSizeRefIsNull && deltaSizeIsNull) {
+            errorMsg.append("The delta_size is not defined. Please define one, or reference one of those in the delta_sizes map.\n");
+            isValid = false;
+        }
+
+        if (!probabilityIsValid) {
             errorMsg.append("Symbol's probability weight is negative. Please set it to a valid (non-negative) value.\n");
             isValid = false;
         }
+
 
         if (!isValid)
             throw new BadLanguageException(errorMsg.toString());

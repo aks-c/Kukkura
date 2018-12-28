@@ -145,6 +145,8 @@ public class DerivationSystem {
         return deltaPositions;
     }
 
+    public String getRefToPreviousMaterial() { return REF_TO_PREVIOUS_MATERIAL; }
+
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
             if (nonTerminals.contains(symbol.getSymbolID()))
@@ -282,7 +284,7 @@ public class DerivationSystem {
             ArrayList<Symbol> rhs = rules.get(lhs);
             for (Symbol symbol: rhs) {
                 try {
-                    symbol.validate(lhs);
+                    symbol.validate(lhs, this);
                 } catch (BadLanguageException e) {
                     errorMsg.append(e.getMessage());
                     isValid = false;
