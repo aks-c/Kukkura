@@ -145,7 +145,9 @@ public class DerivationSystem {
         return deltaPositions;
     }
 
-    public String getRefToPreviousMaterial() { return REF_TO_PREVIOUS_MATERIAL; }
+    public String getRefToPreviousMaterial() {
+        return REF_TO_PREVIOUS_MATERIAL;
+    }
 
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
@@ -268,11 +270,32 @@ public class DerivationSystem {
         }
     }
 
-
+    /**
+     * Validates the DerivationSystem and its state.
+     * Also checks the state of every symbol in the axiom and on the RHS of each rule.
+     * Called once and exactly once, once the DerivationSystem is fully formed.
+     */
     void validate() throws BadLanguageException {
         StringBuilder errorMsg = new StringBuilder();
         boolean isValid = true;
 
+        if (axiom.size() == 0) {
+            errorMsg.append("The axiom (ie: the initial string) is empty.\n");
+            errorMsg.append("There can be no derivation with an empty axiom. Please add symbols.\n");
+            isValid = false;
+        }
+
+        if (getDeltaSizes() == null) {
+            errorMsg.append("There is no delta_sizes map. Please add one.\n");
+            isValid = false;
+        }
+
+        if (getDeltaPositions() == null) {
+            errorMsg.append("There is no delta_positions map. Please add one.\n");
+            isValid = false;
+        }
+
+        // check that non-terminals do have an associated derivation rule.
         for (String nt: nonTerminals) {
             if (!rules.containsKey(nt)) {
                 errorMsg.append("Symbol " + nt + " is declared to be a non-terminal, but doesn't have an associated production rule.\n");
@@ -280,6 +303,7 @@ public class DerivationSystem {
             }
         }
 
+        // check that all the symbols in the initial axiom are valid.
         for (Symbol symbol: axiom) {
             try {
                 symbol.validateInitial(this);
@@ -289,6 +313,7 @@ public class DerivationSystem {
             }
         }
 
+        // check that all the symbols in every rule are valid.
         for (String lhs: rules.keySet()) {
             ArrayList<Symbol> rhs = rules.get(lhs);
             for (Symbol symbol: rhs) {
