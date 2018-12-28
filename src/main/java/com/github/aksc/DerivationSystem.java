@@ -257,6 +257,7 @@ public class DerivationSystem {
     void deriveResult() {
         int iterations = 0;
         result.addAll(axiom);
+        resultContainsNT = sentenceContainsNT(result);
 
         while(resultContainsNT & iterations < ITERATION_LIMIT) {
             deriveSingleStep();
@@ -267,6 +268,17 @@ public class DerivationSystem {
 
 
     void validate() throws BadLanguageException {
+        StringBuilder errorMsg = new StringBuilder();
+        boolean isValid = true;
 
+        for (String nt: nonTerminals) {
+            if (!rules.containsKey(nt)) {
+                errorMsg.append("Symbol " + nt + " is declared to be a non-terminal, but doesn't have an associated production rule.\n");
+                isValid = false;
+            }
+        }
+
+        if (!isValid)
+            throw new BadLanguageException(errorMsg.toString());
     }
 }
