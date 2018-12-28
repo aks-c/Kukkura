@@ -6,6 +6,7 @@ import org.apache.commons.cli.*;
 /**
  * Created by akselcakmak on 27/12/2018.
  *
+ * Encompasses everything we need to handle the command line input.
  */
 public class CommandLineInput {
     private String args[];
@@ -84,8 +85,11 @@ public class CommandLineInput {
         options.addOption(outputFolder);
     }
 
-    public void printHelp() { formatter.printHelp( "Kukkura", options ); }
+    public void printHelp() { formatter.printHelp("Kukkura", options); }
 
+    /**
+     * Returns whether the user set this particular flag or not.
+     */
     public boolean hasOption(String option) { return line.hasOption(option); }
 
     public String getInputFolder() { return inputFolder; }

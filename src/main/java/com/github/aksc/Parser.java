@@ -14,7 +14,6 @@ import java.util.HashMap;
 /**
  * Created by akselcakmak on 15/06/2018.
  *
- *
  */
 public class Parser {
     private static final String ENCODING = "UTF-8";
@@ -28,10 +27,9 @@ public class Parser {
             @Override
             public void writeToOutput(ArrayList<Symbol> result, String outputFolder) throws BadInputException {
                 String filename = outputFolder + DEFAULT_OUTPUT_FILE + JSON_EXTENSION;
-                try(Writer writer = new FileWriter(filename);) {
+                try(Writer writer = new FileWriter(filename)) {
                     Gson gson = new GsonBuilder().setPrettyPrinting().create();
                     gson.toJson(result, writer);
-                    //writer.close();
                 } catch(IOException e) {
                     throw new BadInputException("Error while writing output: " + e.getMessage());
                 }
@@ -46,8 +44,6 @@ public class Parser {
                     for (Symbol symbol: result) {
                         writer.println(symbol.getAsMinecraftCommand());
                     }
-                    //writer.flush();
-                    //writer.close();
                 } catch(IOException e) {
                     throw new BadInputException("Error while writing output: " + e.getMessage());
                 }

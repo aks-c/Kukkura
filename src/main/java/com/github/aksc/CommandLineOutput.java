@@ -21,7 +21,7 @@ public class CommandLineOutput {
             printLine("Procedural Generator");
             printFullHorizontalSeparation();
             printLine("Rules in the Derivation System: " + ds.getRules().size());
-            printLine("Size of input: " + ds.getAxiom().size());
+            printLine("Size of initial axiom: " + ds.getAxiom().size());
             printLine("Deriving...");
             printLine("...");
             printLine("...");
