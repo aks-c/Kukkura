@@ -1,5 +1,6 @@
 package com.github.aksc.Grammar;
 
+import com.github.aksc.Exceptions.BadLanguageException;
 import com.github.aksc.MetaData.*;
 import com.google.gson.annotations.SerializedName;
 
@@ -271,5 +272,40 @@ public class Symbol {
         // the higher the probability, the higher the chance that (r < probability).
         int r = new Random().nextInt(100);
         return (r <= probability);
+    }
+
+
+    public void validate(String parentSymbol) throws BadLanguageException {
+        StringBuilder errorMsg = new StringBuilder();
+        errorMsg.append("Symbol ");
+        errorMsg.append(symbolID);
+        errorMsg.append(" in rule ");
+        errorMsg.append(parentSymbol);
+        errorMsg.append(": \n");
+
+        boolean isValid = true;
+
+        if (materialReference != null && material != null) {
+            errorMsg.append("Symbol has both the material and the material_ref defined. Please only choose one.\n");
+            isValid = false;
+        }
+
+        if (getDeltaPosition() != null && getDeltaPositionReference() != null) {
+            errorMsg.append("Symbol has both the delta_position and the delta_position_ref defined. Please only choose one.\n");
+            isValid = false;
+        }
+
+        if (getDeltaSize() != null && getDeltaSizeReference() != null) {
+            errorMsg.append("Symbol has both the delta_size and the delta_size_ref defined. Please only choose one.\n");
+            isValid = false;
+        }
+
+        if (getProbability() < 0) {
+            errorMsg.append("Symbol's probability weight is negative. Please set it to a valid (non-negative) value.\n");
+            isValid = false;
+        }
+
+        if (!isValid)
+            throw new BadLanguageException(errorMsg.toString());
     }
 }

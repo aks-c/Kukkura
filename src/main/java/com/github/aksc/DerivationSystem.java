@@ -278,6 +278,18 @@ public class DerivationSystem {
             }
         }
 
+        for (String lhs: rules.keySet()) {
+            ArrayList<Symbol> rhs = rules.get(lhs);
+            for (Symbol symbol: rhs) {
+                try {
+                    symbol.validate(lhs);
+                } catch (BadLanguageException e) {
+                    errorMsg.append(e.getMessage());
+                    isValid = false;
+                }
+            }
+        }
+
         if (!isValid)
             throw new BadLanguageException(errorMsg.toString());
     }
