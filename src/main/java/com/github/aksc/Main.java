@@ -2,10 +2,11 @@ package com.github.aksc;
 
 import com.github.aksc.Exceptions.BadInputException;
 import com.github.aksc.Grammar.Symbol;
-import com.github.aksc.Parser.FORMAT;
-import org.apache.commons.cli.ParseException;
+import com.github.aksc.InputOutput.CommandLineInput;
+import com.github.aksc.InputOutput.CommandLineOutput;
+import com.github.aksc.InputOutput.Parser;
+import com.github.aksc.InputOutput.Parser.FORMAT;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**

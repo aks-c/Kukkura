@@ -1,5 +1,6 @@
-package com.github.aksc;
+package com.github.aksc.InputOutput;
 
+import com.github.aksc.DerivationSystem;
 import com.github.aksc.Exceptions.BadInputException;
 import com.github.aksc.Grammar.Symbol;
 import com.google.gson.Gson;

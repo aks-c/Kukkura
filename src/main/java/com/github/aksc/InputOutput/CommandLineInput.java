@@ -1,4 +1,4 @@
-package com.github.aksc;
+package com.github.aksc.InputOutput;
 
 import com.github.aksc.Exceptions.BadInputException;
 import org.apache.commons.cli.*;

@@ -109,7 +109,7 @@ public class DerivationSystem {
     private HashMap<String, CoordinatesDelta> deltaPositions = new HashMap<>();
 
 
-    ArrayList<Symbol> getResult() {
+    public ArrayList<Symbol> getResult() {
         return result;
     }
 
