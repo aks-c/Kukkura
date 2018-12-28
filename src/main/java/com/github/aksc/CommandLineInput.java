@@ -1,5 +1,6 @@
 package com.github.aksc;
 
+import com.github.aksc.Exceptions.BadInputException;
 import org.apache.commons.cli.*;
 
 /**
@@ -29,10 +30,14 @@ public class CommandLineInput {
         addAllOptions();
     }
 
-    public void parseInput() throws ParseException {
+    public void parseInput() throws BadInputException {
         CommandLineParser parser = new DefaultParser();
 
-        line = parser.parse(options, args);
+        try {
+            line = parser.parse(options, args);
+        } catch (ParseException e) {
+            throw new BadInputException("Could not parse arguments: " + e.getMessage());
+        }
         inputFolder = line.getOptionValue("inputFolder", DEFAULT_INPUT_FOLDER);
         subFolder = line.getOptionValue("subFolder", DEFAULT_INPUT_SUBFOLDER);
         mainInputFile = line.getOptionValue("mainFile", DEFAULT_INPUT_MAINFILE);

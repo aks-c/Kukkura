@@ -1,5 +1,6 @@
 package com.github.aksc;
 
+import com.github.aksc.Exceptions.BadInputException;
 import com.github.aksc.Grammar.Symbol;
 import com.github.aksc.Parser.FORMAT;
 import org.apache.commons.cli.ParseException;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  *
  */
 public class Main {
-    public static void main (String args[]) throws ParseException {
+    public static void main (String args[]) throws BadInputException {
         CommandLineInput cli = new CommandLineInput(args);
         cli.parseInput();
 
@@ -41,8 +42,9 @@ public class Main {
             ArrayList<Symbol> results = ds.getResult();
 
             for (FORMAT format : FORMAT.values()) format.writeToOutput(results, outputFolder);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (BadInputException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 }
