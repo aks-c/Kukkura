@@ -4,7 +4,6 @@ import com.github.aksc.DerivationSystem;
 import com.github.aksc.Exceptions.BadLanguageException;
 import com.github.aksc.MetaData.*;
 import com.google.gson.annotations.SerializedName;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -389,6 +388,66 @@ public class Symbol {
             isValid = false;
         }
 
+
+        if (!isValid)
+            throw new BadLanguageException(errorMsg.toString());
+    }
+
+    // TODO: Would there be a cleaner way to validate a symbol without splitting wrt inAxiom/!inAxiom? Will investigate.
+    /**
+     * Validates a Symbol's state.
+     * This is only called for symbols part of the initial axiom,
+     * because the validity rules for those are different.
+     */
+    public void validateInitial(DerivationSystem ds) throws BadLanguageException {
+        StringBuilder errorMsg = new StringBuilder();
+        errorMsg.append("\n" + "Symbol " + symbolID + " in the Axiom: \n");
+
+        boolean isValid = true;
+
+        boolean sizeIsNull = (getSize() == null);
+        boolean positionIsNull = (getPosition() == null);
+
+        boolean deltaPosIsNull = (getDeltaPosition() == null);
+        boolean deltaPosRefIsNull = (getDeltaPositionReference() == null);
+
+        boolean deltaSizeIsNull = (getDeltaSize() == null);
+        boolean deltaSizeRefIsNull = (getDeltaSizeReference() == null);
+
+        boolean materialRefIsNull = (getMaterialReference() == null);
+
+        // initial size is not defined
+        if (sizeIsNull) {
+            errorMsg.append("The initial size is not defined. Define a size field.");
+            isValid = false;
+        }
+
+        // initial position is not defined
+        if (positionIsNull) {
+            errorMsg.append("The initial position is not defined. Define a size field.");
+            isValid = false;
+        }
+
+        // the deltaPos is defined
+        if (!deltaPosIsNull || !deltaPosRefIsNull) {
+            errorMsg.append("Field delta_pos or delta_pos_ref is defined.\n");
+            errorMsg.append("Please delete any deltas.\n");
+            isValid = false;
+        }
+
+        // the deltaSize is defined
+        if (!deltaSizeIsNull || !deltaSizeRefIsNull) {
+            errorMsg.append("Field delta_size or delta_size_ref is defined.\n");
+            errorMsg.append("Please delete any deltas.\n");
+            isValid = false;
+        }
+
+        // the material is defined as a reference
+        if (!materialRefIsNull) {
+            errorMsg.append("The material is defined as a reference.\n");
+            errorMsg.append("Please define the material explicitly.\n");
+            isValid = false;
+        }
 
         if (!isValid)
             throw new BadLanguageException(errorMsg.toString());

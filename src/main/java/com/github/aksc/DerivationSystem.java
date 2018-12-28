@@ -280,6 +280,15 @@ public class DerivationSystem {
             }
         }
 
+        for (Symbol symbol: axiom) {
+            try {
+                symbol.validateInitial(this);
+            } catch (BadLanguageException e) {
+                errorMsg.append(e.getMessage());
+                isValid = false;
+            }
+        }
+
         for (String lhs: rules.keySet()) {
             ArrayList<Symbol> rhs = rules.get(lhs);
             for (Symbol symbol: rhs) {
