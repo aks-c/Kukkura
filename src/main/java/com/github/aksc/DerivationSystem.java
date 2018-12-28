@@ -34,7 +34,6 @@ public class DerivationSystem {
 
         this.axiom = finalDS.getAxiom();
         this.terminals = finalDS.getTerminals();
-        this.resultContainsNT = finalDS.getResultContainsNT();
         this.materials = finalDS.getMaterials();
         this.REF_TO_PREVIOUS_MATERIAL = finalDS.REF_TO_PREVIOUS_MATERIAL;
         this.ITERATION_LIMIT = finalDS.ITERATION_LIMIT;
