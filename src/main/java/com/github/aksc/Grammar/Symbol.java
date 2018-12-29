@@ -1,7 +1,7 @@
 package com.github.aksc.Grammar;
 
 import com.github.aksc.DerivationSystem;
-import com.github.aksc.Exceptions.BadLanguageException;
+import com.github.aksc.ErrorHandling.BadLanguageException;
 import com.github.aksc.MetaData.*;
 import com.google.gson.annotations.SerializedName;
 

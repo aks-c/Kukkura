@@ -1,6 +1,6 @@
 package com.github.aksc;
 
-import com.github.aksc.Exceptions.BadLanguageException;
+import com.github.aksc.ErrorHandling.BadLanguageException;
 import com.github.aksc.Grammar.Symbol;
 import com.github.aksc.MetaData.*;
 import com.google.gson.Gson;

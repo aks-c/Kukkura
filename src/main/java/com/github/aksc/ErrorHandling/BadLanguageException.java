@@ -1,4 +1,4 @@
-package com.github.aksc.Exceptions;
+package com.github.aksc.ErrorHandling;
 
 /**
  * Created by akselcakmak on 28/12/2018.

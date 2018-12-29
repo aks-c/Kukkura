@@ -1,6 +1,6 @@
 package com.github.aksc.InputOutput;
 
-import com.github.aksc.Exceptions.BadInputException;
+import com.github.aksc.ErrorHandling.BadInputException;
 import org.apache.commons.cli.*;
 
 /**
