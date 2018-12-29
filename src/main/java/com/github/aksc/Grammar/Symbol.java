@@ -388,6 +388,15 @@ public class Symbol {
             isValid = false;
         }
 
+        boolean symbolIDIsNull = (getSymbolID() == null);
+
+        // the symbol doesn't have an ID
+        if (symbolIDIsNull) {
+            errorMsg.append("The symbol doesn't have an ID.\n");
+            errorMsg.append("Please give a name/an ID to the symbol with the symbol field.\n");
+            isValid = false;
+        }
+
 
         if (!isValid)
             throw new BadLanguageException(errorMsg.toString());
@@ -415,6 +424,8 @@ public class Symbol {
         boolean deltaSizeRefIsNull = (getDeltaSizeReference() == null);
 
         boolean materialRefIsNull = (getMaterialReference() == null);
+
+        boolean symbolIDIsNull = (getSymbolID() == null);
 
         // initial size is not defined
         if (sizeIsNull) {
@@ -446,6 +457,13 @@ public class Symbol {
         if (!materialRefIsNull) {
             errorMsg.append("The material is defined as a reference.\n");
             errorMsg.append("Please define the material explicitly.\n");
+            isValid = false;
+        }
+
+        // the symbol doesn't have an ID
+        if (symbolIDIsNull) {
+            errorMsg.append("The symbol doesn't have an ID.\n");
+            errorMsg.append("Please give a name/an ID to the symbol with the symbol field.\n");
             isValid = false;
         }
 
