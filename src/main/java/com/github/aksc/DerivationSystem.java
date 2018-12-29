@@ -279,52 +279,18 @@ public class DerivationSystem {
         StringBuilder errorMsg = new StringBuilder();
         boolean isValid = true;
 
-        if (axiom.size() == 0) {
-            errorMsg.append("The axiom (ie: the initial string) is empty.\n");
-            errorMsg.append("There can be no derivation with an empty axiom. Please add symbols.\n");
-            isValid = false;
-        }
+        isValid = Validation.checkAxiomSize(this, errorMsg) && isValid;
 
-        if (getDeltaSizes() == null) {
-            errorMsg.append("There is no delta_sizes map. Please add one.\n");
-            isValid = false;
-        }
+        isValid = Validation.checkDeltaSizesExistence(this, errorMsg) && isValid;
 
-        if (getDeltaPositions() == null) {
-            errorMsg.append("There is no delta_positions map. Please add one.\n");
-            isValid = false;
-        }
+        isValid = Validation.checkDeltaPositionsExistence(this, errorMsg) && isValid;
 
-        // check that non-terminals do have an associated derivation rule.
-        for (String nt: nonTerminals) {
-            if (!rules.containsKey(nt)) {
-                errorMsg.append("Symbol " + nt + " is declared to be a non-terminal, but doesn't have an associated production rule.\n");
-                isValid = false;
-            }
-        }
+        isValid = Validation.checkNTs(this, errorMsg) && isValid;
 
-        // check that all the symbols in the initial axiom are valid.
-        for (Symbol symbol: axiom) {
-            try {
-                symbol.validateInitial(this);
-            } catch (BadLanguageException e) {
-                errorMsg.append(e.getMessage());
-                isValid = false;
-            }
-        }
+        isValid = Validation.checkSymbolsInAxiom(this, errorMsg) && isValid;
 
-        // check that all the symbols in every rule are valid.
-        for (String lhs: rules.keySet()) {
-            ArrayList<Symbol> rhs = rules.get(lhs);
-            for (Symbol symbol: rhs) {
-                try {
-                    symbol.validate(lhs, this);
-                } catch (BadLanguageException e) {
-                    errorMsg.append(e.getMessage());
-                    isValid = false;
-                }
-            }
-        }
+        isValid = Validation.checkSymbolsInRules(this, errorMsg) && isValid;
+
 
         if (!isValid)
             throw new BadLanguageException(errorMsg.toString());
