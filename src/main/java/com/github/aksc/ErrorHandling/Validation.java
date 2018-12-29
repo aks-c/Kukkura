@@ -1,4 +1,4 @@
-package com.github.aksc.MetaData;
+package com.github.aksc.ErrorHandling;
 
 import com.github.aksc.DerivationSystem;
 import com.github.aksc.ErrorHandling.BadLanguageException;
