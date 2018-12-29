@@ -1,7 +1,7 @@
 package com.github.aksc;
 
 import com.github.aksc.ErrorHandling.BadLanguageException;
-import com.github.aksc.ErrorHandling.Validation;
+import com.github.aksc.ErrorHandling.ValidationUtility;
 import com.github.aksc.Grammar.Symbol;
 import com.github.aksc.MetaData.*;
 import com.google.gson.Gson;
@@ -274,20 +274,20 @@ public class DerivationSystem {
         StringBuilder errorMsg = new StringBuilder();
         boolean isValid = true;
 
-        isValid = Validation.checkAxiomSize(this, errorMsg) && isValid;
+        isValid = ValidationUtility.checkAxiomSize(this, errorMsg) && isValid;
 
-        isValid = Validation.checkDeltaSizesExistence(this, errorMsg) && isValid;
+        isValid = ValidationUtility.checkDeltaSizesExistence(this, errorMsg) && isValid;
 
-        isValid = Validation.checkDeltaPositionsExistence(this, errorMsg) && isValid;
+        isValid = ValidationUtility.checkDeltaPositionsExistence(this, errorMsg) && isValid;
 
-        isValid = Validation.checkNTs(this, errorMsg) && isValid;
+        isValid = ValidationUtility.checkNTs(this, errorMsg) && isValid;
 
         // Note that all the checks above were about the DS itself,
         // and that the checks below recursively validate the symbols in the DS (and their properties).
 
-        isValid = Validation.checkSymbolsInAxiom(this, errorMsg) && isValid;
+        isValid = ValidationUtility.checkSymbolsInAxiom(this, errorMsg) && isValid;
 
-        isValid = Validation.checkSymbolsInRules(this, errorMsg) && isValid;
+        isValid = ValidationUtility.checkSymbolsInRules(this, errorMsg) && isValid;
 
 
         if (!isValid)

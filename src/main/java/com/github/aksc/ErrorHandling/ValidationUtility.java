@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * After all, this is pretty much a mini compiler's semantic analyser for the L-system/CFG/language supplied by the user.
  * That's why the validation has to be big; it has to be exhaustive.
  */
-public class Validation {
+public class ValidationUtility {
 
     //// Checks for DerivationSystem ////
 

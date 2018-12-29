@@ -2,7 +2,7 @@ package com.github.aksc.Grammar;
 
 import com.github.aksc.DerivationSystem;
 import com.github.aksc.ErrorHandling.BadLanguageException;
-import com.github.aksc.ErrorHandling.Validation;
+import com.github.aksc.ErrorHandling.ValidationUtility;
 import com.github.aksc.MetaData.*;
 import com.google.gson.annotations.SerializedName;
 
@@ -173,7 +173,7 @@ public class Symbol {
     }
 
     /**
-     * Note: This should only be used for validation purposes (ie: in the Validation class), not the actual application logic.
+     * Note: This should only be used for validation purposes, not the actual application logic.
      * If you want to get a valid usable material, use the getMaterialFromRef() method.
      * Ditto for getMaterialReference().
      */
@@ -302,19 +302,19 @@ public class Symbol {
         boolean isValid = true;
 
 
-        isValid = Validation.checkMaterial(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkMaterial(this, ds, errorMsg) && isValid;
 
-        isValid = Validation.checkDeltaPos(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkDeltaPos(this, ds, errorMsg) && isValid;
 
-        isValid = Validation.checkDeltaSize(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkDeltaSize(this, ds, errorMsg) && isValid;
 
-        isValid = Validation.checkInitialSize(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkInitialSize(this, ds, errorMsg) && isValid;
 
-        isValid = Validation.checkInitialPosition(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkInitialPosition(this, ds, errorMsg) && isValid;
 
-        isValid = Validation.checkProbabilityWeight(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkProbabilityWeight(this, ds, errorMsg) && isValid;
 
-        isValid = Validation.checkSymbolIDExistence(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkSymbolIDExistence(this, ds, errorMsg) && isValid;
 
 
         if (!isValid)
@@ -332,13 +332,13 @@ public class Symbol {
         boolean isValid = true;
 
 
-        isValid = Validation.checkInitialSize(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkInitialSize(this, ds, errorMsg) && isValid;
 
-        isValid = Validation.checkInitialPosition(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkInitialPosition(this, ds, errorMsg) && isValid;
 
-        isValid = Validation.checkReferencesExist(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkReferencesExist(this, ds, errorMsg) && isValid;
 
-        isValid = Validation.checkSymbolIDExistence(this, ds, errorMsg) && isValid;
+        isValid = ValidationUtility.checkSymbolIDExistence(this, ds, errorMsg) && isValid;
 
 
         if (!isValid)
