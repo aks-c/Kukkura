@@ -233,7 +233,11 @@ public class ValidationUtility {
         return isValid;
     }
 
-    // only used for the symbols in the axiom.
+    /**
+     * Only used for the symbols in the axiom.
+     * Symbols in the axiom don't have parent symbols, so in their context references don't make sense.
+     * That's why we check for the existence of references.
+     */
     public static boolean checkReferencesExist(Symbol symbol, DerivationSystem ds, StringBuilder errorMsg) {
         boolean isValid = true;
         boolean deltaPosIsNull = (symbol.getDeltaPosition() == null);
