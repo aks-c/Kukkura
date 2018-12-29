@@ -87,9 +87,7 @@ public class CommandLineInput {
 
     public void printHelp() { formatter.printHelp("Kukkura", options); }
 
-    /**
-     * Returns whether the user set this particular flag or not.
-     */
+    /** Returns whether the user set this particular flag or not. */
     public boolean hasOption(String option) { return line.hasOption(option); }
 
     public String getInputFolder() { return inputFolder; }

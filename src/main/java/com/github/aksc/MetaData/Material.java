@@ -20,9 +20,7 @@ public class Material {
         this(other.getMainID(), other.getSubID());
     }
 
-    /**
-     * The mainID is the name of the material (i.e. "planks", "dirt", etc..).
-     */
+    /** The mainID is the name of the material (i.e. "planks", "dirt", etc..). */
     @SerializedName("mainID")
     private String mainID;
 
@@ -33,9 +31,7 @@ public class Material {
     @SerializedName("subID")
     private String subID;
 
-    /**
-     * Stores meta-data about the structure of the material, like whether it's hollow or not, etc..
-     */
+    /** Stores meta-data about the structure of the material, like whether it's hollow or not, etc.. */
     @SerializedName("state")
     private String state;
 

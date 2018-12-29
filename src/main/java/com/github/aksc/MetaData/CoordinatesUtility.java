@@ -15,18 +15,14 @@ import java.util.Random;
  * For now, they're all in this Utility kind of class, until a better refactor is found.
  */
 public class CoordinatesUtility {
-    /**
-     * Helper for some functions that need to know what axis the field they work on belongs to.
-     */
+    /** Helper for some functions that need to know what axis the field they work on belongs to. */
     public enum AXIS {
         X,
         Y,
         Z
     }
 
-    /**
-     * Adds the value of a delta to a field.
-     */
+    /** Adds the value of a delta to a field. */
     static public String addDelta(String field, String delta) {
         int result = Integer.parseInt(field.trim()) + Integer.parseInt(delta.trim());
         return String.valueOf(result);
@@ -45,17 +41,13 @@ public class CoordinatesUtility {
         return String.format("%.0f", result);
     }
 
-    /**
-     * Gets the value represented by the delta ("sx", "y", etc..) and multiplies it by its associated factor.
-     */
+    /** Gets the value represented by the delta ("sx", "y", etc..) and multiplies it by its associated factor. */
     static public String getDeltaValueWithFactor(Delta delta, Symbol parentSymbol) {
         String withoutFactor = getDeltaValue(delta, parentSymbol);
         return multiplyDelta(withoutFactor, delta.getFactor());
     }
 
-    /**
-     * Only gets the value represented by the given delta ("sx", "y", etc..).
-     */
+    /** Only gets the value represented by the given delta ("sx", "y", etc..). */
     static public String getDeltaValue(Delta delta, Symbol parentSymbol) {
         return getDeltaValue(delta.getDelta(), parentSymbol);
     }

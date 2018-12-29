@@ -100,9 +100,7 @@ public class Parser {
         return extension.equals(JSON_EXTENSION);
     }
 
-    /**
-     * De-serializes a structured JSON File into a usable com.github.aksc.DerivationSystem Object.
-     */
+    /** De-serializes a structured JSON File into a usable com.github.aksc.DerivationSystem Object. */
     private static DerivationSystem getDerivationSystem(String filename) throws BadInputException {
         Gson gson = new Gson();
 

@@ -21,13 +21,13 @@ import java.util.Random;
  * to some final result usable to generate content.
  */
 public class DerivationSystem {
-    // Only used for getting the rules and the non-terminals out of the separate sub files.
+    /** Only used for getting the rules and the non-terminals out of the separate sub files. */
     public DerivationSystem(HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals) {
         this.rules = newRules;
         this.nonTerminals = newNonTerminals;
     }
 
-    // Only used when building the final com.github.aksc.DerivationSystem that will actually be used.
+    /** Only used when building the final com.github.aksc.DerivationSystem that will actually be used. */
     public DerivationSystem(DerivationSystem finalDS, HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals) {
         this.rules = newRules;
         this.nonTerminals = newNonTerminals;
@@ -44,9 +44,7 @@ public class DerivationSystem {
     @SerializedName("iteration_limit")
     private int ITERATION_LIMIT = 20;
 
-    /**
-     * The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from).
-     */
+    /** The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from). */
     @SerializedName("axiom")
     private ArrayList<Symbol> axiom = new ArrayList<>();
 
@@ -157,9 +155,7 @@ public class DerivationSystem {
         return false;
     }
 
-    /**
-     * Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
-     */
+    /** Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended. */
     private void addSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol, Symbol symbolToAdd) {
         CoordinatesDelta newDeltaSize = symbolToAdd.getDeltaSizeFromRef(deltaSizes);
         CoordinatesDelta newDeltaPosition = symbolToAdd.getDeltaPositionFromRef(deltaPositions);
@@ -255,9 +251,7 @@ public class DerivationSystem {
         result.addAll(nextSentence);
     }
 
-    /**
-     * Computes the whole result, from the initial Axiom to one final list of Symbols.
-     */
+    /** Computes the whole result, from the initial Axiom to one final list of Symbols. */
     void deriveResult() {
         int iterations = 0;
         result.addAll(axiom);
