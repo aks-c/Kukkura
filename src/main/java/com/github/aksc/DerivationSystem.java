@@ -287,6 +287,9 @@ public class DerivationSystem {
 
         isValid = Validation.checkNTs(this, errorMsg) && isValid;
 
+        // Note that all the checks above were about the DS itself,
+        // and that the checks below recursively validate the symbols in the DS (and their properties).
+
         isValid = Validation.checkSymbolsInAxiom(this, errorMsg) && isValid;
 
         isValid = Validation.checkSymbolsInRules(this, errorMsg) && isValid;

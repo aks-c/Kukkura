@@ -13,6 +13,7 @@ import java.util.Random;
  *
  *
  * Handles the symbols we use along with their related meta-data, properties, etc..
+ * This is one of the most essential building blocks of the procedural generator, along with the DerivationSystem class.
  */
 public class Symbol {
     public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference, String deltaSizeReference, String deltaPositionReference) {
@@ -41,9 +42,7 @@ public class Symbol {
 
 
 
-    /**
-     * The actual symbol associated with this object.
-     */
+    /** The actual symbol associated with this object. */
     @SerializedName("symbol")
     private final String symbolID;
 
@@ -72,9 +71,7 @@ public class Symbol {
     @SerializedName("exclusive_derivation")
     private final boolean exclusiveDerivation;
 
-    /**
-     * Whether this symbol is allowed to be randomly resized when created by some rule.
-     */
+    /** Whether this symbol is allowed to be randomly resized when created by some rule. */
     @SerializedName("can_be_resized")
     private final boolean canBeResized;
 
@@ -118,9 +115,7 @@ public class Symbol {
     @SerializedName("delta_position")
     private final CoordinatesDelta deltaPosition;
 
-    /**
-     * Holds the information needed to ID a specific material.
-     */
+    /** Holds the information needed to ID a specific material. */
     @SerializedName("material")
     private final Material material;
 
@@ -158,15 +153,30 @@ public class Symbol {
         return position;
     }
 
-    private CoordinatesDelta getDeltaSize() {
+    /**
+     * Note: This should only be used for validation purposes, not the actual application logic.
+     * If you want to get a valid usable deltaSize, use the getDeltaSizeFromRef() method.
+     * Ditto for getDeltaSizeReference().
+     */
+    public CoordinatesDelta getDeltaSize() {
         return deltaSize;
     }
 
-    private CoordinatesDelta getDeltaPosition() {
+    /**
+     * Note: This should only be used for validation purposes, not the actual application logic.
+     * If you want to get a valid usable deltaPosition, use the getDeltaPositionFromRef() method.
+     * Ditto for getDeltaPositionReference().
+     */
+    public CoordinatesDelta getDeltaPosition() {
         return deltaPosition;
     }
 
-    private Material getMaterial() {
+    /**
+     * Note: This should only be used for validation purposes (ie: in the Validation class), not the actual application logic.
+     * If you want to get a valid usable material, use the getMaterialFromRef() method.
+     * Ditto for getMaterialReference().
+     */
+    public Material getMaterial() {
         return material;
     }
 
@@ -186,15 +196,18 @@ public class Symbol {
         return canBeResized;
     }
 
-    private String getMaterialReference() {
+    /** Should only be used in the Validation phase. See getMaterial() for more.*/
+    public String getMaterialReference() {
         return materialReference;
     }
 
-    private String getDeltaSizeReference() {
+    /** Should only be used in the Validation phase. See getDeltaSize() for more. */
+    public String getDeltaSizeReference() {
         return deltaSizeReference;
     }
 
-    private String getDeltaPositionReference() {
+    /** Should only be used in the Validation phase. See getDeltaPosition() for more. */
+    public String getDeltaPositionReference() {
         return deltaPositionReference;
     }
 
@@ -275,10 +288,6 @@ public class Symbol {
         return (r <= probability);
     }
 
-    // TODO: Maybe move this validation code elsewhere ? It's starting to get really big.
-    // There's a lot that can go wrong in the user input;
-    // After all, this is pretty much a mini compiler's semantic analyser for the L-system/CFG/language supplied by the user.
-    // That's why the validation has to be big, but it feels too big to be here.
     /**
      *  This checks that the Symbol's state is valid, and throws a BadLanguageException otherwise.
      *  It is called for every **initial** Symbol, exactly once.
@@ -289,120 +298,28 @@ public class Symbol {
     public void validate(String parentSymbol, DerivationSystem ds) throws BadLanguageException {
         StringBuilder errorMsg = new StringBuilder();
         errorMsg.append("\n" + "Symbol " + symbolID + " in rule " + parentSymbol + ": \n");
-
         boolean isValid = true;
 
-        boolean materialRefIsNull = (getMaterialReference() == null);
-        boolean materialIsNull = (getMaterial() == null);
 
-        boolean materialRefIsPrevious = ds.getRefToPreviousMaterial().equals(getMaterialReference());
-        boolean materialExists = (ds.getMaterials().containsKey(getMaterialReference()));
+        isValid = Validation.checkMaterial(this, ds, errorMsg) && isValid;
 
-        boolean deltaPosIsNull = (getDeltaPosition() == null);
-        boolean deltaPosRefIsNull = (getDeltaPositionReference() == null);
-        boolean deltaPosRefExists = (ds.getDeltaPositions().containsKey(getDeltaPositionReference()));
+        isValid = Validation.checkDeltaPos(this, ds, errorMsg) && isValid;
 
-        boolean deltaSizeIsNull = (getDeltaSize() == null);
-        boolean deltaSizeRefIsNull = (getDeltaSizeReference() == null);
-        boolean deltaSizeRefExists = (ds.getDeltaSizes().containsKey(getDeltaSizeReference()));
+        isValid = Validation.checkDeltaSize(this, ds, errorMsg) && isValid;
 
-        boolean probabilityIsValid = (getProbability() >= 0);
+        isValid = Validation.checkInitialSize(this, ds, errorMsg) && isValid;
 
-        boolean sizeIsNull = (getSize() == null);
-        boolean positionIsNull = (getPosition() == null);
+        isValid = Validation.checkInitialPosition(this, ds, errorMsg) && isValid;
 
-        // the material_ref is invalid
-        if (!materialRefIsNull && !materialExists && !materialRefIsPrevious) {
-            errorMsg.append("The material_ref " + getMaterialReference() + " doesn't exist in the language's derivation system.\n");
-            errorMsg.append("Please check its spelling or create a reference in the materials map.\n");
-            isValid = false;
-        }
+        isValid = Validation.checkProbabilityWeight(this, ds, errorMsg) && isValid;
 
-        // the delta_pos_ref is invalid
-        if (!deltaPosRefIsNull && !deltaPosRefExists) {
-            errorMsg.append("The delta_pos_ref " + getDeltaPositionReference() + " doesn't exist in the language's derivation system.\n");
-            errorMsg.append("Please check its spelling or create a reference in the delta_positions map.\n");
-            isValid = false;
-        }
-
-        // the delta_size_ref is invalid
-        if (!deltaSizeRefIsNull && !deltaSizeRefExists) {
-            errorMsg.append("The delta_size_ref " + getDeltaSizeReference() + " doesn't exist in the language's derivation system.\n");
-            errorMsg.append("Please check its spelling or create a reference in the delta_sizes map.\n");
-            isValid = false;
-        }
-
-        // the material is defined twice
-        if (!materialRefIsNull && !materialIsNull) {
-            errorMsg.append("Symbol has both the material and the material_ref defined (ie: its material is defined twice).\n");
-            errorMsg.append("Please only choose one.\n");
-            isValid = false;
-        }
-
-        // the material is not defined
-        if (materialRefIsNull && materialIsNull) {
-            errorMsg.append("The material is not defined. Please define one, or reference one of those in the materials map.\n");
-            isValid = false;
-        }
-
-        // the deltaPos is defined twice
-        if (!deltaPosIsNull && !deltaPosRefIsNull) {
-            errorMsg.append("Symbol has both the delta_position and the delta_position_ref defined. (ie: its delta_position is defined twice).\n");
-            errorMsg.append("Please only choose one.\n");
-            isValid = false;
-        }
-
-        // the deltaPos is not defined
-        if (deltaPosRefIsNull && deltaPosIsNull) {
-            errorMsg.append("The delta_position is not defined. Please define one, or reference one of those in the delta_positions map.\n");
-            isValid = false;
-        }
-
-        // the deltaSize is defined twice
-        if (!deltaSizeIsNull && !deltaSizeRefIsNull) {
-            errorMsg.append("Symbol has both the delta_size and the delta_size_ref defined. (ie: its delta_size is defined twice).\n");
-            errorMsg.append("Please only choose one.\n");
-            isValid = false;
-        }
-
-        // the deltaSize is not defined
-        if (deltaSizeRefIsNull && deltaSizeIsNull) {
-            errorMsg.append("The delta_size is not defined. Please define one, or reference one of those in the delta_sizes map.\n");
-            isValid = false;
-        }
-
-        // initial size is not defined
-        if (sizeIsNull) {
-            errorMsg.append("The initial size is not defined. Define a size field.\n");
-            isValid = false;
-        }
-
-        // initial position is not defined
-        if (positionIsNull) {
-            errorMsg.append("The initial position is not defined. Define a size field.\n");
-            isValid = false;
-        }
-
-        if (!probabilityIsValid) {
-            errorMsg.append("Symbol's probability weight is negative. Please set it to a valid (non-negative) value.\n");
-            isValid = false;
-        }
-
-        boolean symbolIDIsNull = (getSymbolID() == null);
-
-        // the symbol doesn't have an ID
-        if (symbolIDIsNull) {
-            errorMsg.append("The symbol doesn't have an ID.\n");
-            errorMsg.append("Please give a name/an ID to the symbol with the symbol field.\n");
-            isValid = false;
-        }
+        isValid = Validation.checkSymbolIDExistence(this, ds, errorMsg) && isValid;
 
 
         if (!isValid)
             throw new BadLanguageException(errorMsg.toString());
     }
 
-    // TODO: Would there be a cleaner way to validate a symbol without splitting wrt inAxiom/!inAxiom? Will investigate.
     /**
      * Validates a Symbol's state.
      * This is only called for symbols part of the initial axiom,
@@ -411,61 +328,17 @@ public class Symbol {
     public void validateInitial(DerivationSystem ds) throws BadLanguageException {
         StringBuilder errorMsg = new StringBuilder();
         errorMsg.append("\n" + "Symbol " + symbolID + " in the Axiom: \n");
-
         boolean isValid = true;
 
-        boolean sizeIsNull = (getSize() == null);
-        boolean positionIsNull = (getPosition() == null);
 
-        boolean deltaPosIsNull = (getDeltaPosition() == null);
-        boolean deltaPosRefIsNull = (getDeltaPositionReference() == null);
+        isValid = Validation.checkInitialSize(this, ds, errorMsg) && isValid;
 
-        boolean deltaSizeIsNull = (getDeltaSize() == null);
-        boolean deltaSizeRefIsNull = (getDeltaSizeReference() == null);
+        isValid = Validation.checkInitialPosition(this, ds, errorMsg) && isValid;
 
-        boolean materialRefIsNull = (getMaterialReference() == null);
+        isValid = Validation.checkReferencesExist(this, ds, errorMsg) && isValid;
 
-        boolean symbolIDIsNull = (getSymbolID() == null);
+        isValid = Validation.checkSymbolIDExistence(this, ds, errorMsg) && isValid;
 
-        // initial size is not defined
-        if (sizeIsNull) {
-            errorMsg.append("The initial size is not defined. Define a size field.\n");
-            isValid = false;
-        }
-
-        // initial position is not defined
-        if (positionIsNull) {
-            errorMsg.append("The initial position is not defined. Define a size field.\n");
-            isValid = false;
-        }
-
-        // the deltaPos is defined
-        if (!deltaPosIsNull || !deltaPosRefIsNull) {
-            errorMsg.append("Field delta_pos or delta_pos_ref is defined.\n");
-            errorMsg.append("Please delete any deltas.\n");
-            isValid = false;
-        }
-
-        // the deltaSize is defined
-        if (!deltaSizeIsNull || !deltaSizeRefIsNull) {
-            errorMsg.append("Field delta_size or delta_size_ref is defined.\n");
-            errorMsg.append("Please delete any deltas.\n");
-            isValid = false;
-        }
-
-        // the material is defined as a reference
-        if (!materialRefIsNull) {
-            errorMsg.append("The material is defined as a reference.\n");
-            errorMsg.append("Please define the material explicitly.\n");
-            isValid = false;
-        }
-
-        // the symbol doesn't have an ID
-        if (symbolIDIsNull) {
-            errorMsg.append("The symbol doesn't have an ID.\n");
-            errorMsg.append("Please give a name/an ID to the symbol with the symbol field.\n");
-            isValid = false;
-        }
 
         if (!isValid)
             throw new BadLanguageException(errorMsg.toString());
