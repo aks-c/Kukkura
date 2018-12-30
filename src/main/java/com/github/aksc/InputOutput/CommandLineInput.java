@@ -1,10 +1,12 @@
-package com.github.aksc;
+package com.github.aksc.InputOutput;
 
+import com.github.aksc.ErrorHandling.BadInputException;
 import org.apache.commons.cli.*;
 
 /**
  * Created by akselcakmak on 27/12/2018.
  *
+ * Encompasses everything we need to handle the command line input.
  */
 public class CommandLineInput {
     private String args[];
@@ -29,10 +31,14 @@ public class CommandLineInput {
         addAllOptions();
     }
 
-    public void parseInput() throws ParseException {
+    public void parseInput() throws BadInputException {
         CommandLineParser parser = new DefaultParser();
 
-        line = parser.parse(options, args);
+        try {
+            line = parser.parse(options, args);
+        } catch (ParseException e) {
+            throw new BadInputException("Could not parse arguments: " + e.getMessage());
+        }
         inputFolder = line.getOptionValue("inputFolder", DEFAULT_INPUT_FOLDER);
         subFolder = line.getOptionValue("subFolder", DEFAULT_INPUT_SUBFOLDER);
         mainInputFile = line.getOptionValue("mainFile", DEFAULT_INPUT_MAINFILE);
@@ -79,8 +85,9 @@ public class CommandLineInput {
         options.addOption(outputFolder);
     }
 
-    public void printHelp() { formatter.printHelp( "Kukkura", options ); }
+    public void printHelp() { formatter.printHelp("Kukkura", options); }
 
+    /** Returns whether the user set this particular flag or not. */
     public boolean hasOption(String option) { return line.hasOption(option); }
 
     public String getInputFolder() { return inputFolder; }

@@ -1,10 +1,13 @@
 package com.github.aksc;
 
+import com.github.aksc.ErrorHandling.BadInputException;
+import com.github.aksc.ErrorHandling.BadLanguageException;
 import com.github.aksc.Grammar.Symbol;
-import com.github.aksc.Parser.FORMAT;
-import org.apache.commons.cli.ParseException;
+import com.github.aksc.InputOutput.CommandLineInput;
+import com.github.aksc.InputOutput.CommandLineOutput;
+import com.github.aksc.InputOutput.Parser;
+import com.github.aksc.InputOutput.Parser.FORMAT;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +15,7 @@ import java.util.ArrayList;
  *
  */
 public class Main {
-    public static void main (String args[]) throws ParseException {
+    public static void main (String args[]) throws BadInputException {
         CommandLineInput cli = new CommandLineInput(args);
         cli.parseInput();
 
@@ -31,6 +34,8 @@ public class Main {
 
             DerivationSystem ds = Parser.getFinalDerivationSystem(inputFolder, subFolder, mainInputFile);
 
+            ds.validate();
+
             CommandLineOutput.printPreambule(ds, cli.hasOption("terse"));
 
             // main logic.
@@ -41,8 +46,9 @@ public class Main {
             ArrayList<Symbol> results = ds.getResult();
 
             for (FORMAT format : FORMAT.values()) format.writeToOutput(results, outputFolder);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (BadInputException | BadLanguageException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 }

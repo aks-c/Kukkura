@@ -49,9 +49,7 @@ public class Resizing {
         return getResizeToField(sizeToChange.getField(axis), delta);
     }
 
-    /**
-     * Get deterministic resize of a given field.
-     */
+    /** Get deterministic resize of a given field. */
     private static String getResizeToField(String field, int delta) {
         return addDelta(field, delta);
     }

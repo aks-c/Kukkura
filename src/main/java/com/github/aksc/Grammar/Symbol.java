@@ -1,5 +1,8 @@
 package com.github.aksc.Grammar;
 
+import com.github.aksc.DerivationSystem;
+import com.github.aksc.ErrorHandling.BadLanguageException;
+import com.github.aksc.ErrorHandling.ValidationUtility;
 import com.github.aksc.MetaData.*;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,6 +14,7 @@ import java.util.Random;
  *
  *
  * Handles the symbols we use along with their related meta-data, properties, etc..
+ * This is one of the most essential building blocks of the procedural generator, along with the DerivationSystem class.
  */
 public class Symbol {
     public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference, String deltaSizeReference, String deltaPositionReference) {
@@ -39,9 +43,7 @@ public class Symbol {
 
 
 
-    /**
-     * The actual symbol associated with this object.
-     */
+    /** The actual symbol associated with this object. */
     @SerializedName("symbol")
     private final String symbolID;
 
@@ -70,9 +72,7 @@ public class Symbol {
     @SerializedName("exclusive_derivation")
     private final boolean exclusiveDerivation;
 
-    /**
-     * Whether this symbol is allowed to be randomly resized when created by some rule.
-     */
+    /** Whether this symbol is allowed to be randomly resized when created by some rule. */
     @SerializedName("can_be_resized")
     private final boolean canBeResized;
 
@@ -116,9 +116,7 @@ public class Symbol {
     @SerializedName("delta_position")
     private final CoordinatesDelta deltaPosition;
 
-    /**
-     * Holds the information needed to ID a specific material.
-     */
+    /** Holds the information needed to ID a specific material. */
     @SerializedName("material")
     private final Material material;
 
@@ -156,15 +154,30 @@ public class Symbol {
         return position;
     }
 
-    private CoordinatesDelta getDeltaSize() {
+    /**
+     * Note: This should only be used for validation purposes, not the actual application logic.
+     * If you want to get a valid usable deltaSize, use the getDeltaSizeFromRef() method.
+     * Ditto for getDeltaSizeReference().
+     */
+    public CoordinatesDelta getDeltaSize() {
         return deltaSize;
     }
 
-    private CoordinatesDelta getDeltaPosition() {
+    /**
+     * Note: This should only be used for validation purposes, not the actual application logic.
+     * If you want to get a valid usable deltaPosition, use the getDeltaPositionFromRef() method.
+     * Ditto for getDeltaPositionReference().
+     */
+    public CoordinatesDelta getDeltaPosition() {
         return deltaPosition;
     }
 
-    private Material getMaterial() {
+    /**
+     * Note: This should only be used for validation purposes, not the actual application logic.
+     * If you want to get a valid usable material, use the getMaterialFromRef() method.
+     * Ditto for getMaterialReference().
+     */
+    public Material getMaterial() {
         return material;
     }
 
@@ -184,15 +197,18 @@ public class Symbol {
         return canBeResized;
     }
 
-    private String getMaterialReference() {
+    /** Should only be used in the Validation phase. See getMaterial() for more.*/
+    public String getMaterialReference() {
         return materialReference;
     }
 
-    private String getDeltaSizeReference() {
+    /** Should only be used in the Validation phase. See getDeltaSize() for more. */
+    public String getDeltaSizeReference() {
         return deltaSizeReference;
     }
 
-    private String getDeltaPositionReference() {
+    /** Should only be used in the Validation phase. See getDeltaPosition() for more. */
+    public String getDeltaPositionReference() {
         return deltaPositionReference;
     }
 
@@ -271,5 +287,61 @@ public class Symbol {
         // the higher the probability, the higher the chance that (r < probability).
         int r = new Random().nextInt(100);
         return (r <= probability);
+    }
+
+    /**
+     *  This checks that the Symbol's state is valid, and throws a BadLanguageException otherwise.
+     *  It is called for every **initial** Symbol, exactly once.
+     *  It can be shown that if the validation holds for every initial symbol and every symbol in every rule,
+     *  then it also holds for every symbol derived afterwards.
+     *  We can take advantage of this: not every symbol needs to be validated. Only the initial ones need to.
+     */
+    public void validate(String parentSymbol, DerivationSystem ds) throws BadLanguageException {
+        StringBuilder errorMsg = new StringBuilder();
+        errorMsg.append("\n" + "Symbol " + symbolID + " in rule " + parentSymbol + ": \n");
+        boolean isValid = true;
+
+
+        isValid = ValidationUtility.checkMaterial(this, ds, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkDeltaPos(this, ds, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkDeltaSize(this, ds, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkInitialSize(this, ds, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkInitialPosition(this, ds, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkProbabilityWeight(this, ds, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkSymbolIDExistence(this, ds, errorMsg) && isValid;
+
+
+        if (!isValid)
+            throw new BadLanguageException(errorMsg.toString());
+    }
+
+    /**
+     * Validates a Symbol's state.
+     * This is only called for symbols part of the initial axiom,
+     * because the validity rules for those are different.
+     */
+    public void validateInitial(DerivationSystem ds) throws BadLanguageException {
+        StringBuilder errorMsg = new StringBuilder();
+        errorMsg.append("\n" + "Symbol " + symbolID + " in the Axiom: \n");
+        boolean isValid = true;
+
+
+        isValid = ValidationUtility.checkInitialSize(this, ds, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkInitialPosition(this, ds, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkReferencesExist(this, ds, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkSymbolIDExistence(this, ds, errorMsg) && isValid;
+
+
+        if (!isValid)
+            throw new BadLanguageException(errorMsg.toString());
     }
 }

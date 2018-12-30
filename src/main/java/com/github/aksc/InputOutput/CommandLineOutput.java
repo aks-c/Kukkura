@@ -1,4 +1,6 @@
-package com.github.aksc;
+package com.github.aksc.InputOutput;
+
+import com.github.aksc.DerivationSystem;
 
 /**
  * Created by akselcakmak on 17/08/2018.
@@ -21,7 +23,7 @@ public class CommandLineOutput {
             printLine("Procedural Generator");
             printFullHorizontalSeparation();
             printLine("Rules in the Derivation System: " + ds.getRules().size());
-            printLine("Size of input: " + ds.getAxiom().size());
+            printLine("Size of initial axiom: " + ds.getAxiom().size());
             printLine("Deriving...");
             printLine("...");
             printLine("...");

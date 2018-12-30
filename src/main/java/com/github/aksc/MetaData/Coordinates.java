@@ -48,7 +48,7 @@ public class Coordinates {
     private final String z;
 
 
-    // Boolean to avoid setting deltas more than once.
+    /** Boolean to avoid setting deltas more than once. */
     @SerializedName("deltaIsSet")
     private boolean deltaIsSet = false;
 

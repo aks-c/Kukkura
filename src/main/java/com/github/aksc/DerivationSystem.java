@@ -1,5 +1,7 @@
 package com.github.aksc;
 
+import com.github.aksc.ErrorHandling.BadLanguageException;
+import com.github.aksc.ErrorHandling.ValidationUtility;
 import com.github.aksc.Grammar.Symbol;
 import com.github.aksc.MetaData.*;
 import com.google.gson.Gson;
@@ -20,20 +22,19 @@ import java.util.Random;
  * to some final result usable to generate content.
  */
 public class DerivationSystem {
-    // Only used for getting the rules and the non-terminals out of the separate sub files.
+    /** Only used for getting the rules and the non-terminals out of the separate sub files. */
     public DerivationSystem(HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals) {
         this.rules = newRules;
         this.nonTerminals = newNonTerminals;
     }
 
-    // Only used when building the final com.github.aksc.DerivationSystem that will actually be used.
+    /** Only used when building the final com.github.aksc.DerivationSystem that will actually be used. */
     public DerivationSystem(DerivationSystem finalDS, HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals) {
         this.rules = newRules;
         this.nonTerminals = newNonTerminals;
 
         this.axiom = finalDS.getAxiom();
         this.terminals = finalDS.getTerminals();
-        this.resultContainsNT = finalDS.getResultContainsNT();
         this.materials = finalDS.getMaterials();
         this.REF_TO_PREVIOUS_MATERIAL = finalDS.REF_TO_PREVIOUS_MATERIAL;
         this.ITERATION_LIMIT = finalDS.ITERATION_LIMIT;
@@ -44,9 +45,7 @@ public class DerivationSystem {
     @SerializedName("iteration_limit")
     private int ITERATION_LIMIT = 20;
 
-    /**
-     * The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from).
-     */
+    /** The axiom is the initial state of the system (i.e. it's the initial sentence we derive our result from). */
     @SerializedName("axiom")
     private ArrayList<Symbol> axiom = new ArrayList<>();
 
@@ -109,7 +108,7 @@ public class DerivationSystem {
     private HashMap<String, CoordinatesDelta> deltaPositions = new HashMap<>();
 
 
-    ArrayList<Symbol> getResult() {
+    public ArrayList<Symbol> getResult() {
         return result;
     }
 
@@ -145,6 +144,10 @@ public class DerivationSystem {
         return deltaPositions;
     }
 
+    public String getRefToPreviousMaterial() {
+        return REF_TO_PREVIOUS_MATERIAL;
+    }
+
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
             if (nonTerminals.contains(symbol.getSymbolID()))
@@ -153,9 +156,7 @@ public class DerivationSystem {
         return false;
     }
 
-    /**
-     * Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended.
-     */
+    /** Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended. */
     private void addSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol, Symbol symbolToAdd) {
         CoordinatesDelta newDeltaSize = symbolToAdd.getDeltaSizeFromRef(deltaSizes);
         CoordinatesDelta newDeltaPosition = symbolToAdd.getDeltaPositionFromRef(deltaPositions);
@@ -251,17 +252,45 @@ public class DerivationSystem {
         result.addAll(nextSentence);
     }
 
-    /**
-     * Computes the whole result, from the initial Axiom to one final list of Symbols.
-     */
+    /** Computes the whole result, from the initial Axiom to one final list of Symbols. */
     void deriveResult() {
         int iterations = 0;
         result.addAll(axiom);
+        resultContainsNT = sentenceContainsNT(result);
 
         while(resultContainsNT & iterations < ITERATION_LIMIT) {
             deriveSingleStep();
             resultContainsNT = sentenceContainsNT(result);
             iterations++;
         }
+    }
+
+    /**
+     * Validates the DerivationSystem and its state.
+     * Also checks the state of every symbol in the axiom and on the RHS of each rule.
+     * Called once and exactly once, once the DerivationSystem is fully formed.
+     */
+    void validate() throws BadLanguageException {
+        StringBuilder errorMsg = new StringBuilder();
+        boolean isValid = true;
+
+        isValid = ValidationUtility.checkAxiomSize(this, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkDeltaSizesExistence(this, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkDeltaPositionsExistence(this, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkNTs(this, errorMsg) && isValid;
+
+        // Note that all the checks above were about the DS itself,
+        // and that the checks below recursively validate the symbols in the DS (and their properties).
+
+        isValid = ValidationUtility.checkSymbolsInAxiom(this, errorMsg) && isValid;
+
+        isValid = ValidationUtility.checkSymbolsInRules(this, errorMsg) && isValid;
+
+
+        if (!isValid)
+            throw new BadLanguageException(errorMsg.toString());
     }
 }
