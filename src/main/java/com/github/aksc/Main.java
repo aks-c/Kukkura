@@ -15,9 +15,15 @@ import java.util.ArrayList;
  *
  */
 public class Main {
-    public static void main (String args[]) throws BadInputException {
+    public static void main (String args[]) {
         CommandLineInput cli = new CommandLineInput(args);
-        cli.parseInput();
+
+        try {
+            cli.parseInput();
+        } catch (BadInputException e) {
+            System.err.println("Error parsing arguments: " + e.getMessage());
+            System.exit(1);
+        }
 
         if (cli.hasOption("help"))
             cli.printHelp();
