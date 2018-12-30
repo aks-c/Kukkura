@@ -1,6 +1,6 @@
 # Kukkura &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aks-c/Kukkura/blob/master/LICENSE) [![CircleCI](https://circleci.com/gh/aks-c/Kukkura.svg?style=shield&circle-token=81b7f70aaab28074269d37e9ea109ca9746df77a)](https://circleci.com/gh/aks-c/Kukkura)
 
-This is a [Procedural Generator](https://en.wikipedia.org/wiki/Procedural_generation "PG wiki page") based on [Context-Free](https://en.wikipedia.org/wiki/Context-free_grammar "CFG wiki page") rule systems.
+This is a [Procedural Generator](https://en.wikipedia.org/wiki/Procedural_generation "PG wiki page") based on [Context-Free Grammars](https://en.wikipedia.org/wiki/Context-free_grammar "CFG wiki page") and [L-Systems](https://en.wikipedia.org/wiki/L-system).
 
 For more information on the project, and stuff like how to use it and tutorials, 
 visit the project [Wiki](https://github.com/aks-c/Kukkura/wiki).
@@ -10,6 +10,8 @@ The gist of it:
 - Those rules describe how you want to manipulate some initial set of symbols.
 - The key here is that every symbol has some meta-data associated with it (_e.g.:_ a `size` field, a `position` field, whether this symbol supports randomization, etc...).
 - Then, according to your rules and the meta-data of each symbol, the system outputs some other set of symbols.
+
+You can then express extremely complex and recursive structures.
 
 You can then interpret/serialize this output yourself for your target platform/program/thingy.  
 (_i.e.:_ you decide yourself what this "size" thingy means, or what it means for that symbol here to be at this position there, etc..).
@@ -22,9 +24,6 @@ but the output is comprehensible enough that it is not too hard for someone to d
 
 Coming Soon...
 
-Though, to get a taste of what one can do using Context-Free Grammars, you can see 
-[this project](https://www.contextfreeart.org/index.html "another project that uses CFGs to produce content") 
-(not mine) for example.
 
 ## Getting Started
 
@@ -55,11 +54,7 @@ java -jar Kukkura.jar
 
 Roughly, what you do is the following:
 - Devise context-free rules in one (or several) JSON files. 
-By default, the program will try to get its input from a folder `/input` in the same directory.
-(This can be changed by passing the appropriate argument through the command line).
 - Run the program through the terminal.
-By default, the output will be written in a folder `/output` in the same directory.
-(This can also be changed by passing an argument). 
 - If you're a Minecraft user, you can load the generated `output.mcfunction` file directly into your game and enjoy your creation without any need for serialization (the reason is that I did this initially with Minecraft in mind, then changed mid-way when I realized it could be used for pretty much any platform, provided one would do the necessary serialization).
 See how [here](https://www.digminecraft.com/game_commands/function_command.php "A tutorial showing how to use mcfunction files in Minecraft.").
 - If you use this program to create content for another platform, you have to serialize the `output.json` file. 
