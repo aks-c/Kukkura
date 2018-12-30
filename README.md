@@ -6,15 +6,15 @@ For more information on the project, and stuff like how to use it and tutorials,
 visit the project [Wiki](https://github.com/aks-c/Kukkura/wiki).
 
 The gist of it: 
-- You specify some rules as input (in a bunch of `JSON` files).
-- Those rules describe how you want to manipulate some initial set of symbols.
+- You specify (1) some rules and (2) some symbols as input (in a bunch of `JSON` files).
+- The rules describe how you want to manipulate/transform the symbols.
 - The key here is that every symbol has some meta-data associated with it (_e.g.:_ a `size` field, a `position` field, whether this symbol supports randomization, etc...).
-- Then, according to your rules and the meta-data of each symbol, the system outputs some other set of symbols.
+- Then, according to your rules, your symbols, the meta-data of each symbol, and some number of iterations, 
+the system generates a final set of symbols.
 
-You can then express extremely complex and recursive structures.
+You can then express extremely complex and recursive structures by just using rules and symbols.
 
 You can then interpret/serialize this output yourself for your target platform/program/thingy.  
-(_i.e.:_ you decide yourself what this "size" thingy means, or what it means for that symbol here to be at this position there, etc..).
 The program already supports Minecraft-compatible output 
 (_i.e.:_ Minecraft users don't need to serialize the data, it's handled for them in one of the output files).
 No support for other platforms/programs/games/etc (yet!), 
@@ -23,7 +23,6 @@ but the output is comprehensible enough that it is not too hard for someone to d
 ## Examples
 
 Coming Soon...
-
 
 ## Getting Started
 
