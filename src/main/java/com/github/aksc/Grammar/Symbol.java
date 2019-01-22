@@ -259,7 +259,7 @@ public class Symbol {
      */
     public String getAsMinecraftCommand() {
         Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());;
-        return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial().getMainID(), getMaterial().getState());
+        return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial().getMainID(), getMaterial().getState());
     }
 
     /**
