@@ -17,8 +17,9 @@ import java.util.Random;
  * This is one of the most essential building blocks of the procedural generator, along with the DerivationSystem class.
  */
 public class Symbol {
-    public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference, String deltaSizeReference, String deltaPositionReference) {
+    public Symbol(String symbolID, HashMap<String, String> metaData, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference, String deltaSizeReference, String deltaPositionReference) {
         this.symbolID = symbolID;
+        this.metaData = metaData;
         this.probability = probability;
         this.exclusiveDerivation = exclusiveDerivation;
         this.canBeResized = canBeResized;
@@ -34,11 +35,11 @@ public class Symbol {
     }
 
     public Symbol(Symbol other) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+        this(other.getSymbolID(), other.getMetaData(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
     }
 
     public Symbol(Symbol other, Coordinates size, Coordinates position, Material material, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition), material, other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+        this(other.getSymbolID(), other.getMetaData(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition), material, other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
     }
 
 
@@ -46,6 +47,10 @@ public class Symbol {
     /** The actual symbol associated with this object. */
     @SerializedName("symbol")
     private final String symbolID;
+
+
+    @SerializedName("meta-data")
+    private HashMap<String, String> metaData = new HashMap<>();
 
     /**
      * Some rules might have this symbol in their RHS.
@@ -180,6 +185,8 @@ public class Symbol {
     public Material getMaterial() {
         return material;
     }
+
+    public HashMap<String, String> getMetaData() { return metaData; }
 
     public int getProbability() {
         return probability;
