@@ -156,7 +156,7 @@ public class DerivationSystem {
         return false;
     }
 
-    /** Note that the Symbol added into the nextSentence is a Deep Copy of the Symbol intended. */
+    /** Note that the Symbol added into the nextSentence is a Deep Copy of the symbolToAdd. */
     private void addSymbol(ArrayList<Symbol> nextSentence, Symbol parentSymbol, Symbol symbolToAdd) {
         CoordinatesDelta newDeltaSize = symbolToAdd.getDeltaSizeFromRef(deltaSizes);
         CoordinatesDelta newDeltaPosition = symbolToAdd.getDeltaPositionFromRef(deltaPositions);
@@ -164,8 +164,9 @@ public class DerivationSystem {
         newSize = Resizing.getRandomSize(newSize, symbolToAdd.getResizeCoefficients(), symbolToAdd.canBeResized());
         Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, newDeltaPosition);
         Material newMaterial = symbolToAdd.getMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
+        HashMap<String, String> newMetaData = symbolToAdd.getMetaDataFromRef();
 
-        Symbol newSymbol = new Symbol(symbolToAdd, newSize, newPosition, newMaterial, newDeltaSize, newDeltaPosition);
+        Symbol newSymbol = new Symbol(symbolToAdd, newMetaData, newSize, newPosition, newMaterial, newDeltaSize, newDeltaPosition);
 
         Gson gson = new Gson();
         Symbol copy = gson.fromJson(gson.toJson(newSymbol), Symbol.class);

@@ -38,8 +38,8 @@ public class Symbol {
         this(other.getSymbolID(), other.getMetaData(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
     }
 
-    public Symbol(Symbol other, Coordinates size, Coordinates position, Material material, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
-        this(other.getSymbolID(), other.getMetaData(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition), material, other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+    public Symbol(Symbol other, HashMap<String, String> metaData, Coordinates size, Coordinates position, Material material, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
+        this(other.getSymbolID(), metaData, other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition), material, other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
     }
 
 
@@ -219,6 +219,14 @@ public class Symbol {
         return deltaPositionReference;
     }
 
+
+    // TODO
+    public HashMap<String, String> getMetaDataFromRef() {
+        return metaData;
+    }
+
+    // TODO: refactor the common behaviour that getDSFR() and getDPFR() both have.
+    // (put the ref back inside the class, make the field a single object instead of a delta_thingy and a ref_delta_thingy.
 
     /**
      * The deltaPosition field cannot be accessed from outside through its regular getter:
