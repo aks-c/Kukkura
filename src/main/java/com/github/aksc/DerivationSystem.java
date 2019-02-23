@@ -35,8 +35,7 @@ public class DerivationSystem {
 
         this.axiom = finalDS.getAxiom();
         this.terminals = finalDS.getTerminals();
-        this.materials = finalDS.getMaterials();
-        this.REF_TO_PREVIOUS_MATERIAL = finalDS.REF_TO_PREVIOUS_MATERIAL;
+        //this.materials = finalDS.getMaterials();
         this.REF_TO_PREVIOUS_META_FIELD = finalDS.REF_TO_PREVIOUS_META_FIELD;
         this.ITERATION_LIMIT = finalDS.ITERATION_LIMIT;
         this.metas = finalDS.getMetas();
@@ -88,14 +87,6 @@ public class DerivationSystem {
      */
     private boolean resultContainsNT = true;
 
-    /**
-     * When using the Symbol::materialReference field, one can reference to some predefined materials.
-     * But one can also reference to whatever material the parent Symbol had.
-     * For that, we need to define a String that specifies when that is indeed the case.
-     */
-    @SerializedName("ref_to_previous_material")
-    private String REF_TO_PREVIOUS_MATERIAL = new String();
-
     /*
     * Each symbol has some non critical information (held it the Symbol::metadata HashMap).
     * For each field, you want to be able to reference to the parent's symbol's value of said field.
@@ -115,8 +106,8 @@ public class DerivationSystem {
      * A list of the most used material of this system.
      * Helps in making the rules much smaller and much easier to read/follow.
      */
-    @SerializedName("materials")
-    private HashMap<String, Material> materials = new HashMap<>();
+//    @SerializedName("materials")
+//    private HashMap<String, Material> materials = new HashMap<>();
 
     @SerializedName("delta_sizes")
     private HashMap<String, CoordinatesDelta> deltaSizes = new HashMap<>();
@@ -146,9 +137,9 @@ public class DerivationSystem {
         return axiom;
     }
 
-    public HashMap<String, Material> getMaterials() {
-        return materials;
-    }
+//    public HashMap<String, Material> getMaterials() {
+//        return materials;
+//    }
 
     public boolean getResultContainsNT() {
         return resultContainsNT;
@@ -160,10 +151,6 @@ public class DerivationSystem {
 
     public HashMap<String, CoordinatesDelta> getDeltaPositions() {
         return deltaPositions;
-    }
-
-    public String getRefToPreviousMaterial() {
-        return REF_TO_PREVIOUS_MATERIAL;
     }
 
     public String getRefToPreviousMetaField() { return REF_TO_PREVIOUS_META_FIELD; }
@@ -183,10 +170,9 @@ public class DerivationSystem {
         Coordinates newSize = symbolToAdd.getSize().getFinalCoordinates(parentSymbol, newDeltaSize);
         newSize = Resizing.getRandomSize(newSize, symbolToAdd.getResizeCoefficients(), symbolToAdd.canBeResized());
         Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, newDeltaPosition);
-        Material newMaterial = symbolToAdd.getMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
         HashMap<String, String> newMetaData = symbolToAdd.getMetaDataFromRef(metas, REF_TO_PREVIOUS_META_FIELD, parentSymbol);
 
-        Symbol newSymbol = new Symbol(symbolToAdd, newMetaData, newSize, newPosition, newMaterial, newDeltaSize, newDeltaPosition);
+        Symbol newSymbol = new Symbol(symbolToAdd, newMetaData, newSize, newPosition, newDeltaSize, newDeltaPosition);
 
         Gson gson = new Gson();
         Symbol copy = gson.fromJson(gson.toJson(newSymbol), Symbol.class);

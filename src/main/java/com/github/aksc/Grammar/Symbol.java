@@ -18,7 +18,7 @@ import java.util.Random;
  * This is one of the most essential building blocks of the procedural generator, along with the DerivationSystem class.
  */
 public class Symbol {
-    public Symbol(String symbolID, HashMap<String, String> metaData, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference, String deltaSizeReference, String deltaPositionReference) {
+    public Symbol(String symbolID, HashMap<String, String> metaData, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, String deltaSizeReference, String deltaPositionReference) {
         this.symbolID = symbolID;
         this.metaData = metaData;
         this.probability = probability;
@@ -29,18 +29,16 @@ public class Symbol {
         this.position = position;
         this.deltaSize = deltaSize;
         this.deltaPosition = deltaPosition;
-        this.material = material;
-        this.materialReference = materialReference;
         this.deltaSizeReference = deltaSizeReference;
         this.deltaPositionReference = deltaPositionReference;
     }
 
     public Symbol(Symbol other) {
-        this(other.getSymbolID(), other.getMetaData(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+        this(other.getSymbolID(), other.getMetaData(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getDeltaSizeReference(), other.getDeltaPositionReference());
     }
 
-    public Symbol(Symbol other, HashMap<String, String> metaData, Coordinates size, Coordinates position, Material material, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
-        this(other.getSymbolID(), metaData, other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition), material, other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+    public Symbol(Symbol other, HashMap<String, String> metaData, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
+        this(other.getSymbolID(), metaData, other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition), other.getDeltaSizeReference(), other.getDeltaPositionReference());
     }
 
 
@@ -125,18 +123,6 @@ public class Symbol {
     @SerializedName("delta_position")
     private final CoordinatesDelta deltaPosition;
 
-    /** Holds the information needed to ID a specific material. */
-    @SerializedName("material")
-    private final Material material;
-
-    /**
-     * To avoid duplication and avoid redefining the same materials again and again,
-     * we define some key materials in the input file. Each has an ID String.
-     * Then to use a pre-defined material, set this string to whatever the ID of said material is.
-     */
-    @SerializedName("material_ref")
-    private final String materialReference;
-
 
     /**
      * To avoid duplication and avoid redefining the same delta positions again and again,
@@ -181,14 +167,6 @@ public class Symbol {
         return deltaPosition;
     }
 
-    /**
-     * Note: This should only be used for validation purposes, not the actual application logic.
-     * If you want to get a valid usable material, use the getMaterialFromRef() method.
-     * Ditto for getMaterialReference().
-     */
-    public Material getMaterial() {
-        return material;
-    }
 
     public HashMap<String, String> getMetaData() { return metaData; }
 
@@ -206,11 +184,6 @@ public class Symbol {
 
     public boolean canBeResized() {
         return canBeResized;
-    }
-
-    /** Should only be used in the Validation phase. See getMaterial() for more.*/
-    public String getMaterialReference() {
-        return materialReference;
     }
 
     /** Should only be used in the Validation phase. See getDeltaSize() for more. */
@@ -273,32 +246,13 @@ public class Symbol {
     }
 
     /**
-     * The MaterialReference field holds some String value.
-     * This String represents the name of a commonly used material.
-     * This sets the current material of the Symbol to whatever is referenced by the MaterialReference String.
-     *
-     * A materialReference can have values for one of three cases:
-     * - The material is already explicitly defined, so there is no reference to anything (materialRef = null)
-     * - The material is defined with respect to the material of the parent Symbol (materialRef = refToParentMat)
-     * - The material is defined with respect to one of the globally available materials (materialRef = ID of the desired global material)
-     */
-    public Material getMaterialFromRef(HashMap<String, Material> materials, String referenceToParentMaterial, Symbol previousSymbol) {
-        if (getMaterialReference() == null)
-            return this.getMaterial();
-        else if (getMaterialReference().equals(referenceToParentMaterial))
-            return previousSymbol.getMaterial();
-        else
-            return materials.get(getMaterialReference());
-    }
-
-    /**
      * Serializes the Symbol Object into a String.
      * That String can be executed as a syntactically valid command by the Minecraft interpreter.
      * (in order to create the structure associated with our symbol in the game).
      */
     public String getAsMinecraftCommand() {
         Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());;
-        return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial().getMainID(), getMaterial().getState());
+        return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ());
     }
 
     /**
@@ -340,8 +294,6 @@ public class Symbol {
         errorMsg.append("\n" + "Symbol " + symbolID + " in rule " + parentSymbol + ": \n");
         boolean isValid = true;
 
-
-        isValid = ValidationUtility.checkMaterial(this, ds, errorMsg) && isValid;
 
         isValid = ValidationUtility.checkDeltaPos(this, ds, errorMsg) && isValid;
 
