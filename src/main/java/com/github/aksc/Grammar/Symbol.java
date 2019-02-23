@@ -224,7 +224,16 @@ public class Symbol {
     }
 
 
-    // TODO
+    /**
+    * Every value in the map can be one of the following: <br>
+    * - a simple value defined as is <br>
+    * - a reference to the value held by the parent <br>
+    *   Example: the parent holds {"mykey": "parentval"}, refToPMF is "same", and the child holds {"mykey": "same"}. <br>
+    *   Then when this symbol is processed, the child will hold as final pair the following: {"mykey": "parentval"} <br>
+    * - a reference to a value predefined globally in the DerivationSystem in the DS:metas map. <br>
+    *   Example: metas is defined as { "a global key" : "a global value"}, the symbol holds {"mykey": "a global key"} <br>
+    *   Then when this symbol is processed, the symbol will hold as final pair the following: {"mykey": "a global value"} <br>
+    * */
     public HashMap<String, String> getMetaDataFromRef(HashMap<String, String> metas, String refToParentsMetaField, Symbol parentSymbol) {
         for (String key: metaData.keySet()) {
             String val = metaData.get(key);
@@ -232,18 +241,11 @@ public class Symbol {
                 String parentVal = parentSymbol.getMetaData().get(key);
                 metaData.put(key, parentVal);
             } else if (metas.containsKey(val)) {
-                System.out.println("CONDITION MET");
                 String referredVal = metas.get(val);
                 metaData.put(key, referredVal);
             }
         }
-        /* how ? smthing like this:
-        for each key-value in metadata:
-          if (value is a ref to something) // ref to either a parent's value or to some externally defined variable
-            change value to what it's referring to
-          else
-            leave it be
-        */
+
         return metaData;
     }
 
