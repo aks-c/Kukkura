@@ -28,7 +28,7 @@ public class DerivationSystem {
         this.nonTerminals = newNonTerminals;
     }
 
-    /** Only used when building the final com.github.aksc.DerivationSystem that will actually be used. */
+    /** Only used when building the final DerivationSystem that will actually be used. */
     public DerivationSystem(DerivationSystem finalDS, HashMap<String, ArrayList<Symbol>> newRules, ArrayList<String> newNonTerminals) {
         this.rules = newRules;
         this.nonTerminals = newNonTerminals;
@@ -37,7 +37,9 @@ public class DerivationSystem {
         this.terminals = finalDS.getTerminals();
         this.materials = finalDS.getMaterials();
         this.REF_TO_PREVIOUS_MATERIAL = finalDS.REF_TO_PREVIOUS_MATERIAL;
+        this.REF_TO_PREVIOUS_META_FIELD = finalDS.REF_TO_PREVIOUS_META_FIELD;
         this.ITERATION_LIMIT = finalDS.ITERATION_LIMIT;
+        this.metas = finalDS.getMetas();
         this.deltaSizes = finalDS.getDeltaSizes();
         this.deltaPositions = finalDS.getDeltaPositions();
     }
@@ -94,6 +96,21 @@ public class DerivationSystem {
     @SerializedName("ref_to_previous_material")
     private String REF_TO_PREVIOUS_MATERIAL = new String();
 
+    /*
+    * Each symbol has some non critical information (held it the Symbol::metadata HashMap).
+    * For each field, you want to be able to reference to the parent's symbol's value of said field.
+    *
+    * Example: parent symbol holds the following key value pair: {"key123" : "value123"}.
+    * For its key "key123", the child wants to be able to refer to this.
+    * Then, it sets the following pair: {"key123" : "same"}, and the generator takes care to retrieve "value123" and update the field.
+    * Note that this means that whatever string is chosen here, it won't be usable as an actual value.
+    * */
+    @SerializedName("ref_to_previous_meta_field")
+    private String REF_TO_PREVIOUS_META_FIELD = "same";
+
+    @SerializedName("metas")
+    private HashMap<String, String> metas = new HashMap<>();
+
     /**
      * A list of the most used material of this system.
      * Helps in making the rules much smaller and much easier to read/follow.
@@ -107,6 +124,7 @@ public class DerivationSystem {
     @SerializedName("delta_positions")
     private HashMap<String, CoordinatesDelta> deltaPositions = new HashMap<>();
 
+    public HashMap<String, String> getMetas() { return metas; }
 
     public ArrayList<Symbol> getResult() {
         return result;
@@ -148,6 +166,8 @@ public class DerivationSystem {
         return REF_TO_PREVIOUS_MATERIAL;
     }
 
+    public String getRefToPreviousMetaField() { return REF_TO_PREVIOUS_META_FIELD; }
+
     private boolean sentenceContainsNT(ArrayList<Symbol> sentence) {
         for (Symbol symbol: sentence) {
             if (nonTerminals.contains(symbol.getSymbolID()))
@@ -164,7 +184,7 @@ public class DerivationSystem {
         newSize = Resizing.getRandomSize(newSize, symbolToAdd.getResizeCoefficients(), symbolToAdd.canBeResized());
         Coordinates newPosition = symbolToAdd.getPosition().getFinalCoordinates(parentSymbol, newDeltaPosition);
         Material newMaterial = symbolToAdd.getMaterialFromRef(materials, REF_TO_PREVIOUS_MATERIAL, parentSymbol);
-        HashMap<String, String> newMetaData = symbolToAdd.getMetaDataFromRef();
+        HashMap<String, String> newMetaData = symbolToAdd.getMetaDataFromRef(metas, REF_TO_PREVIOUS_META_FIELD, parentSymbol);
 
         Symbol newSymbol = new Symbol(symbolToAdd, newMetaData, newSize, newPosition, newMaterial, newDeltaSize, newDeltaPosition);
 
