@@ -1,6 +1,7 @@
 package com.github.aksc.MetaData;
 
 import com.github.aksc.Grammar.Symbol;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -39,12 +40,15 @@ public class Coordinates {
      * and to some lists of deltas to apply.
      */
     @SerializedName("x")
+    @Expose
     private final String x;
 
     @SerializedName("y")
+    @Expose
     private final String y;
 
     @SerializedName("z")
+    @Expose
     private final String z;
 
 

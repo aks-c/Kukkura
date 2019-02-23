@@ -29,7 +29,7 @@ public class Parser {
             public void writeToOutput(ArrayList<Symbol> result, String outputFolder) throws BadInputException {
                 String filename = outputFolder + DEFAULT_OUTPUT_FILE + JSON_EXTENSION;
                 try(Writer writer = new FileWriter(filename)) {
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
                     gson.toJson(result, writer);
                 } catch(IOException e) {
                     throw new BadInputException("Error while writing output: " + e.getMessage());

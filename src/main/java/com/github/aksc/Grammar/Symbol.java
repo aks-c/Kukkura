@@ -4,6 +4,7 @@ import com.github.aksc.DerivationSystem;
 import com.github.aksc.ErrorHandling.BadLanguageException;
 import com.github.aksc.ErrorHandling.ValidationUtility;
 import com.github.aksc.MetaData.*;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
@@ -46,9 +47,10 @@ public class Symbol {
 
     /** The actual symbol associated with this object. */
     @SerializedName("symbol")
+    @Expose
     private final String symbolID;
 
-
+    @Expose
     @SerializedName("meta-data")
     private HashMap<String, String> metaData = new HashMap<>();
 
@@ -103,8 +105,10 @@ public class Symbol {
      * and a structure of height "0" is 1 block high, not 0.
      */
     @SerializedName("size")
+    @Expose
     private final Coordinates size;
 
+    @Expose
     @SerializedName("position")
     private final Coordinates position;
 
