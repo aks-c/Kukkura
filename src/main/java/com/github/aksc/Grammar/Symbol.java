@@ -222,29 +222,18 @@ public class Symbol {
         return metaData;
     }
 
-    // TODO: refactor the common behaviour that getDSFR() and getDPFR() both have.
-    // (put the ref back inside the class, make the field a single object instead of a delta_thingy and a ref_delta_thingy.
-
     /**
      * The deltaPosition field cannot be accessed from outside through its regular getter:
      * It might not exist as a properly defined object, but as a String reference to some deltaPosition pre-defined in the input file.
      * This function handles the logic of either returning the deltaPosition of this symbol (if there is one)
      * or returning (a reference to) said pre-defined deltaPosition.
      */
-    public CoordinatesDelta getDeltaPositionFromRef(HashMap<String, CoordinatesDelta> deltaSizes) {
-        if (getDeltaPositionReference() == null)
-            return this.getDeltaPosition();
-        else
-            return deltaSizes.get(getDeltaPositionReference());
-        // with the refactor, this would be:
-        // return deltaPosition.fromRef()
+    public CoordinatesDelta getDeltaPositionFromRef(HashMap<String, CoordinatesDelta> globalDeltaPositions) {
+        return deltaPosition.fromRef(globalDeltaPositions);
     }
 
-    public CoordinatesDelta getDeltaSizeFromRef(HashMap<String, CoordinatesDelta> deltaSizes) {
-        if (getDeltaSizeReference() == null)
-            return this.getDeltaSize();
-        else
-            return deltaSizes.get(getDeltaSizeReference());
+    public CoordinatesDelta getDeltaSizeFromRef(HashMap<String, CoordinatesDelta> globalDeltaSizes) {
+        return deltaSize.fromRef(globalDeltaSizes);
     }
 
     /**

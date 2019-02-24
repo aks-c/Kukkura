@@ -22,7 +22,7 @@ public class CoordinatesDelta {
     }
 
     public CoordinatesDelta fromRef(HashMap<String, CoordinatesDelta> globalDeltas) {
-        if (deltaReference == null)
+        if (deltaReference == null || deltaReference.equals(""))
             return this;
         else
             return globalDeltas.get(deltaReference);
@@ -47,7 +47,7 @@ public class CoordinatesDelta {
     @SerializedName("d_z")
     private final ArrayList<Delta> deltaZ;
 
-    @SerializedName("reference")
+    @SerializedName("ref")
     private final String deltaReference;
 
     public String getDeltaReference() { return deltaReference; }
