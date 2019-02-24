@@ -9,14 +9,15 @@ import java.util.ArrayList;
  *
  */
 public class CoordinatesDelta {
-    public CoordinatesDelta(ArrayList<Delta> deltaX, ArrayList<Delta> deltaY, ArrayList<Delta> deltaZ) {
+    public CoordinatesDelta(ArrayList<Delta> deltaX, ArrayList<Delta> deltaY, ArrayList<Delta> deltaZ, String deltaReference) {
         this.deltaX = deltaX;
         this.deltaY = deltaY;
         this.deltaZ = deltaZ;
+        this.deltaReference = deltaReference;
     }
 
     public CoordinatesDelta(CoordinatesDelta other){
-        this(other.getDeltaX(), other.getDeltaY(), other.getDeltaZ());
+        this(other.getDeltaX(), other.getDeltaY(), other.getDeltaZ(), other.getDeltaReference());
     }
 
     /**
@@ -33,6 +34,10 @@ public class CoordinatesDelta {
     @SerializedName("d_z")
     private final ArrayList<Delta> deltaZ;
 
+    @SerializedName("reference")
+    private final String deltaReference;
+
+    public String getDeltaReference() { return deltaReference; }
 
     public ArrayList<Delta> getDeltaX() {
         return deltaX;

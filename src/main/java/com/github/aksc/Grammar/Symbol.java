@@ -236,6 +236,8 @@ public class Symbol {
             return this.getDeltaPosition();
         else
             return deltaSizes.get(getDeltaPositionReference());
+        // with the refactor, this would be:
+        // return deltaPosition.fromRef()
     }
 
     public CoordinatesDelta getDeltaSizeFromRef(HashMap<String, CoordinatesDelta> deltaSizes) {
