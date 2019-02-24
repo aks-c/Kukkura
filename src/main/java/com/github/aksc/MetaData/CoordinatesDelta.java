@@ -3,6 +3,7 @@ package com.github.aksc.MetaData;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by akselcakmak on 30/06/2018.
@@ -19,6 +20,18 @@ public class CoordinatesDelta {
     public CoordinatesDelta(CoordinatesDelta other){
         this(other.getDeltaX(), other.getDeltaY(), other.getDeltaZ(), other.getDeltaReference());
     }
+
+    public CoordinatesDelta fromRef(HashMap<String, CoordinatesDelta> globalDeltas) {
+        if (deltaReference == null)
+            return this;
+        else
+            return globalDeltas.get(deltaReference);
+    }
+
+    /**
+     * A DeltaCoordinate is either explicitly defined (which is what we check here) or it is defined by the deltaReference string.
+     */
+    public boolean isDeltaDefined() { return deltaX != null && deltaY != null && deltaZ != null; }
 
     /**
      * Each one of these is a list of deltas to be eventually applied to their respective fields.
