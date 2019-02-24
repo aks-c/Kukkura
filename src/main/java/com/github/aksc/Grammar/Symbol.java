@@ -223,15 +223,15 @@ public class Symbol {
     }
 
     /**
-     * The deltaPosition field cannot be accessed from outside through its regular getter:
-     * It might not exist as a properly defined object, but as a String reference to some deltaPosition pre-defined in the input file.
-     * This function handles the logic of either returning the deltaPosition of this symbol (if there is one)
-     * or returning (a reference to) said pre-defined deltaPosition.
+     * A deltaPosition either just contains a reference to some globally defined deltaPosition, or it is defined explicitly.
+     * This method resolves the actual deltaPosition to be used.
+     * (in other words, if this is a reference, the deltaPos it points to will be fetched and returned).
      */
     public CoordinatesDelta getDeltaPositionFromRef(HashMap<String, CoordinatesDelta> globalDeltaPositions) {
         return deltaPosition.fromRef(globalDeltaPositions);
     }
 
+    /* See Symbol::getDeltaPositionFromRef(). */
     public CoordinatesDelta getDeltaSizeFromRef(HashMap<String, CoordinatesDelta> globalDeltaSizes) {
         return deltaSize.fromRef(globalDeltaSizes);
     }

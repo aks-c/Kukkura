@@ -21,6 +21,11 @@ public class CoordinatesDelta {
         this(other.getDeltaX(), other.getDeltaY(), other.getDeltaZ(), other.getDeltaReference());
     }
 
+    /**
+     * A deltaPosition either just contains a reference to some globally defined deltaPosition, or it is defined explicitly.
+     * This method resolves the actual deltaPosition to be used.
+     * (in other words, if this is a reference, the deltaPos it points to will be fetched and returned).
+     */
     public CoordinatesDelta fromRef(HashMap<String, CoordinatesDelta> globalDeltas) {
         if (deltaReference == null || deltaReference.equals(""))
             return this;
