@@ -18,7 +18,7 @@ import java.util.Random;
  * This is one of the most essential building blocks of the procedural generator, along with the DerivationSystem class.
  */
 public class Symbol {
-    public Symbol(String symbolID, HashMap<String, String> metaData, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, String deltaSizeReference, String deltaPositionReference) {
+    public Symbol(String symbolID, HashMap<String, String> metaData, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
         this.symbolID = symbolID;
         this.metaData = metaData;
         this.probability = probability;
@@ -29,16 +29,14 @@ public class Symbol {
         this.position = position;
         this.deltaSize = deltaSize;
         this.deltaPosition = deltaPosition;
-        this.deltaSizeReference = deltaSizeReference;
-        this.deltaPositionReference = deltaPositionReference;
     }
 
     public Symbol(Symbol other) {
-        this(other.getSymbolID(), other.getMetaData(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+        this(other.getSymbolID(), other.getMetaData(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()));
     }
 
     public Symbol(Symbol other, HashMap<String, String> metaData, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
-        this(other.getSymbolID(), metaData, other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+        this(other.getSymbolID(), metaData, other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition));
     }
 
 
@@ -124,17 +122,6 @@ public class Symbol {
     private final CoordinatesDelta deltaPosition;
 
 
-    /**
-     * To avoid duplication and avoid redefining the same delta positions again and again,
-     * we define some key delta positions in the input file. Each has an ID String.
-     * Then to use a pre-defined delta size, set this string to whatever the ID of said d_size is.
-     */
-    @SerializedName("delta_size_ref")
-    private final String deltaSizeReference;
-
-    @SerializedName("delta_position_ref")
-    private final String deltaPositionReference;
-
 
 
     public String getSymbolID(){
@@ -186,15 +173,6 @@ public class Symbol {
         return canBeResized;
     }
 
-    /** Should only be used in the Validation phase. See getDeltaSize() for more. */
-    public String getDeltaSizeReference() {
-        return deltaSizeReference;
-    }
-
-    /** Should only be used in the Validation phase. See getDeltaPosition() for more. */
-    public String getDeltaPositionReference() {
-        return deltaPositionReference;
-    }
 
 
     /**
