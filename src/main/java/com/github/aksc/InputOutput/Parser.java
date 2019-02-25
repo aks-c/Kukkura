@@ -35,21 +35,21 @@ public class Parser {
                     throw new BadInputException("Error while writing output: " + e.getMessage());
                 }
             }
-        },
-
-        MINECRAFT {
-            @Override
-            public void writeToOutput(ArrayList<Symbol> result, String outputFolder) throws BadInputException {
-                String filename = outputFolder + DEFAULT_OUTPUT_FILE + MC_EXTENSION;
-                try(PrintWriter writer = new PrintWriter(filename, ENCODING)) {
-                    for (Symbol symbol: result) {
-                        writer.println(symbol.getAsMinecraftCommand());
-                    }
-                } catch(IOException e) {
-                    throw new BadInputException("Error while writing output: " + e.getMessage());
-                }
-             }
         };
+//
+//        MINECRAFT {
+//            @Override
+//            public void writeToOutput(ArrayList<Symbol> result, String outputFolder) throws BadInputException {
+//                String filename = outputFolder + DEFAULT_OUTPUT_FILE + MC_EXTENSION;
+//                try(PrintWriter writer = new PrintWriter(filename, ENCODING)) {
+//                    for (Symbol symbol: result) {
+//                        writer.println(symbol.getAsMinecraftCommand());
+//                    }
+//                } catch(IOException e) {
+//                    throw new BadInputException("Error while writing output: " + e.getMessage());
+//                }
+//             }
+//        };
 
         public abstract void writeToOutput(ArrayList<Symbol> result, String outputFolder) throws BadInputException;
     }
