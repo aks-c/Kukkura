@@ -93,19 +93,13 @@ public class DerivationSystem {
     @SerializedName("metas")
     private HashMap<String, String> metas = new HashMap<>();
 
-    /**
-     * A list of the most used material of this system.
-     * Helps in making the rules much smaller and much easier to read/follow.
-     */
-//    @SerializedName("materials")
-//    private HashMap<String, Material> materials = new HashMap<>();
-
     @SerializedName("delta_sizes")
     private HashMap<String, CoordinatesDelta> deltaSizes = new HashMap<>();
 
     @SerializedName("delta_positions")
     private HashMap<String, CoordinatesDelta> deltaPositions = new HashMap<>();
 
+    
     public HashMap<String, String> getMetas() { return metas; }
 
     public ArrayList<Symbol> getResult() { return result; }
