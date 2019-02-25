@@ -19,7 +19,6 @@ import java.util.HashMap;
 public class Parser {
     private static final String ENCODING = "UTF-8";
     private static final String JSON_EXTENSION = ".json";
-    private static final String MC_EXTENSION = ".mcfunction";
 
     private static final String DEFAULT_OUTPUT_FILE = "output";
 
@@ -36,20 +35,7 @@ public class Parser {
                 }
             }
         };
-//
-//        MINECRAFT {
-//            @Override
-//            public void writeToOutput(ArrayList<Symbol> result, String outputFolder) throws BadInputException {
-//                String filename = outputFolder + DEFAULT_OUTPUT_FILE + MC_EXTENSION;
-//                try(PrintWriter writer = new PrintWriter(filename, ENCODING)) {
-//                    for (Symbol symbol: result) {
-//                        writer.println(symbol.getAsMinecraftCommand());
-//                    }
-//                } catch(IOException e) {
-//                    throw new BadInputException("Error while writing output: " + e.getMessage());
-//                }
-//             }
-//        };
+
 
         public abstract void writeToOutput(ArrayList<Symbol> result, String outputFolder) throws BadInputException;
     }
@@ -100,7 +86,7 @@ public class Parser {
         return extension.equals(JSON_EXTENSION);
     }
 
-    /** De-serializes a structured JSON File into a usable com.github.aksc.DerivationSystem Object. */
+    /** De-serializes a structured JSON File into a usable DerivationSystem Object. */
     private static DerivationSystem getDerivationSystem(String filename) throws BadInputException {
         Gson gson = new Gson();
 

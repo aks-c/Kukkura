@@ -117,41 +117,21 @@ public class DerivationSystem {
 
     public HashMap<String, String> getMetas() { return metas; }
 
-    public ArrayList<Symbol> getResult() {
-        return result;
-    }
+    public ArrayList<Symbol> getResult() { return result; }
 
-    public ArrayList<String> getNonTerminals() {
-        return nonTerminals;
-    }
+    public ArrayList<String> getNonTerminals() { return nonTerminals; }
 
-    public HashMap<String, ArrayList<Symbol>> getRules() {
-        return rules;
-    }
+    public HashMap<String, ArrayList<Symbol>> getRules() { return rules; }
 
-    public ArrayList<String> getTerminals() {
-        return terminals;
-    }
+    public ArrayList<String> getTerminals() { return terminals; }
 
-    public ArrayList<Symbol> getAxiom() {
-        return axiom;
-    }
+    public ArrayList<Symbol> getAxiom() { return axiom; }
 
-//    public HashMap<String, Material> getMaterials() {
-//        return materials;
-//    }
+    public boolean getResultContainsNT() { return resultContainsNT; }
 
-    public boolean getResultContainsNT() {
-        return resultContainsNT;
-    }
+    public HashMap<String, CoordinatesDelta> getDeltaSizes() { return deltaSizes; }
 
-    public HashMap<String, CoordinatesDelta> getDeltaSizes() {
-        return deltaSizes;
-    }
-
-    public HashMap<String, CoordinatesDelta> getDeltaPositions() {
-        return deltaPositions;
-    }
+    public HashMap<String, CoordinatesDelta> getDeltaPositions() { return deltaPositions; }
 
     public String getRefToPreviousMetaField() { return REF_TO_PREVIOUS_META_FIELD; }
 

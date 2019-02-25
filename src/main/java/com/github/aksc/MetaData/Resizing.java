@@ -50,8 +50,6 @@ public class Resizing {
     }
 
     /** Get deterministic resize of a given field. */
-    private static String getResizeToField(String field, int delta) {
-        return addDelta(field, delta);
-    }
+    private static String getResizeToField(String field, int delta) { return addDelta(field, delta); }
 
 }

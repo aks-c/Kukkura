@@ -214,31 +214,6 @@ public class Symbol {
         return deltaSize.fromRef(globalDeltaSizes);
     }
 
-    /**
-     * Serializes the Symbol Object into a String.
-     * That String can be executed as a syntactically valid command by the Minecraft interpreter.
-     * (in order to create the structure associated with our symbol in the game).
-     */
-//    public String getAsMinecraftCommand() {
-//        Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());;
-//        return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ());
-//    }
-
-    /**
-     * In ℝ^3, a structure can be "fenced" using two Coordinates.
-     * The first Coordinate to define those boundaries is our Position field.
-     * The second position is calculated wrt said first Position, and the Size of the Symbol/Structure.
-     */
-//    public Coordinates getSecondPosition(Coordinates position, Coordinates size) {
-//        String x = getSecondPosition(position.getX(), size.getX());
-//        String y = getSecondPosition(position.getY(), size.getY());
-//        String z = getSecondPosition(position.getZ(), size.getZ());
-//        return new Coordinates(x, y, z);
-//    }
-//
-//    private String getSecondPosition(String field, String size){
-//        return CoordinatesUtility.addDelta(field, size);
-//    }
 
     /**
      * Used only when the derivation rule is Inclusive.

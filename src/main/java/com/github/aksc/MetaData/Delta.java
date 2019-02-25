@@ -17,9 +17,7 @@ public class Delta {
         this.factor = factor;
     }
 
-    public Delta(Delta other) {
-        this(other.getDelta(), other.getFactor());
-    }
+    public Delta(Delta other) { this(other.getDelta(), other.getFactor()); }
 
     /**
      * Represents a value relative to the Symbol that holds this Object.
@@ -38,11 +36,7 @@ public class Delta {
     @SerializedName("fac")
     private final String factor;
 
-    public String getDelta() {
-        return delta;
-    }
+    public String getDelta() { return delta; }
 
-    public String getFactor() {
-        return factor;
-    }
+    public String getFactor() { return factor; }
 }

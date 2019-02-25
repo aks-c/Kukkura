@@ -57,15 +57,9 @@ public class CoordinatesDelta {
 
     public String getDeltaReference() { return deltaReference; }
 
-    public ArrayList<Delta> getDeltaX() {
-        return deltaX;
-    }
+    public ArrayList<Delta> getDeltaX() { return deltaX; }
 
-    public ArrayList<Delta> getDeltaY() {
-        return deltaY;
-    }
+    public ArrayList<Delta> getDeltaY() { return deltaY; }
 
-    public ArrayList<Delta> getDeltaZ() {
-        return deltaZ;
-    }
+    public ArrayList<Delta> getDeltaZ() { return deltaZ; }
 }

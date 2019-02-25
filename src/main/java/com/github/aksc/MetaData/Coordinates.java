@@ -56,17 +56,11 @@ public class Coordinates {
     @SerializedName("deltaIsSet")
     private boolean deltaIsSet = false;
 
-    public String getX() {
-        return x;
-    }
+    public String getX() { return x; }
 
-    public String getY() {
-        return y;
-    }
+    public String getY() { return y; }
 
-    public String getZ() {
-        return z;
-    }
+    public String getZ() { return z; }
 
     public boolean isDeltaSet() {
         return deltaIsSet;
