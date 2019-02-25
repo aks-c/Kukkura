@@ -34,8 +34,6 @@ public class DerivationSystem {
         this.nonTerminals = newNonTerminals;
 
         this.axiom = finalDS.getAxiom();
-        this.terminals = finalDS.getTerminals();
-        //this.materials = finalDS.getMaterials();
         this.REF_TO_PREVIOUS_META_FIELD = finalDS.REF_TO_PREVIOUS_META_FIELD;
         this.ITERATION_LIMIT = finalDS.ITERATION_LIMIT;
         this.metas = finalDS.getMetas();
@@ -66,13 +64,6 @@ public class DerivationSystem {
      */
     @SerializedName("non-terminals")
     private ArrayList<String> nonTerminals = new ArrayList<>();
-
-    /**
-     * We explicitly separate our alphabet into lists of terminals and non-terminals because it makes processing easier.
-     * Terminals are symbols that don't have an associated production rule.
-     */
-    @SerializedName("terminals")
-    private ArrayList<String> terminals = new ArrayList<>();
 
     /**
      * This holds the current sentence produced by our system.
@@ -122,8 +113,6 @@ public class DerivationSystem {
     public ArrayList<String> getNonTerminals() { return nonTerminals; }
 
     public HashMap<String, ArrayList<Symbol>> getRules() { return rules; }
-
-    public ArrayList<String> getTerminals() { return terminals; }
 
     public ArrayList<Symbol> getAxiom() { return axiom; }
 
