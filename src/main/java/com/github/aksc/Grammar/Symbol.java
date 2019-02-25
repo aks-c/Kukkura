@@ -4,6 +4,7 @@ import com.github.aksc.DerivationSystem;
 import com.github.aksc.ErrorHandling.BadLanguageException;
 import com.github.aksc.ErrorHandling.ValidationUtility;
 import com.github.aksc.MetaData.*;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
@@ -17,8 +18,9 @@ import java.util.Random;
  * This is one of the most essential building blocks of the procedural generator, along with the DerivationSystem class.
  */
 public class Symbol {
-    public Symbol(String symbolID, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition, Material material, String materialReference, String deltaSizeReference, String deltaPositionReference) {
+    public Symbol(String symbolID, HashMap<String, String> metaData, int probability, boolean exclusiveDerivation, boolean canBeResized, Coordinates resizeCoefficients, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
         this.symbolID = symbolID;
+        this.metaData = metaData;
         this.probability = probability;
         this.exclusiveDerivation = exclusiveDerivation;
         this.canBeResized = canBeResized;
@@ -27,25 +29,26 @@ public class Symbol {
         this.position = position;
         this.deltaSize = deltaSize;
         this.deltaPosition = deltaPosition;
-        this.material = material;
-        this.materialReference = materialReference;
-        this.deltaSizeReference = deltaSizeReference;
-        this.deltaPositionReference = deltaPositionReference;
     }
 
     public Symbol(Symbol other) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()), other.getMaterial(), other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+        this(other.getSymbolID(), other.getMetaData(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(other.getSize()), new Coordinates(other.getPosition()), new CoordinatesDelta(other.getDeltaSize()), new CoordinatesDelta(other.getDeltaPosition()));
     }
 
-    public Symbol(Symbol other, Coordinates size, Coordinates position, Material material, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
-        this(other.getSymbolID(), other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition), material, other.getMaterialReference(), other.getDeltaSizeReference(), other.getDeltaPositionReference());
+    public Symbol(Symbol other, HashMap<String, String> metaData, Coordinates size, Coordinates position, CoordinatesDelta deltaSize, CoordinatesDelta deltaPosition) {
+        this(other.getSymbolID(), metaData, other.getProbability(), other.isExclusiveDerivation(), other.canBeResized(), new Coordinates(other.getResizeCoefficients()), new Coordinates(size), new Coordinates(position), new CoordinatesDelta(deltaSize), new CoordinatesDelta(deltaPosition));
     }
 
 
 
     /** The actual symbol associated with this object. */
     @SerializedName("symbol")
+    @Expose
     private final String symbolID;
+
+    @Expose
+    @SerializedName("meta-data")
+    private HashMap<String, String> metaData = new HashMap<>();
 
     /**
      * Some rules might have this symbol in their RHS.
@@ -98,8 +101,10 @@ public class Symbol {
      * and a structure of height "0" is 1 block high, not 0.
      */
     @SerializedName("size")
+    @Expose
     private final Coordinates size;
 
+    @Expose
     @SerializedName("position")
     private final Coordinates position;
 
@@ -116,29 +121,6 @@ public class Symbol {
     @SerializedName("delta_position")
     private final CoordinatesDelta deltaPosition;
 
-    /** Holds the information needed to ID a specific material. */
-    @SerializedName("material")
-    private final Material material;
-
-    /**
-     * To avoid duplication and avoid redefining the same materials again and again,
-     * we define some key materials in the input file. Each has an ID String.
-     * Then to use a pre-defined material, set this string to whatever the ID of said material is.
-     */
-    @SerializedName("material_ref")
-    private final String materialReference;
-
-
-    /**
-     * To avoid duplication and avoid redefining the same delta positions again and again,
-     * we define some key delta positions in the input file. Each has an ID String.
-     * Then to use a pre-defined delta size, set this string to whatever the ID of said d_size is.
-     */
-    @SerializedName("delta_size_ref")
-    private final String deltaSizeReference;
-
-    @SerializedName("delta_position_ref")
-    private final String deltaPositionReference;
 
 
 
@@ -172,14 +154,8 @@ public class Symbol {
         return deltaPosition;
     }
 
-    /**
-     * Note: This should only be used for validation purposes, not the actual application logic.
-     * If you want to get a valid usable material, use the getMaterialFromRef() method.
-     * Ditto for getMaterialReference().
-     */
-    public Material getMaterial() {
-        return material;
-    }
+
+    public HashMap<String, String> getMetaData() { return metaData; }
 
     public int getProbability() {
         return probability;
@@ -197,86 +173,47 @@ public class Symbol {
         return canBeResized;
     }
 
-    /** Should only be used in the Validation phase. See getMaterial() for more.*/
-    public String getMaterialReference() {
-        return materialReference;
-    }
-
-    /** Should only be used in the Validation phase. See getDeltaSize() for more. */
-    public String getDeltaSizeReference() {
-        return deltaSizeReference;
-    }
-
-    /** Should only be used in the Validation phase. See getDeltaPosition() for more. */
-    public String getDeltaPositionReference() {
-        return deltaPositionReference;
-    }
 
 
     /**
-     * The deltaPosition field cannot be accessed from outside through its regular getter:
-     * It might not exist as a properly defined object, but as a String reference to some deltaPosition pre-defined in the input file.
-     * This function handles the logic of either returning the deltaPosition of this symbol (if there is one)
-     * or returning (a reference to) said pre-defined deltaPosition.
-     */
-    public CoordinatesDelta getDeltaPositionFromRef(HashMap<String, CoordinatesDelta> deltaSizes) {
-        if (getDeltaPositionReference() == null)
-            return this.getDeltaPosition();
-        else
-            return deltaSizes.get(getDeltaPositionReference());
-    }
+    * Every value in the map can be one of the following: <br>
+    * - a simple value defined as is <br>
+    * - a reference to the value held by the parent <br>
+    *   Example: the parent holds {"mykey": "parentval"}, refToPMF is "same", and the child holds {"mykey": "same"}. <br>
+    *   Then when this symbol is processed, the child will hold as final pair the following: {"mykey": "parentval"} <br>
+    * - a reference to a value predefined globally in the DerivationSystem in the DS:metas map. <br>
+    *   Example: metas is defined as { "a global key" : "a global value"}, the symbol holds {"mykey": "a global key"} <br>
+    *   Then when this symbol is processed, the symbol will hold as final pair the following: {"mykey": "a global value"} <br>
+    * */
+    public HashMap<String, String> getMetaDataFromRef(HashMap<String, String> metas, String refToParentsMetaField, Symbol parentSymbol) {
+        for (String key: metaData.keySet()) {
+            String val = metaData.get(key);
+            if (val.equals(refToParentsMetaField)) {
+                String parentVal = parentSymbol.getMetaData().get(key);
+                metaData.put(key, parentVal);
+            } else if (metas.containsKey(val)) {
+                String referredVal = metas.get(val);
+                metaData.put(key, referredVal);
+            }
+        }
 
-    public CoordinatesDelta getDeltaSizeFromRef(HashMap<String, CoordinatesDelta> deltaSizes) {
-        if (getDeltaSizeReference() == null)
-            return this.getDeltaSize();
-        else
-            return deltaSizes.get(getDeltaSizeReference());
-    }
-
-    /**
-     * The MaterialReference field holds some String value.
-     * This String represents the name of a commonly used material.
-     * This sets the current material of the Symbol to whatever is referenced by the MaterialReference String.
-     *
-     * A materialReference can have values for one of three cases:
-     * - The material is already explicitly defined, so there is no reference to anything (materialRef = null)
-     * - The material is defined with respect to the material of the parent Symbol (materialRef = refToParentMat)
-     * - The material is defined with respect to one of the globally available materials (materialRef = ID of the desired global material)
-     */
-    public Material getMaterialFromRef(HashMap<String, Material> materials, String referenceToParentMaterial, Symbol previousSymbol) {
-        if (getMaterialReference() == null)
-            return this.getMaterial();
-        else if (getMaterialReference().equals(referenceToParentMaterial))
-            return previousSymbol.getMaterial();
-        else
-            return materials.get(getMaterialReference());
+        return metaData;
     }
 
     /**
-     * Serializes the Symbol Object into a String.
-     * That String can be executed as a syntactically valid command by the Minecraft interpreter.
-     * (in order to create the structure associated with our symbol in the game).
+     * A deltaPosition either just contains a reference to some globally defined deltaPosition, or it is defined explicitly.
+     * This method resolves the actual deltaPosition to be used.
+     * (in other words, if this is a reference, the deltaPos it points to will be fetched and returned).
      */
-    public String getAsMinecraftCommand() {
-        Coordinates secondPosition = getSecondPosition(this.getPosition(), this.getSize());;
-        return String.format("fill ~%s ~%s ~%s ~%s ~%s ~%s %s %s", getPosition().getX(), getPosition().getY(), getPosition().getZ(), secondPosition.getX(), secondPosition.getY(), secondPosition.getZ(), getMaterial().getMainID(), getMaterial().getState());
+    public CoordinatesDelta getDeltaPositionFromRef(HashMap<String, CoordinatesDelta> globalDeltaPositions) {
+        return deltaPosition.fromRef(globalDeltaPositions);
     }
 
-    /**
-     * In ℝ^3, a structure can be "fenced" using two Coordinates.
-     * The first Coordinate to define those boundaries is our Position field.
-     * The second position is calculated wrt said first Position, and the Size of the Symbol/Structure.
-     */
-    public Coordinates getSecondPosition(Coordinates position, Coordinates size) {
-        String x = getSecondPosition(position.getX(), size.getX());
-        String y = getSecondPosition(position.getY(), size.getY());
-        String z = getSecondPosition(position.getZ(), size.getZ());
-        return new Coordinates(x, y, z);
+    /* See Symbol::getDeltaPositionFromRef(). */
+    public CoordinatesDelta getDeltaSizeFromRef(HashMap<String, CoordinatesDelta> globalDeltaSizes) {
+        return deltaSize.fromRef(globalDeltaSizes);
     }
 
-    private String getSecondPosition(String field, String size){
-        return CoordinatesUtility.addDelta(field, size);
-    }
 
     /**
      * Used only when the derivation rule is Inclusive.
@@ -301,8 +238,6 @@ public class Symbol {
         errorMsg.append("\n" + "Symbol " + symbolID + " in rule " + parentSymbol + ": \n");
         boolean isValid = true;
 
-
-        isValid = ValidationUtility.checkMaterial(this, ds, errorMsg) && isValid;
 
         isValid = ValidationUtility.checkDeltaPos(this, ds, errorMsg) && isValid;
 
