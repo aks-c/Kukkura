@@ -1,3 +1,5 @@
+# the folder where I actually use the tool for various purposes
+dev/*
 
 # the input/output test files
 src/main/resources/input.json
