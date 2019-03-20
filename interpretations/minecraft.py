@@ -1,5 +1,7 @@
 import json
-from symbol import Symbol
+import sys
+
+from symbol import Symbol, BadSymbolException
 from file_io import get_symbol_list, write_output_to_file
 
 
@@ -16,7 +18,17 @@ def minecraft():
     print("Minecraft Interpretation")
 
     symbols = get_symbol_list()
-    
+
+    required_fields = [ "material_ID", "material_state" ]
+    for s in symbols:
+        symbol = Symbol(s)
+        try:
+            symbol.meta_data_validation(required_fields)
+        except BadSymbolException as err:
+            print("Exception:", err.args[0])
+            sys.exit(1)
+
+
     cmd_list = []
     for s in symbols:
         symbol = Symbol(s)
@@ -37,7 +49,9 @@ def minecraft():
     cmd_string = "\n".join(cmd_list)
     # print(cmd_string)
 
-    write_output_to_file(filename="minecraft.mcfunction", output_string=cmd_string)
+    filename = "minecraft.mcfunction"
+    write_output_to_file(filename=filename, output_string=cmd_string)
+    print("Interpretation done. File:", filename)
 
 
 

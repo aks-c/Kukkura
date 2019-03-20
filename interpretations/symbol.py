@@ -29,8 +29,20 @@ class Symbol():
         }
         return second_pos
 
+    def meta_data_validation(self, required_fields):
+        is_valid = True
+        errors = list()
+        errors.append("Error on Symbol " + self.symbol_name)
+        for k in required_fields:
+            if k not in self.meta_data:
+                errors.append("Key " + k + " is needed, but not in the meta-data dictionary.")
+                errors.append("Add the required field, by either manually editing output.json, or changing the rules of the procedural generator.")
+                is_valid = False
+        if not is_valid:
+            raise BadSymbolException("\n".join(errors))
 
-class BadSymbol(Exception):
+
+class BadSymbolException(Exception):
     ''' 
     Exception raised when a Symbol doesn't contain the right meta-data required by an interpreter. 
     
