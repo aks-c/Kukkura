@@ -4,8 +4,8 @@ from symbol import Symbol
 
 def minecraft():
     print("Minecraft Interpretation")
-    with open('../dev/output/output.json') as f:
-        symbols = json.load(f)
+    with open('../dev/output/output.json') as input_file:
+        symbols = json.load(input_file)
     
     cmd_list = []
 
@@ -28,6 +28,9 @@ def minecraft():
 
     cmd_string = "\n".join(cmd_list)
     print(cmd_string)
+
+    with open("output/minecraft.mcfunction", "w") as output_file:
+        output_file.write(cmd_string)
 
     
 
