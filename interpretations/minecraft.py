@@ -1,18 +1,18 @@
 import json
 from symbol import Symbol
+from file_io import get_symbol_list, write_output_to_file
 
 
 def minecraft():
     print("Minecraft Interpretation")
-    with open('../dev/output/output.json') as input_file:
-        symbols = json.load(input_file)
+    symbols = get_symbol_list()
     
     cmd_list = []
 
     
     for s in symbols:
         symbol = Symbol(s)
-        #print(symbol, "\n")
+        # print(symbol, "\n")
         cmd = "fill ~{} ~{} ~{} ~{} ~{} ~{} {} {}" # follow the MC functions syntax
         second_pos = symbol.get_second_position()
         cmd_list.append(cmd.format(
@@ -29,8 +29,7 @@ def minecraft():
     cmd_string = "\n".join(cmd_list)
     print(cmd_string)
 
-    with open("output/minecraft.mcfunction", "w") as output_file:
-        output_file.write(cmd_string)
+    write_output_to_file(filename="minecraft.mcfunction", output_string=cmd_string)
 
     
 
