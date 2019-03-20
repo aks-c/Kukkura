@@ -1,3 +1,7 @@
+
+# Where you can see the interpretation of your symbols
+interpretations/output/*
+
 # the folder where I actually use the tool for various purposes
 dev/*
 
