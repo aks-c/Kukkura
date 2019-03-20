@@ -17,5 +17,13 @@ class Symbol():
         for k, v in self.meta_data.items():
             string.append(k + ": " + v)
         return "\n".join(string)
+
+    def get_second_position(self):
+        second_pos = { 
+            "x": int(self.position.get("x")) + int(self.size.get("x")),
+            "y": int(self.position.get("y")) + int(self.size.get("y")),
+            "z": int(self.position.get("z")) + int(self.size.get("z")),
+        }
+        return second_pos
         
         

@@ -9,16 +9,12 @@ def minecraft():
     
     cmd_list = []
 
-    # fill s s s s s s s s, posX, posY, posZ, pos2X, pos2Y, pos2Z, materialID, materialState
+    
     for s in symbols:
         symbol = Symbol(s)
         #print(symbol, "\n")
-        cmd = "fill ~{} ~{} ~{} ~{} ~{} ~{} {} {}"
-        second_pos = { 
-            "x": int(symbol.position.get("x")) + int(symbol.size.get("x")),
-            "y": int(symbol.position.get("y")) + int(symbol.size.get("y")),
-            "z": int(symbol.position.get("z")) + int(symbol.size.get("z")),
-        }
+        cmd = "fill ~{} ~{} ~{} ~{} ~{} ~{} {} {}" # follow the MC functions syntax
+        second_pos = symbol.get_second_position()
         cmd_list.append(cmd.format(
             symbol.position.get("x"),
             symbol.position.get("y"),
