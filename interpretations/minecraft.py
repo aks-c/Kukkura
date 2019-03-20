@@ -4,6 +4,15 @@ from file_io import get_symbol_list, write_output_to_file
 
 
 def minecraft():
+    ''' 
+    The minecraft interpretation method.
+    
+    The Kukkura tool generates some set of symbols, and outputs this set to a json file.
+    This interpreter (and the others) take this json file as input,
+    and generate their own representation of this list of symbols,
+    as appropriate for the platform/game/etc they target.
+
+     '''
     print("Minecraft Interpretation")
     symbols = get_symbol_list()
     
@@ -30,8 +39,6 @@ def minecraft():
     print(cmd_string)
 
     write_output_to_file(filename="minecraft.mcfunction", output_string=cmd_string)
-
-    
 
 
 

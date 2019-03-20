@@ -1,4 +1,7 @@
 class Symbol():
+    '''
+    Helper class to hold information and basic logic pertaining to Symbols.
+    '''
     def __init__(self, s):
         self.symbol_name = s.get('symbol')
         self.meta_data = s.get('meta-data')
