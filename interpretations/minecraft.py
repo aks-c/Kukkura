@@ -4,21 +4,7 @@ import sys
 from symbol import Symbol, BadSymbolException
 from file_io import get_symbol_list, write_output_to_file
 
-
-def minecraft():
-    ''' 
-    The minecraft interpretation method.
-    
-    The Kukkura tool generates some set of symbols, and outputs this set to a json file.
-    This interpreter (and the others) take this json file as input,
-    and generate their own representation of this list of symbols,
-    as appropriate for the platform/game/etc they target.
-
-     '''
-    print("Minecraft Interpretation")
-
-    symbols = get_symbol_list()
-
+def validate_symbols(symbols):
     required_fields = [ "material_ID", "material_state" ]
     for s in symbols:
         symbol = Symbol(s)
@@ -28,7 +14,7 @@ def minecraft():
             print("Exception:", err.args[0])
             sys.exit(1)
 
-
+def get_symbols_interpretation(symbols):
     cmd_list = []
     for s in symbols:
         symbol = Symbol(s)
@@ -47,10 +33,33 @@ def minecraft():
         ))
 
     cmd_string = "\n".join(cmd_list)
-    # print(cmd_string)
+    return cmd_string
+    
+
+def minecraft():
+    ''' 
+    The minecraft interpretation method.
+    
+    The Kukkura tool generates some set of symbols, and outputs this set to a json file.
+    This interpreter (and the others) take this json file as input,
+    and generate their own representation of this list of symbols,
+    as appropriate for the platform/game/etc they target.
+
+     '''
+    print("Minecraft Interpretation")
+
+    print("Getting Symbol List..")
+    symbols = get_symbol_list()
+
+    print("Validating Symbols..")
+    validate_symbols(symbols)
+
+    print("Getting Interpretation..")
+    out_string = get_symbols_interpretation(symbols)
+
 
     filename = "minecraft.mcfunction"
-    write_output_to_file(filename=filename, output_string=cmd_string)
+    write_output_to_file(filename=filename, output_string=out_string)
     print("Interpretation done. File:", filename)
 
 
