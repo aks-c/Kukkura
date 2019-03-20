@@ -28,5 +28,16 @@ class Symbol():
             "z": int(self.position.get("z")) + int(self.size.get("z")),
         }
         return second_pos
+
+
+class BadSymbol(Exception):
+    ''' 
+    Exception raised when a Symbol doesn't contain the right meta-data required by an interpreter. 
+    
+    This is thrown by validation checks in the Symbol class.
+    eg: an interpreter requires the "foo" key for a Symbol's meta-data;
+    The dict of some symbol doesn't have a "foo" key => This is raised.
+    '''
+    pass
         
         

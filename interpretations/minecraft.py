@@ -14,11 +14,10 @@ def minecraft():
 
      '''
     print("Minecraft Interpretation")
+
     symbols = get_symbol_list()
     
     cmd_list = []
-
-    
     for s in symbols:
         symbol = Symbol(s)
         # print(symbol, "\n")
@@ -36,7 +35,7 @@ def minecraft():
         ))
 
     cmd_string = "\n".join(cmd_list)
-    print(cmd_string)
+    # print(cmd_string)
 
     write_output_to_file(filename="minecraft.mcfunction", output_string=cmd_string)
 
