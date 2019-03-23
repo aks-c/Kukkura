@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 from symbol import Symbol, BadSymbolException
-from file_io import get_symbol_list
+from file_io import get_symbol_list, INTERPRETERS_OUTPUT_FOLDER
 
 
 def get_bounds(symbols):
@@ -31,8 +31,8 @@ def render_symbol(symbol, data, x_min, y_min):
     # is always bounded by two points: a1 = (x1, y2), a2 = (x2, y2).
     # We translate these coordinates to fit into the space of a png matrix:
     # a1' = (first_x, first_y), and a2' = (second_x, second_y).
-    first_x = int(pos.get("x")) - x_min
-    first_y = int(pos.get("y")) - y_min
+    first_x = pos.get("x") - x_min
+    first_y = pos.get("y") - y_min
     second_x = second_pos.get("x") - x_min
     second_y = second_pos.get("y") - y_min
 
@@ -80,7 +80,7 @@ def to_png():
 
     filename = "to_png.png"
     img = Image.fromarray(data, 'RGB')
-    img.save('output/' + filename)
+    img.save(INTERPRETERS_OUTPUT_FOLDER + filename)
 
     print("Interpretation done. File:", filename)
 

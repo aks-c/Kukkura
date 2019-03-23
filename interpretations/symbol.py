@@ -1,3 +1,5 @@
+import sys
+
 class Symbol():
     '''
     Helper class to hold information and basic logic pertaining to Symbols.
@@ -6,7 +8,13 @@ class Symbol():
         self.symbol_name = s.get('symbol')
         self.meta_data = s.get('meta-data')
         self.size = s.get('size')
+        self.size["x"] = int(self.size.get("x"))
+        self.size["y"] = int(self.size.get("y"))
+        self.size["z"] = int(self.size.get("z"))
         self.position = s.get('position')
+        self.position["x"] = int(self.position.get("x"))
+        self.position["y"] = int(self.position.get("y"))
+        self.position["z"] = int(self.position.get("z"))
     
     def __str__(self):
         string = []
@@ -22,7 +30,7 @@ class Symbol():
         return "\n".join(string)
 
     def get_maxmin_coordinates(self, dimension, max_min):
-        first_pos = int(self.position.get(dimension))
+        first_pos = self.position.get(dimension)
         second_pos = self.get_second_position().get(dimension)
         return max_min(first_pos, second_pos)
 
@@ -45,6 +53,16 @@ class Symbol():
                 is_valid = False
         if not is_valid:
             raise BadSymbolException("\n".join(errors))
+
+
+def validate_symbols(symbols, required_fields):
+    for s in symbols:
+        symbol = Symbol(s)
+        try:
+            symbol.meta_data_validation(required_fields)
+        except BadSymbolException as err:
+            print("Exception:", err.args[0])
+            sys.exit(1)
 
 
 class BadSymbolException(Exception):

@@ -6,8 +6,10 @@ INTERPRETERS_OUTPUT_FOLDER = "output/"
 
 def get_symbol_list():
     ''' Returns a list of symbols deserialised from the procedural generator's output. '''
+    print("Getting Symbol List..")
     with open(KUKKURA_OUTPUT_FOLDER + 'output.json') as input_file:
         symbols = json.load(input_file)
+    print("Got", len(symbols), "symbols !")
     return symbols
 
 def write_output_to_file(filename, output_string):
