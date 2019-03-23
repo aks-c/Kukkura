@@ -1,6 +1,6 @@
 from PIL import Image
 import numpy as np
-from symbol import Symbol, BadSymbolException
+from symbol import Symbol, BadSymbolException, validate_symbols
 from file_io import get_symbol_list, INTERPRETERS_OUTPUT_FOLDER
 
 
@@ -52,8 +52,12 @@ def render_symbol(symbol, data, x_min, y_min):
 def to_png():
     print("\nPNG Interpretation..")
 
+    sy = get_symbol_list()
+    required_fields = [ "R", "G", "B" ]
+    validate_symbols(sy, required_fields)
+
     symbols = []
-    for s in get_symbol_list():
+    for s in sy:
         symbols.append(Symbol(s))
 
     # Sort the symbols according to the highest z coordinates of a symbol's bounds.

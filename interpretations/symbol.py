@@ -56,6 +56,7 @@ class Symbol():
 
 
 def validate_symbols(symbols, required_fields):
+    print("Validating Symbols..")
     for s in symbols:
         symbol = Symbol(s)
         try:
