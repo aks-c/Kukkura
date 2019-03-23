@@ -1,4 +1,5 @@
 import json
+from symbol import Symbol
 
 KUKKURA_OUTPUT_FOLDER = "../dev/output/"
 
@@ -8,7 +9,11 @@ def get_symbol_list():
     ''' Returns a list of symbols deserialised from the procedural generator's output. '''
     print("Getting Symbol List..")
     with open(KUKKURA_OUTPUT_FOLDER + 'output.json') as input_file:
-        symbols = json.load(input_file)
+        data = json.load(input_file)
+    symbols = []
+    for s in data:
+        symbols.append(Symbol(s))
+
     print("Got", len(symbols), "symbols !")
     return symbols
 

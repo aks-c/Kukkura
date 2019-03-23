@@ -57,8 +57,7 @@ class Symbol():
 
 def validate_symbols(symbols, required_fields):
     print("Validating Symbols..")
-    for s in symbols:
-        symbol = Symbol(s)
+    for symbol in symbols:
         try:
             symbol.meta_data_validation(required_fields)
         except BadSymbolException as err:

@@ -52,13 +52,9 @@ def render_symbol(symbol, data, x_min, y_min):
 def to_png():
     print("\nPNG Interpretation..")
 
-    sy = get_symbol_list()
+    symbols = get_symbol_list()
     required_fields = [ "R", "G", "B" ]
-    validate_symbols(sy, required_fields)
-
-    symbols = []
-    for s in sy:
-        symbols.append(Symbol(s))
+    validate_symbols(symbols, required_fields)
 
     # Sort the symbols according to the highest z coordinates of a symbol's bounds.
     # When we want to paint the symbols on the image, we start in order with the lowest ones.

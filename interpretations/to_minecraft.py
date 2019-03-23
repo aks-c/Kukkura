@@ -7,8 +7,7 @@ from file_io import get_symbol_list, write_output_to_file
 
 def get_symbols_interpretation(symbols):
     cmd_list = []
-    for s in symbols:
-        symbol = Symbol(s)
+    for symbol in symbols:
         # print(symbol, "\n")
         cmd = "fill ~{} ~{} ~{} ~{} ~{} ~{} {} {}" # follow the MC functions syntax
         second_pos = symbol.get_second_position()
