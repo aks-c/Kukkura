@@ -1,9 +1,6 @@
 import sys
 
 class Symbol():
-    '''
-    Helper class to hold information and basic logic pertaining to Symbols.
-    '''
     def __init__(self, s):
         self.symbol_name = s.get('symbol')
         self.meta_data = s.get('meta-data')
@@ -30,6 +27,13 @@ class Symbol():
         return "\n".join(string)
 
     def get_maxmin_coordinates(self, dimension, max_min):
+        '''
+        Get the max or min point of the symbol's cube wrt some dimension.
+
+        Some interpreter scripts require getting the point of the symbol
+        with the highest value of x, or lowest value of z, etc..
+        See to_png.py script for uses.
+        '''
         first_pos = self.position.get(dimension)
         second_pos = self.get_second_position().get(dimension)
         return max_min(first_pos, second_pos)
@@ -43,6 +47,7 @@ class Symbol():
         return second_pos
 
     def meta_data_validation(self, required_fields):
+        ''' See symbol::validate_symbols(). '''
         is_valid = True
         errors = list()
         errors.append("Error on Symbol " + self.symbol_name)
@@ -56,6 +61,12 @@ class Symbol():
 
 
 def validate_symbols(symbols, required_fields):
+    ''' 
+    Check that all symbols contain the given mandatory metadata fields.
+
+    Raises a BadSymbolException if this doesn't hold.
+    Might be extended to do more checks in the future.
+    '''
     print("Validating Symbols..")
     for symbol in symbols:
         try:

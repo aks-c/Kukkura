@@ -6,6 +6,17 @@ from file_io import get_symbol_list, write_output_to_file
 
 
 def get_symbols_interpretation(symbols):
+    '''
+    For now, this simply does a one-to-one mapping from symbol to Minecraft commands.
+
+    The cmds follow a syntax the MC command-line understands.
+    
+    Later on, this can be made much more interesting,
+    by embedding additional behaviour via the meta-data.
+    For example, one could add a "roof" field so that this symbol 
+    is considered as a roof and not a cube. Or say a "room" field, so that 
+    the inside of the cube is populated by various furnitures. etc...
+    '''
     cmd_list = []
     for symbol in symbols:
         # print(symbol, "\n")
