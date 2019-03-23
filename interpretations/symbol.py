@@ -21,6 +21,11 @@ class Symbol():
             string.append(k + ": " + v)
         return "\n".join(string)
 
+    def get_maxmin_coordinates(self, dimension, max_min):
+        first_pos = int(self.position.get(dimension))
+        second_pos = self.get_second_position().get(dimension)
+        return max_min(first_pos, second_pos)
+
     def get_second_position(self):
         second_pos = { 
             "x": int(self.position.get("x")) + int(self.size.get("x")),

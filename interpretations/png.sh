@@ -3,5 +3,5 @@
 # then runs the minecraft.py interpreter (on the output in the dev/output folder)
 
 (cd ../dev/ && java -jar Kukkura.jar)
-python3 to_minecraft.py
+python3 to_png.py
 

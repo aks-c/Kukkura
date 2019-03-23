@@ -45,8 +45,9 @@ def minecraft():
     and generate their own representation of this list of symbols,
     as appropriate for the platform/game/etc they target.
 
-     '''
-    print("Minecraft Interpretation")
+    '''
+    print("\n")
+    print("Minecraft Interpretation..")
 
     print("Getting Symbol List..")
     symbols = get_symbol_list()
