@@ -3,6 +3,8 @@ import numpy as np
 from symbol import Symbol, BadSymbolException, validate_symbols
 from file_io import get_symbol_list, INTERPRETERS_OUTPUT_FOLDER
 
+import colorama
+from colorama import Fore, Back, Style
 
 def get_bounds(symbols):
     s = max(symbols, key=lambda x: x.get_maxmin_coordinates("x", max))
@@ -20,8 +22,6 @@ def get_bounds(symbols):
     return x_max, x_min, y_max, y_min
 
 def render_symbol(symbol, data, x_min, y_min):
-    # print("\n")
-    # print("render symbol:", symbol.symbol_name)
 
     pos = symbol.position
     second_pos = symbol.get_second_position()
@@ -50,7 +50,12 @@ def render_symbol(symbol, data, x_min, y_min):
 
 
 def to_png():
-    print("\nPNG Interpretation..")
+    print(Fore.CYAN)
+    print(Style.BRIGHT)
+    print("--------------------")
+    print("PNG Interpretation..")
+    print("--------------------")
+    print(Style.RESET_ALL)
 
     symbols = get_symbol_list()
     required_fields = [ "R", "G", "B" ]
@@ -82,9 +87,10 @@ def to_png():
     img = Image.fromarray(data, 'RGB')
     img.save(INTERPRETERS_OUTPUT_FOLDER + filename)
 
-    print("Interpretation done. File:", filename)
+    print(Fore.GREEN + "Interpretation successful! File: " + filename + Style.RESET_ALL)
 
 if __name__ == "__main__":
+    colorama.init()
     to_png()
 
 

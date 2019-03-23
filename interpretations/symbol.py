@@ -1,5 +1,8 @@
 import sys
 
+import colorama
+from colorama import Fore, Back, Style
+
 class Symbol():
     def __init__(self, s):
         self.symbol_name = s.get('symbol')
@@ -50,14 +53,14 @@ class Symbol():
         ''' See symbol::validate_symbols(). '''
         is_valid = True
         errors = list()
-        errors.append("Error on Symbol " + self.symbol_name)
+        errors.append("Error on Symbol " + "'" + self.symbol_name + "'")
         for k in required_fields:
             if k not in self.meta_data:
                 errors.append("Key " + k + " is needed, but not in the meta-data dictionary.")
                 errors.append("Add the required field, by either manually editing output.json, or changing the rules of the procedural generator.")
                 is_valid = False
         if not is_valid:
-            raise BadSymbolException("\n".join(errors))
+            raise BadSymbolException(Fore.RED + "\n".join(errors) + Style.RESET_ALL)
 
 
 def validate_symbols(symbols, required_fields):
@@ -72,7 +75,8 @@ def validate_symbols(symbols, required_fields):
         try:
             symbol.meta_data_validation(required_fields)
         except BadSymbolException as err:
-            print("Exception:", err.args[0])
+            print(Fore.RED + Style.BRIGHT + "BadSymbolException while validating:" + Style.RESET_ALL)
+            print(err.args[0])
             sys.exit(1)
 
 

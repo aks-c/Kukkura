@@ -23,7 +23,6 @@ def write_output_to_file(filename, output_string):
     
     Note that you need only specify the file name, not the full path,
     because all intepreters' outputs are just assumed to be held in the same folder (interpretations/output).
-    
-     '''
+    '''
     with open(INTERPRETERS_OUTPUT_FOLDER + filename, "w") as output_file:
         output_file.write(output_string)

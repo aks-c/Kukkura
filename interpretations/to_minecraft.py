@@ -1,6 +1,9 @@
 import json
 import sys
 
+import colorama
+from colorama import Fore, Back, Style
+
 from symbol import Symbol, BadSymbolException, validate_symbols
 from file_io import get_symbol_list, write_output_to_file
 
@@ -45,9 +48,13 @@ def minecraft():
     This interpreter (and the others) take this json file as input,
     and generate their own representation of this list of symbols,
     as appropriate for the platform/game/etc they target.
-
     '''
-    print("\nMinecraft Interpretation..")
+    print(Fore.CYAN)
+    print(Style.BRIGHT)
+    print("--------------------------")
+    print("Minecraft Interpretation..")
+    print("--------------------------")
+    print(Style.RESET_ALL)
 
     symbols = get_symbol_list()
 
@@ -60,9 +67,10 @@ def minecraft():
 
     filename = "minecraft.mcfunction"
     write_output_to_file(filename=filename, output_string=out_string)
-    print("Interpretation done. File:", filename)
+    print(Fore.GREEN + "Interpretation successful! File: " + filename + Style.RESET_ALL)
 
 
 
 if __name__ == "__main__":
+    colorama.init()
     minecraft()
